@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dimen_10_dp"
+    android:backgroundTint="@color/neutral_03_light_grey"
+    app:cardCornerRadius="26dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="29dp"
+        android:paddingVertical="22dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iconSubjectTextView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher_round" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subjectTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/subjectDescriptionTextView"
+            app:layout_constraintEnd_toStartOf="@+id/startImageButton"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectTextView"
+            app:layout_constraintTop_toTopOf="@id/iconSubjectTextView"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subjectDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:textColor="@color/neutral_01_dark_grey"
+            android:textSize="@dimen/dimen_12_sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconSubjectTextView"
+            app:layout_constraintEnd_toStartOf="@+id/startImageButton"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectTextView"
+            app:layout_constraintTop_toBottomOf="@id/subjectTitleTextView"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/startImageButton"
+            android:layout_width="45dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_oval"
+            android:padding="14dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_next"
+            app:backgroundTint="@color/yellow_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

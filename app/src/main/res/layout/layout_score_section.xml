@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="26dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_rounded"
+        android:backgroundTint="@color/blue_secondary_default"
+        android:paddingHorizontal="@dimen/dimen_20_dp"
+        android:paddingVertical="@dimen/dimen_20_dp"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+    <View
+        android:id="@+id/gpaBackgroundView"
+        android:layout_width="82dp"
+        android:layout_height="35dp"
+        android:alpha="0.14"
+        android:background="@drawable/shape_rect_rounded"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/gpaTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gpa"
+        android:layout_marginEnd="3dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/neutral_04_white"
+        app:layout_constraintBottom_toBottomOf="@id/gpaBackgroundView"
+        app:layout_constraintEnd_toStartOf="@id/gpaTextView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/gpaBackgroundView"
+        app:layout_constraintTop_toTopOf="@id/gpaBackgroundView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/gpaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/yellow_primary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/gpaBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/gpaBackgroundView"
+        app:layout_constraintStart_toEndOf="@id/gpaTitleTextView"
+        app:layout_constraintTop_toTopOf="@id/gpaBackgroundView"
+        tools:text="4.0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:drawableTint="@color/neutral_04_white"
+        android:text="@string/details"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/neutral_04_white"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
+

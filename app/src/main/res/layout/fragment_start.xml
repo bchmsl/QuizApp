@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.start.fragment.StartFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_58_dp"
+        android:text="@string/my_first_quiz"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_20_sp"
+        android:textStyle="bold"
+        tools:textColor="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_103_dp"
+        android:src="@drawable/ic_start_page" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_54_dp"
+        android:layout_marginBottom="@dimen/dimen_10_dp"
+        app:boxCornerRadiusBottomEnd="@dimen/dimen_12_dp"
+        app:boxCornerRadiusBottomStart="@dimen/dimen_12_dp"
+        app:boxCornerRadiusTopEnd="@dimen/dimen_12_dp"
+        app:boxCornerRadiusTopStart="@dimen/dimen_12_dp"
+        app:boxStrokeColor="@color/yellow_primary"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_44_dp"
+            android:gravity="center"
+            android:hint="@string/enter_name"
+            android:textSize="@dimen/dimen_12_sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_24_dp"
+        android:paddingVertical="@dimen/dimen_14_dp"
+        android:text="@string/start_quiz"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        app:backgroundTint="@color/yellow_primary"
+        app:cornerRadius="@dimen/dimen_12_dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
