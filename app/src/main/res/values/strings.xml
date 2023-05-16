@@ -7,4 +7,7 @@
     <string name="gpa">GPA -</string>
     <string name="details">დეტალურად</string>
     <string name="choose_subject">აირჩიე საგანი</string>
+    <string name="next">შემდეგი</string>
+    <string name="finish">დასრულება</string>
+    <string name="not_earned_warning">🧐\nსამწუხაროდ, ქულები ჯერ არ გაქვს დაგროვილი.</string>
 </resources>

@@ -28,6 +28,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:letterSpacing="0"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -43,6 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:letterSpacing="0"
             android:textColor="@color/neutral_01_dark_grey"
             android:textSize="@dimen/dimen_12_sp"
             app:layout_constraintBottom_toBottomOf="@id/iconSubjectTextView"
@@ -51,21 +55,21 @@
             app:layout_constraintTop_toBottomOf="@id/subjectTitleTextView"
             tools:text="@tools:sample/lorem" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/startImageButton"
             android:layout_width="45dp"
             android:layout_height="0dp"
             android:background="@drawable/shape_oval"
-            android:padding="14dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_arrow_next"
             app:backgroundTint="@color/yellow_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            tools:ignore="ContentDescription" />
+            android:letterSpacing="0"
+            tools:drawableEnd="@drawable/ic_next"
+            tools:ignore="ContentDescription"
+            tools:text="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

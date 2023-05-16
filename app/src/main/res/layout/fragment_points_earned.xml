@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
     tools:context=".presentation.ui.earned.fragment.PointsEarnedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/layout_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_20_dp"/>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/creditSubjectsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_subject"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/notEarnedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="80dp"
+        tools:visibility="visible"
+        android:letterSpacing="0"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textSize="18sp"
+        android:text="@string/not_earned_warning"
+        android:gravity="center"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
