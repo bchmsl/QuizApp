@@ -10,4 +10,9 @@
     <string name="next">შემდეგი</string>
     <string name="finish">დასრულება</string>
     <string name="not_earned_warning">🧐\nსამწუხაროდ, ქულები ჯერ არ გაქვს დაგროვილი.</string>
+    <string name="yes">კი</string>
+    <string name="no">არა</string>
+    <string name="close">დახურვა</string>
+    <string name="exit_prompt">ნამდვილად გსურს გასვლა?</string>
+    <string name="stop_quiz_prompt">ნამდვილად გსურს ქვიზის შეწყვეტა?</string>
 </resources>
