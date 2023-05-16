@@ -1,9 +1,13 @@
 package com.space.quizapp.presentation.ui.earned.fragment
 
-import androidx.fragment.app.Fragment
+import com.space.quizapp.databinding.FragmentPointsEarnedBinding
+import com.space.quizapp.presentation.base.fragment.BaseFragment
+import com.space.quizapp.presentation.base.fragment.Inflater
 
-class PointsEarnedFragment : Fragment() {
+class PointsEarnedFragment : BaseFragment<FragmentPointsEarnedBinding>() {
+    override fun inflate(): Inflater<FragmentPointsEarnedBinding> = FragmentPointsEarnedBinding::inflate
 
-    // TODO
-
+    override fun onBind() {
+//        TODO
+    }
 }

@@ -1,9 +1,14 @@
 package com.space.quizapp.presentation.ui.home.fragment
 
-import androidx.fragment.app.Fragment
+import com.space.quizapp.databinding.FragmentHomeBinding
+import com.space.quizapp.presentation.base.fragment.BaseFragment
+import com.space.quizapp.presentation.base.fragment.Inflater
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    // TODO
+    override fun inflate(): Inflater<FragmentHomeBinding> = FragmentHomeBinding::inflate
 
+    override fun onBind() {
+//    TODO
+    }
 }

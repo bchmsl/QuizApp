@@ -1,9 +1,13 @@
 package com.space.quizapp.presentation.ui.start.fragment
 
-import androidx.fragment.app.Fragment
+import com.space.quizapp.databinding.FragmentStartBinding
+import com.space.quizapp.presentation.base.fragment.BaseFragment
+import com.space.quizapp.presentation.base.fragment.Inflater
 
-class StartFragment : Fragment() {
+class StartFragment : BaseFragment<FragmentStartBinding>() {
+    override fun inflate(): Inflater<FragmentStartBinding> = FragmentStartBinding::inflate
 
-    // TODO
-
+    override fun onBind() {
+//     TODO
+    }
 }
