@@ -5,24 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/yellow_primary"
-    app:cardCornerRadius="31dp">
+    app:cardCornerRadius="@dimen/dimen_31_dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="12dp">
+        android:paddingVertical="@dimen/dimen_12_dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="39dp"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:letterSpacing="0"
+            android:layout_marginTop="@dimen/dimen_39_dp"
             android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:letterSpacing="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_32_sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="🎉" />
 
@@ -30,12 +30,12 @@
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:letterSpacing="0"
             android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:letterSpacing="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_16_sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
             tools:text="გილოცავ!" />
 
@@ -43,31 +43,31 @@
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:textColor="@color/blue_secondary_default"
-            android:textStyle="bold"
-            android:letterSpacing="0"
             android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:letterSpacing="0"
+            android:textColor="@color/blue_secondary_default"
+            android:textSize="@dimen/dimen_14_sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/messageTextView"
             tools:text="შენ დააგროვე 14 ქულა" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dimen_1_dp"
+            android:layout_marginTop="@dimen/dimen_32_dp"
             android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
-            android:layout_marginTop="32dp"/>
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
-            android:layout_marginTop="45dp"
-            android:text="@string/close"
+            android:layout_marginTop="@dimen/dimen_45_dp"
             android:gravity="center"
+            android:text="@string/close"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

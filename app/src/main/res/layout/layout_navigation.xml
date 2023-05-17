@@ -6,8 +6,8 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/navBackImageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/dimen_32_dp"
+        android:layout_height="@dimen/dimen_32_dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_back" />
 
@@ -16,18 +16,18 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
         android:letterSpacing="0"
-        android:fontFamily="sans-serif-condensed-medium"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/dimen_16_sp"
         android:textStyle="bold"
         tools:text="კატეგორია" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/navExitImageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/dimen_32_dp"
+        android:layout_height="@dimen/dimen_32_dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_exit" />
 

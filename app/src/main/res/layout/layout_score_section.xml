@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="26dp">
+    app:cardCornerRadius="@dimen/dimen_26_dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
 
         <View
             android:id="@+id/gpaBackgroundView"
-            android:layout_width="82dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/dimen_82_dp"
+            android:layout_height="@dimen/dimen_35_dp"
             android:alpha="0.14"
             android:background="@drawable/shape_rect_rounded"
             android:backgroundTint="#FFFFFF"
@@ -30,7 +30,7 @@
             android:id="@+id/gpaTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
+            android:layout_marginEnd="@dimen/dimen_3_dp"
             android:fontFamily="sans-serif"
             android:text="@string/gpa"
             android:textColor="@color/neutral_04_white"
