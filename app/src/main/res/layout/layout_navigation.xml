@@ -13,15 +13,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/navTitleTextView"
+        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
-        android:letterSpacing="0"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_16_sp"
-        android:textStyle="bold"
         tools:text="კატეგორია" />
 
     <androidx.appcompat.widget.AppCompatImageButton

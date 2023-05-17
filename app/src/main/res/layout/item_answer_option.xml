@@ -7,7 +7,7 @@
     android:layout_marginVertical="@dimen/dimen_6_dp"
     app:cardCornerRadius="@dimen/dimen_22_dp"
     app:elevation="@dimen/dimen_0_dp"
-    tools:backgroundTint="@color/success">
+    tools:backgroundTint="@color/neutral_03_light_grey">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:letterSpacing="0"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -36,7 +36,7 @@
             android:fontFamily="sans-serif"
             android:letterSpacing="0"
             android:textAlignment="viewEnd"
-            android:textColor="@color/white"
+            android:textColor="?colorOnPrimary"
             tools:text="+1" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

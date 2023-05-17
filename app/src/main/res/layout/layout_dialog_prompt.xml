@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/yellow_primary"
+    app:cardBackgroundColor="?colorPrimary"
     app:cardCornerRadius="@dimen/dimen_31_dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,48 +14,33 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/promptTextView"
+            style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
             android:gravity="center"
-            android:letterSpacing="0"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dimen_16_sp"
-            android:textStyle="bold"
+            android:textColor="?colorOnPrimary"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/stop_quiz_prompt" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnYes"
+            style="@style/Widget.MaterialComponents.Button.AlphaButton"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_5_dp"
             android:layout_marginTop="@dimen/dimen_42_dp"
-            android:alpha="0.75"
-            android:letterSpacing="0"
             android:text="@string/yes"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="@dimen/dimen_31_dp"
             app:layout_constraintEnd_toStartOf="@id/btnNo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/promptTextView" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNo"
+            style="@style/Widget.MaterialComponents.Button.AlphaButton"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:alpha="0.75"
-            android:letterSpacing="0"
+            android:layout_marginHorizontal="@dimen/dimen_5_dp"
             android:text="@string/no"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="@dimen/dimen_31_dp"
             app:layout_constraintBottom_toBottomOf="@+id/btnYes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnYes"

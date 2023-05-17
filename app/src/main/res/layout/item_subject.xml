@@ -25,14 +25,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subjectTitleTextView"
+            style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_18_dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:letterSpacing="0"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_16_sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/subjectDescriptionTextView"
             app:layout_constraintEnd_toStartOf="@+id/startImageButton"
             app:layout_constraintStart_toEndOf="@id/iconSubjectTextView"
@@ -42,11 +38,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subjectDescriptionTextView"
+            style="@style/Base.Widget.AppCompat.TextView.BaseTextView.NormalText"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_18_dp"
-            android:fontFamily="sans-serif-condensed"
-            android:letterSpacing="0"
             android:textColor="@color/neutral_01_dark_grey"
             android:textSize="@dimen/dimen_12_sp"
             app:layout_constraintBottom_toBottomOf="@id/iconSubjectTextView"
@@ -61,12 +56,12 @@
             android:layout_height="@dimen/dimen_0_dp"
             android:background="@drawable/shape_oval"
             android:letterSpacing="0"
-            app:backgroundTint="@color/yellow_primary"
+            app:backgroundTint="?colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"
+            app:tint="?colorOnPrimary"
             tools:drawableEnd="@drawable/ic_next"
             tools:ignore="ContentDescription"
             tools:text="0" />
