@@ -61,7 +61,7 @@ class CustomBlueVector(
     private fun drawCorner(canvas: Canvas) {
         path.apply {
             reset()
-            fillPaint.color = context.getColor(R.color.blue_secondary_default)
+            fillPaint.color = context.resources.getColor(R.color.blue_secondary_default, context.theme)
             moveTo(0f, 0f)
             lineTo(centerX, 0f)
             lineTo(0f, height / 2)

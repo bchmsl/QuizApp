@@ -13,7 +13,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/navTitleTextView"
-        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
+        style="@style/Space.QuizApp.TextView.BoldText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"

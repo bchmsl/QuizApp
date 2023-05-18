@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Base.Widget.AppCompat.TextView.BaseTextView" parent="Widget.AppCompat.TextView">
+    <style name="Space.QuizApp.TextView.BaseTextView" parent="Widget.AppCompat.TextView">
         <item name="android:letterSpacing">0</item>
     </style>
 
-    <style name="Base.Widget.AppCompat.TextView.BaseTextView.BoldText" parent="Base.Widget.AppCompat.TextView.BaseTextView">
+    <style name="Space.QuizApp.TextView.BoldText" parent="Space.QuizApp.TextView.BaseTextView">
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/dimen_16_sp</item>
     </style>
 
-    <style name="Base.Widget.AppCompat.TextView.BaseTextView.NormalText" parent="Base.Widget.AppCompat.TextView.BaseTextView">
+    <style name="Space.QuizApp.TextView.NormalText" parent="Space.QuizApp.TextView.BaseTextView">
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:textSize">@dimen/dimen_16_sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Base.Widget.AppCompat.TextView.BaseTextView.NormalText.SansSerif" parent="Base.Widget.AppCompat.TextView.BaseTextView.NormalText">
+    <style name="Space.QuizApp.TextView.NormalText.SansSerif" parent="Space.QuizApp.TextView.NormalText">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/dimen_14_sp</item>
     </style>
 
-    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.RoundedInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Space.QuizApp.TextInputLayout.OutlinedBox.RoundedInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:letterSpacing">0</item>
         <item name="boxCornerRadiusBottomStart">@dimen/dimen_12_dp</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/dimen_12_dp</item>
@@ -32,13 +32,13 @@
         <item name="errorEnabled">true</item>
     </style>
 
-    <style name="ThemeOverlay.Design.TextInputEditText.NormalEditText" parent="ThemeOverlay.Material3.TextInputEditText">
+    <style name="Space.QuizApp.TextInputEditText.NormalEditText" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/dimen_12_sp</item>
     </style>
 
-    <style name="Widget.MaterialComponents.Button.NormalButton" parent="Base.Widget.AppCompat.TextView.BaseTextView.BoldText">
+    <style name="Space.QuizApp.Button.NormalButton" parent="Space.QuizApp.TextView.BoldText">
         <item name="backgroundTint">?colorPrimary</item>
         <item name="cornerRadius">@dimen/dimen_12_dp</item>
         <item name="android:textAllCaps">false</item>
@@ -47,7 +47,7 @@
         <item name="elevation">@dimen/dimen_0_dp</item>
     </style>
 
-    <style name="Widget.MaterialComponents.Button.AlphaButton" parent="Widget.MaterialComponents.Button.NormalButton">
+    <style name="Space.QuizApp.Button.AlphaButton" parent="Space.QuizApp.Button.NormalButton">
         <item name="backgroundTint">?colorOnPrimary</item>
         <item name="android:alpha">0.75</item>
         <item name="android:textColor">@color/black</item>

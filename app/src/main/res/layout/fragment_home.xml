@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/greetingTextView"
-        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
+        style="@style/Space.QuizApp.TextView.BoldText"
         android:layout_width="@dimen/dimen_0_dp"
         android:layout_height="wrap_content"
         android:textColor="?colorPrimary"
@@ -29,7 +29,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/chooseSubjectTitleTextView"
-        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.NormalText"
+        style="@style/Space.QuizApp.TextView.NormalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32_dp"
@@ -44,6 +44,7 @@
         android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/logOutFloatingButton"
+        app:layout_constraintEnd_toEndOf="@+id/logOutFloatingButton"
         app:layout_constraintTop_toBottomOf="@id/chooseSubjectTitleTextView"
         tools:itemCount="4"
         tools:listitem="@layout/item_subject" />

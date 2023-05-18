@@ -11,11 +11,12 @@
     <com.space.quizapp.presentation.ui.start.view.CustomBlueVector
         android:id="@+id/customBlueVector"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_460_dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
+        style="@style/Space.QuizApp.TextView.BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_58_dp"
@@ -39,7 +40,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.RoundedInput"
+        style="@style/Space.QuizApp.TextInputLayout.OutlinedBox.RoundedInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_54_dp"
@@ -49,7 +50,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameEditText"
-            style="@style/ThemeOverlay.Design.TextInputEditText.NormalEditText"
+            style="@style/Space.QuizApp.TextInputEditText.NormalEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_44_dp"
             android:hint="@string/enter_name" />
@@ -57,7 +58,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startButton"
-        style="@style/Widget.MaterialComponents.Button.NormalButton"
+        style="@style/Space.QuizApp.Button.NormalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/dimen_24_dp"

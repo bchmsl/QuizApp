@@ -18,12 +18,12 @@
         layout="@layout/layout_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dimen_10_dp"
+        android:layout_margin="@dimen/dimen_16_dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/questionTextView"
-        style="@style/Base.Widget.AppCompat.TextView.BaseTextView.NormalText"
+        style="@style/Space.QuizApp.TextView.NormalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_48_dp"
@@ -46,7 +46,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
-        style="@style/Widget.MaterialComponents.Button.NormalButton"
+        style="@style/Space.QuizApp.Button.NormalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16_dp"

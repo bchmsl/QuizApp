@@ -25,7 +25,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subjectTitleTextView"
-            style="@style/Base.Widget.AppCompat.TextView.BaseTextView.BoldText"
+            style="@style/Space.QuizApp.TextView.BoldText"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_18_dp"
@@ -38,7 +38,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subjectDescriptionTextView"
-            style="@style/Base.Widget.AppCompat.TextView.BaseTextView.NormalText"
+            style="@style/Space.QuizApp.TextView.NormalText"
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_18_dp"
