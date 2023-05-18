@@ -4,31 +4,17 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
-import android.util.AttributeSet
-import android.view.View
 import com.space.quizapp.R
+import com.space.quizapp.presentation.base.view.BaseCustomView
 
-class CustomGreyVector(
-    context: Context,
-    attrs: AttributeSet
-) : View(context, attrs) {
-    private val fillPaint by lazy {
-        Paint().apply {
-            style = Paint.Style.FILL
-        }
-    }
-    private val path by lazy { Path() }
+class CustomGreyVector(context: Context) : BaseCustomView(context) {
 
-    private val width get() = getWidth().toFloat()
-    private val height get() = getHeight().toFloat()
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+    override fun startDrawing(canvas: Canvas) {
+        paint.style = Paint.Style.FILL
         drawVector(canvas)
     }
 
     private fun drawVector(canvas: Canvas) {
-
         val centerX1 = width / 4
         val centerX2 = width * 3 / 4
         val radius = width / 4
@@ -36,7 +22,7 @@ class CustomGreyVector(
 
         path.apply {
             reset()
-            fillPaint.color = context.getColor(R.color.blue_secondary_light)
+            paint.color = context.getColor(R.color.blue_secondary_light)
             addCircle(centerX1, centerY, radius, Path.Direction.CW)
             addCircle(centerX2, centerY, radius, Path.Direction.CW)
 
@@ -50,6 +36,6 @@ class CustomGreyVector(
             lineTo(0f, 0f)
             close()
         }
-        canvas.drawPath(path, fillPaint)
+        canvas.drawPath(path, paint)
     }
 }
