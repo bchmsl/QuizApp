@@ -5,10 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.util.AttributeSet
 import com.space.quizapp.R
 import com.space.quizapp.presentation.base.view.BaseCustomView
 
-class CustomBlueVector(context: Context) : BaseCustomView(context) {
+class CustomBlueVector(context: Context, attributeSet: AttributeSet) :
+    BaseCustomView(context, attributeSet) {
 
     private val centerX get() = width / 2
     private val radius get() = width / 2

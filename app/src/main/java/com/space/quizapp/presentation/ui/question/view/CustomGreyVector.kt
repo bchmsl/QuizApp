@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
+import android.util.AttributeSet
 import com.space.quizapp.R
 import com.space.quizapp.presentation.base.view.BaseCustomView
 
-class CustomGreyVector(context: Context) : BaseCustomView(context) {
+class CustomGreyVector(context: Context, attributeSet: AttributeSet) :
+    BaseCustomView(context, attributeSet) {
 
     override fun startDrawing(canvas: Canvas) {
         paint.style = Paint.Style.FILL

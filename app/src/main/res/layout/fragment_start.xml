@@ -52,7 +52,7 @@
             android:id="@+id/usernameEditText"
             style="@style/Space.QuizApp.TextInputEditText.NormalEditText"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_44_dp"
+            android:layout_height="wrap_content"
             android:hint="@string/enter_name" />
     </com.google.android.material.textfield.TextInputLayout>
 

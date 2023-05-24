@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
+import android.util.AttributeSet
 import android.view.View
 
-abstract class BaseCustomView(context: Context) : View(context) {
+abstract class BaseCustomView(context: Context, attributeSet: AttributeSet) :
+    View(context, attributeSet) {
 
     protected val paint by lazy { Paint() }
 
