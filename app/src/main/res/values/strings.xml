@@ -15,4 +15,8 @@
     <string name="close">დახურვა</string>
     <string name="exit_prompt">ნამდვილად გსურს გასვლა?</string>
     <string name="stop_quiz_prompt">ნამდვილად გსურს ქვიზის შეწყვეტა?</string>
+
+    <string name="error_length_long">სახელის ზომა უნდა არ უნდა აღემატებოდეს 20 სიმბოლოს</string>
+    <string name="error_length_short">სახელის ზომა უნდა არ უნდა იყოს 3 სიმბოლოზე ნაკლები</string>
+    <string name="error_containing_symbol">სახელი უნდა შედგებოდეს მხოლოდ ქართული ასოებისგან</string>
 </resources>

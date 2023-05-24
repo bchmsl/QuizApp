@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_pointsEarnedFragment"
-            app:destination="@id/pointsEarnedFragment" />
+            app:destination="@id/pointsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
@@ -32,8 +32,8 @@
         android:label="fragment_question"
         tools:layout="@layout/fragment_question" />
     <fragment
-        android:id="@+id/pointsEarnedFragment"
-        android:name="com.space.quizapp.presentation.ui.earned.fragment.PointsEarnedFragment"
-        android:label="fragment_points_earned"
-        tools:layout="@layout/fragment_points_earned" />
+        android:id="@+id/pointsFragment"
+        android:name="com.space.quizapp.presentation.ui.points.fragment.PointsFragment"
+        android:label="fragment_points"
+        tools:layout="@layout/fragment_points" />
 </navigation>
