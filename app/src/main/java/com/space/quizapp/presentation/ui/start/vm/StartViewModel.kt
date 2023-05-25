@@ -1,16 +1,16 @@
 package com.space.quizapp.presentation.ui.start.vm
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.space.quizapp.common.extensions.executeAsync
 import com.space.quizapp.common.util.ValidateUser
 import com.space.quizapp.domain.usecase.readuser.RetrieveUserUseCase
 import com.space.quizapp.domain.usecase.saveuser.SaveUserUseCase
 import com.space.quizapp.presentation.common.model.UserUiModel
 import com.space.quizapp.presentation.common.model.mapper.UserDomainUiMapper
 import com.space.quizapp.presentation.common.model.mapper.UserUiDomainMapper
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 class StartViewModel(
     private val saveUserUC: SaveUserUseCase,
@@ -19,17 +19,19 @@ class StartViewModel(
     private val userDomainUiMapper: UserDomainUiMapper
 ) : ViewModel() {
 
-    private val _usernameState = MutableStateFlow<ValidateUser?>(null)
-    val usernameState get() = _usernameState.asStateFlow()
+    private val _usernameState = MutableSharedFlow<ValidateUser?>()
+    val usernameState get() = _usernameState.asSharedFlow()
 
     fun saveUser(username: String) {
-        viewModelScope.launch {
-            _usernameState.emit(saveUserUC(userUiDomainMapper(UserUiModel(userName = username))))
+        executeAsync(IO) {
+            saveUserUC(userUiDomainMapper(UserUiModel(username))).collect {
+                _usernameState.emit(it)
+            }
         }
     }
 
     fun retrieveUserInfo(username: String) {
-        viewModelScope.launch {
+        executeAsync(IO) {
             retrieveUserUC(username)
         }
     }

@@ -14,10 +14,12 @@ typealias Inflater<VB> = (inflater: LayoutInflater, container: ViewGroup, attach
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     private var _binding: VB? = null
-    protected val binding get() = _binding!!
+    val binding get() = _binding!!
 
     abstract fun getViewModelClass(): Class<VM>
-    protected val vm: VM by inject(getViewModelClass())
+
+    private val vmc get() = getViewModelClass()
+    protected val vm: VM by inject(vmc)
 
     abstract fun inflate(): Inflater<VB>
     abstract fun onBind()

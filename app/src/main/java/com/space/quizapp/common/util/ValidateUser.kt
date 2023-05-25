@@ -14,10 +14,9 @@ enum class ValidateUser(@StringRes val message: Int?) {
             return when {
                 s.length <= 3 -> INVALID_LENGTH_SHORT
                 s.length > 20 -> INVALID_LENGTH_LONG
-                s.contains("") -> INVALID_CONTAINING
+                !s.contains(Regex("^[ა-ჰ]*$")) -> INVALID_CONTAINING
                 else -> VALID
             }
         }
     }
 }
-
