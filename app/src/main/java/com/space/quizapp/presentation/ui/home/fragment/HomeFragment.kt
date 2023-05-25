@@ -7,7 +7,7 @@ import com.space.quizapp.presentation.ui.home.vm.HomeViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    override fun getViewModelClass() = HomeViewModel::class.java
+    override fun getViewModelClass() = HomeViewModel::class
 
     override fun inflate(): Inflater<FragmentHomeBinding> = FragmentHomeBinding::inflate
 

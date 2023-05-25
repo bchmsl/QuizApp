@@ -1,16 +1,20 @@
 package com.space.quizapp.common.extensions
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
+import com.space.quizapp.presentation.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-fun <VB : ViewBinding, VM : ViewModel> BaseFragment<VB, VM>.withBinding(block: VB.() -> Unit) {
+fun <VB : ViewBinding, VM : BaseViewModel> BaseFragment<VB, VM>.withBinding(block: VB.() -> Unit) {
     with(binding) {
         this.block()
     }

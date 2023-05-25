@@ -6,7 +6,7 @@ import com.space.quizapp.presentation.base.fragment.Inflater
 import com.space.quizapp.presentation.ui.points.vm.PointsViewModel
 
 class PointsFragment : BaseFragment<FragmentPointsBinding, PointsViewModel>() {
-    override fun getViewModelClass() = PointsViewModel::class.java
+    override fun getViewModelClass() = PointsViewModel::class
 
     override fun inflate(): Inflater<FragmentPointsBinding> = FragmentPointsBinding::inflate
 

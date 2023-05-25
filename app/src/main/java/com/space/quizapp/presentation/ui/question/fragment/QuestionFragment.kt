@@ -6,7 +6,7 @@ import com.space.quizapp.presentation.base.fragment.Inflater
 import com.space.quizapp.presentation.ui.question.vm.QuestionViewModel
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding, QuestionViewModel>() {
-    override fun getViewModelClass() = QuestionViewModel::class.java
+    override fun getViewModelClass() = QuestionViewModel::class
 
     override fun inflate(): Inflater<FragmentQuestionBinding> = FragmentQuestionBinding::inflate
 

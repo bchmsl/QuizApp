@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.start.fragment
 
-import android.util.Log
 import androidx.core.widget.addTextChangedListener
 import com.space.quizapp.common.extensions.collectAsync
 import com.space.quizapp.common.extensions.withBinding
@@ -10,7 +9,7 @@ import com.space.quizapp.presentation.base.fragment.Inflater
 import com.space.quizapp.presentation.ui.start.vm.StartViewModel
 
 class StartFragment : BaseFragment<FragmentStartBinding, StartViewModel>() {
-    override fun getViewModelClass() = StartViewModel::class.java
+    override fun getViewModelClass() = StartViewModel::class
 
     override fun inflate(): Inflater<FragmentStartBinding> = FragmentStartBinding::inflate
 
@@ -20,18 +19,18 @@ class StartFragment : BaseFragment<FragmentStartBinding, StartViewModel>() {
     }
 
     private fun setObservers() {
-        collectAsync(vm.usernameState) {
-            Log.d("TAG", "$it")
-            it?.let {
-                setErrorText(it.message)
-                return@collectAsync
-            }
+        collectAsync(vm.usernameErrorState) {
+            setErrorText(it?.message)
         }
     }
 
     private fun setErrorText(error: Int?) {
         withBinding {
-            usernameTextInputLayout.error = error?.let { getString(it) }
+            if (error != null) {
+                usernameTextInputLayout.error = getString(error)
+            } else {
+                usernameTextInputLayout.error = error
+            }
         }
     }
 
@@ -41,7 +40,7 @@ class StartFragment : BaseFragment<FragmentStartBinding, StartViewModel>() {
                 vm.saveUser(usernameEditText.text.toString())
             }
             usernameEditText.addTextChangedListener {
-                usernameEditText.error = null
+                usernameTextInputLayout.error = null
             }
         }
     }

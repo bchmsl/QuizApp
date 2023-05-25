@@ -1,8 +1,8 @@
 package com.space.quizapp.presentation.ui.points.vm
 
-import androidx.lifecycle.ViewModel
+import com.space.quizapp.presentation.base.viewmodel.BaseViewModel
 
-class PointsViewModel : ViewModel() {
+class PointsViewModel : BaseViewModel() {
 
     // TODO
 

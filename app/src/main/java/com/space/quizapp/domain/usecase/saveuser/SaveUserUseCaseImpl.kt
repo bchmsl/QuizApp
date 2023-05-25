@@ -7,12 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class SaveUserUseCaseImpl : BaseUserUseCase(), SaveUserUseCase {
-    override suspend fun invoke(userDomainModel: UserDomainModel): Flow<ValidateUser?> = flow {
+    override suspend fun invoke(userDomainModel: UserDomainModel): Flow<ValidateUser> = flow {
         val userName = userDomainModel.username
-        var userNameValid: ValidateUser? = ValidateUser.validate(userName)
+        val userNameValid: ValidateUser = ValidateUser.validate(userName)
         if (userNameValid == ValidateUser.VALID) {
             repository.saveUserInfo(userDomainModel)
-            userNameValid = null
         }
         emit(userNameValid)
     }

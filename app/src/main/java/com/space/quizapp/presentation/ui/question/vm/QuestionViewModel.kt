@@ -1,8 +1,8 @@
 package com.space.quizapp.presentation.ui.question.vm
 
-import androidx.lifecycle.ViewModel
+import com.space.quizapp.presentation.base.viewmodel.BaseViewModel
 
-class QuestionViewModel : ViewModel() {
+class QuestionViewModel : BaseViewModel() {
 
     // TODO
 

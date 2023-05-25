@@ -5,5 +5,5 @@ import com.space.quizapp.domain.model.UserDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface SaveUserUseCase {
-    suspend operator fun invoke(userDomainModel: UserDomainModel): Flow<ValidateUser?>
+    suspend operator fun invoke(userDomainModel: UserDomainModel): Flow<ValidateUser>
 }

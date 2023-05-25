@@ -1,8 +1,8 @@
 package com.space.quizapp.presentation.ui.home.vm
 
-import androidx.lifecycle.ViewModel
+import com.space.quizapp.presentation.base.viewmodel.BaseViewModel
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
 
     // TODO
 
