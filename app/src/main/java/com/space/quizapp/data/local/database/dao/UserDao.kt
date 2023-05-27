@@ -12,7 +12,7 @@ interface UserDao {
     @Insert
     fun saveUser(userEntity: UserEntity)
 
-    @Query("SELECT * FROM users WHERE username=:username")
-    fun retrieveUserInfo(username: String): Flow<List<UserEntity>>
+    @Query("SELECT * FROM users WHERE token=:token")
+    fun retrieveUserInfo(token: String): Flow<List<UserEntity>>
 
 }

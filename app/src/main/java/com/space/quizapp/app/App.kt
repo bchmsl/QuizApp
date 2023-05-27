@@ -1,10 +1,7 @@
 package com.space.quizapp.app
 
 import android.app.Application
-import com.space.quizapp.di.module.dbModule
-import com.space.quizapp.di.module.repositoryModule
-import com.space.quizapp.di.module.useCaseModule
-import com.space.quizapp.di.module.viewModelModule
+import com.space.quizapp.di.module.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -17,7 +14,8 @@ class App : Application() {
                 dbModule,
                 repositoryModule,
                 viewModelModule,
-                useCaseModule
+                useCaseModule,
+                dataStoreModule
             )
         }
     }

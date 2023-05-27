@@ -8,6 +8,7 @@ class UserDomainEntityMapper : ModelMapper<UserDomainModel, UserEntity> {
     override fun invoke(model: UserDomainModel): UserEntity =
         UserEntity(
             username = model.username,
+            token = model.token,
             gpa = model.gpa
         )
 }

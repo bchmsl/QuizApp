@@ -1,7 +1,6 @@
 package com.space.quizapp.presentation.ui.start.fragment
 
 import androidx.core.widget.addTextChangedListener
-import com.space.quizapp.common.extensions.collectAsync
 import com.space.quizapp.common.extensions.withBinding
 import com.space.quizapp.databinding.FragmentStartBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
@@ -14,24 +13,13 @@ class StartFragment : BaseFragment<FragmentStartBinding, StartViewModel>() {
     override fun inflate(): Inflater<FragmentStartBinding> = FragmentStartBinding::inflate
 
     override fun onBind() {
-        setObservers()
+        vm.checkUserToken()
         setListeners()
     }
 
-    private fun setObservers() {
-        collectAsync(vm.usernameErrorState) {
-            setErrorText(it?.message)
-        }
-    }
-
-    private fun setErrorText(error: Int?) {
-        withBinding {
-            if (error != null) {
-                usernameTextInputLayout.error = getString(error)
-            } else {
-                usernameTextInputLayout.error = error
-            }
-        }
+    override fun setError(error: Any) {
+        val errorMessage = getString(error as Int)
+        binding.usernameTextInputLayout.error = errorMessage
     }
 
     private fun setListeners() {

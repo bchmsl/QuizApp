@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), ErrorState {
 
     private val _navigationState = MutableStateFlow<FragmentDirections?>(null)
     val navigationState get() = _navigationState.asStateFlow()

@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.space.quizapp.common.extensions.collectAsync
 import com.space.quizapp.common.extensions.executeAsync
+import com.space.quizapp.common.extensions.makeSnackbar
+import com.space.quizapp.common.extensions.withBinding
 import com.space.quizapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizapp.presentation.ui.navigation.FragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
@@ -41,6 +44,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         onBind()
         observeNavigation()
+        observeError()
     }
 
     override fun onDestroyView() {
@@ -54,11 +58,35 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     private fun observeNavigation() {
         executeAsync {
-            vm.navigationState.collect {
+            collectAsync(vm.navigationState) {
                 it?.let {
                     findNavController().navigate(it.directions)
                 }
             }
+        }
+    }
+
+    private fun observeError() {
+        executeAsync {
+            collectAsync(vm.errorState) {
+                it?.let {
+                    setError(it)
+                }
+            }
+        }
+    }
+
+    open fun setError(error: Any) {
+        withBinding {
+            binding.root.makeSnackbar(
+                when (error) {
+                    is String -> error
+                    is Int -> getString(error)
+                    else -> {
+                        ""
+                    }
+                }
+            )
         }
     }
 }
