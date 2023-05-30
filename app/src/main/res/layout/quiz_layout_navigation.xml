@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/navBackImageButton"
+        android:layout_width="@dimen/dimen_32_dp"
+        android:layout_height="@dimen/dimen_32_dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/quiz_ic_back" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/navTitleTextView"
+        style="@style/Space.QuizApp.TextView.BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        tools:text="კატეგორია" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/navExitImageButton"
+        android:layout_width="@dimen/dimen_32_dp"
+        android:layout_height="@dimen/dimen_32_dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/quiz_ic_exit" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
