@@ -8,7 +8,7 @@ import com.space.quizapp.domain.usecase.user.save_user_data.QuizSaveUserDataUseC
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.common.model.QuizUserUiModel
 import com.space.quizapp.presentation.common.model.mapper.QuizUserUiDomainMapper
-import com.space.quizapp.presentation.ui.navigation.QuizFragmentDirections.START_TO_HOME
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.START_TO_HOME
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizStartViewModel(

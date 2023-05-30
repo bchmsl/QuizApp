@@ -1,4 +1,4 @@
-package com.space.quizapp.presentation.ui.navigation
+package com.space.quizapp.presentation.ui.common.navigation
 
 import androidx.navigation.NavDirections
 import com.space.quizapp.presentation.ui.start.fragment.QuizStartFragmentDirections

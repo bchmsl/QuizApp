@@ -15,8 +15,11 @@ class QuizStartFragment : BaseFragment<QuizFragmentStartBinding, QuizStartViewMo
 
     override fun inflate(): Inflater<QuizFragmentStartBinding> = QuizFragmentStartBinding::inflate
 
-    override fun onBind() {
+    override fun setContent() {
         vm.checkUserToken()
+    }
+
+    override fun onBind() {
         setListeners()
     }
 
@@ -31,7 +34,7 @@ class QuizStartFragment : BaseFragment<QuizFragmentStartBinding, QuizStartViewMo
                 vm.saveUser(usernameEditText.text.toString())
             }
             usernameEditText.addTextChangedListener {
-                usernameTextInputLayout.error = null
+                usernameTextInputLayout.error = ""
             }
         }
     }

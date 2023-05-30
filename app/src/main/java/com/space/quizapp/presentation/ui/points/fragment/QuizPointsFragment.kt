@@ -13,6 +13,10 @@ class QuizPointsFragment : BaseFragment<QuizFragmentPointsBinding, QuizPointsVie
 
     override fun inflate(): Inflater<QuizFragmentPointsBinding> = QuizFragmentPointsBinding::inflate
 
+    override fun setContent() {
+//        TODO
+    }
+
     override fun onBind() {
 //        TODO
     }

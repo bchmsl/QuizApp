@@ -12,7 +12,7 @@ import com.space.quizapp.common.extensions.executeAsync
 import com.space.quizapp.common.extensions.makeSnackbar
 import com.space.quizapp.common.extensions.withBinding
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.presentation.ui.navigation.QuizFragmentDirections
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 
@@ -28,6 +28,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment
 
     abstract fun inflate(): Inflater<VB>
     abstract fun onBind()
+    abstract fun setContent()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +41,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setContent()
         onBind()
         observeNavigation()
         observeError()
@@ -65,13 +67,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment
     }
 
     private fun observeError() {
-        executeAsync {
             collectAsync(vm.errorState) {
                 it?.let {
                     setError(it)
                 }
+
             }
-        }
     }
 
     open fun setError(error: Any) {

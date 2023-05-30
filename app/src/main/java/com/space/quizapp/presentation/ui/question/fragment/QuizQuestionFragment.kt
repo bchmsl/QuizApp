@@ -14,6 +14,10 @@ class QuizQuestionFragment : BaseFragment<QuizFragmentQuestionBinding, QuizQuest
     override fun inflate(): Inflater<QuizFragmentQuestionBinding> =
         QuizFragmentQuestionBinding::inflate
 
+    override fun setContent() {
+//        TODO
+    }
+
     override fun onBind() {
 //        TODO
     }

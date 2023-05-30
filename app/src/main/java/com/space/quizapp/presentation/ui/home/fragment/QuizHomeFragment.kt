@@ -16,8 +16,11 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
 
     override fun inflate(): Inflater<QuizFragmentHomeBinding> = QuizFragmentHomeBinding::inflate
 
-    override fun onBind() {
+    override fun setContent() {
         vm.retrieveUserInfo()
+    }
+
+    override fun onBind() {
         setObservers()
     }
 
@@ -25,7 +28,7 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
         collectAsync(vm.userState) { user ->
             withBinding {
                 greetingTextView.text = getString(S.greeting).plus("${user.userName}!")
-                scoreSection.gpaTextView.text = user.gpa.toString()
+                scoreView.setContent(user.gpa)
             }
         }
     }
