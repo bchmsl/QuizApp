@@ -15,7 +15,8 @@ class QuizApp : Application() {
                 repositoryModule,
                 viewModelModule,
                 useCaseModule,
-                dataStoreModule
+                dataStoreModule,
+                retrofitModule
             )
         }
     }

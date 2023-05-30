@@ -1,4 +1,4 @@
-package com.space.quizapp.presentation.common.model
+package com.space.quizapp.presentation.model
 
 data class QuizSubjectUiModel(
     val id: Int = 0,

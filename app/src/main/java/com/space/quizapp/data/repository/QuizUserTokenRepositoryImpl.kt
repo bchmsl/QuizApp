@@ -4,7 +4,7 @@ import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
 import com.space.quizapp.domain.repository.QuizUserTokenRepository
 import kotlinx.coroutines.flow.Flow
 
-class QuizUserTokenTokenRepositoryImpl(
+class QuizUserTokenRepositoryImpl(
     private val userDataStoreManager: QuizUserDataStoreManager
 ) : QuizUserTokenRepository {
 

@@ -1,8 +1,8 @@
-package com.space.quizapp.presentation.common.model.mapper
+package com.space.quizapp.presentation.model.mapper
 
 import com.space.quizapp.common.mapper.QuizModelMapper
 import com.space.quizapp.domain.model.QuizUserDomainModel
-import com.space.quizapp.presentation.common.model.QuizUserUiModel
+import com.space.quizapp.presentation.model.QuizUserUiModel
 
 class QuizUserDomainUiMapper : QuizModelMapper<QuizUserDomainModel, QuizUserUiModel> {
     override fun invoke(model: QuizUserDomainModel): QuizUserUiModel =

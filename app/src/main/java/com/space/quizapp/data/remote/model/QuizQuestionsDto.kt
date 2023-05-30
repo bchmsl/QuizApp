@@ -1,6 +1,6 @@
 package com.space.quizapp.data.remote.model
 
-data class QuizSubjectDto(
+data class QuizQuestionsDto(
     val id: Int = 0,
     val quizTitle: String = "",
     val quizDescription: String = "",
@@ -12,6 +12,6 @@ data class QuizSubjectDto(
         val questionTitle: String = "",
         val answers: List<String> = emptyList(),
         val correctAnswer: String = "",
-        val questionIndex: Int = 0
+        val questionIndex: Int = -1
     )
 }
