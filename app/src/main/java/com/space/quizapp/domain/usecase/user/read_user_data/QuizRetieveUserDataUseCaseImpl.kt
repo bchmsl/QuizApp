@@ -18,5 +18,4 @@ class RetrieveUserDataDataUseCaseImpl(
             throw RuntimeException("User token not found!")
         }
     }
-
 }

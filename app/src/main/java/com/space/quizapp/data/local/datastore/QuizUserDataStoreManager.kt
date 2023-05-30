@@ -1,6 +1,7 @@
 package com.space.quizapp.data.local.datastore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -14,6 +15,7 @@ abstract class QuizUserDataStoreManager(private val context: Context) :
 
     override suspend fun saveValue(value: String) {
         context.dataStore.edit { preferences ->
+            Log.d("TAG_DS_SAVE", value)
             preferences[stringPreferencesKey(key)] = value
         }
     }

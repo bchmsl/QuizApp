@@ -10,20 +10,23 @@ import kotlinx.coroutines.flow.flow
 import java.util.*
 
 class QuizSaveUserDataUseCaseImpl(
-    private val saveUserTokenUseCase: QuizSaveUserTokenUseCase
+    private val saveUserTokenUseCase: QuizSaveUserTokenUseCase,
 ) : QuizBaseUserDataUseCase(), QuizSaveUserDataUseCase {
     override suspend fun invoke(userDomainModel: QuizUserDomainModel): Flow<QuizValidateUser> =
         flow {
-            val userName = userDomainModel.username
-            val userNameValid: QuizValidateUser = QuizValidateUser.validate(userName)
+            val username = userDomainModel.username
+            val userNameValid: QuizValidateUser = QuizValidateUser.validate(username)
             if (userNameValid == QuizValidateUser.VALID) {
                 if (userDomainModel.token == EMPTY_STRING) {
-                    val userToken = UUID.randomUUID().toString()
-                    userDomainModel.token = userToken
+                    var userToken = repository.getUserTokenIfExists(username)
+                    if (userToken == null) {
+                        userToken = UUID.randomUUID().toString()
+                        userDomainModel.token = userToken
+                        repository.saveUserInfo(userDomainModel)
+                    }
                     saveUserTokenUseCase(userToken)
                 }
-                repository.saveUserInfo(userDomainModel)
             }
             emit(userNameValid)
-    }
+        }
 }

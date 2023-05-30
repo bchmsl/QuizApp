@@ -16,6 +16,7 @@ class QuizUserDataRepositoryImpl(
 ) : QuizUserDataRepository {
 
     override suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel) {
+        Log.d("TAG_REPO", userDomainModel.toString())
         dao.saveUser(userDomainEntityMapper(userDomainModel))
     }
 
@@ -24,5 +25,9 @@ class QuizUserDataRepositoryImpl(
         return dao.retrieveUserInfo(token).map {
             userEntityDomainMapper(it[0])
         }
+    }
+
+    override suspend fun getUserTokenIfExists(username: String): String? {
+        return dao.checkUser(username)
     }
 }
