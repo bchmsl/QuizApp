@@ -3,11 +3,11 @@
     <style name="Theme.QuizApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/yellow_primary</item>
-        <item name="colorOnPrimary">@color/neutral_04_white</item>
+        <item name="colorOnPrimary">@color/neutral_05_white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_secondary_default</item>
         <item name="colorSecondaryVariant">@color/blue_secondary_light</item>
-        <item name="colorOnSecondary">@color/neutral_04_white</item>
+        <item name="colorOnSecondary">@color/neutral_05_white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->

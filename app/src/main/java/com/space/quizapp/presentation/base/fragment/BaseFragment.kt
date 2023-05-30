@@ -23,9 +23,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     private var _binding: VB? = null
     val binding get() = _binding!!
 
-    abstract fun getViewModelClass(): KClass<VM>
-
-    private val vmc get() = getViewModelClass()
+    abstract val vmc: KClass<VM>
     protected val vm: VM by viewModelForClass(clazz = vmc)
 
     abstract fun inflate(): Inflater<VB>

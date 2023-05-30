@@ -6,9 +6,12 @@ import com.space.quizapp.databinding.FragmentStartBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
 import com.space.quizapp.presentation.base.fragment.Inflater
 import com.space.quizapp.presentation.ui.start.vm.StartViewModel
+import kotlin.reflect.KClass
 
 class StartFragment : BaseFragment<FragmentStartBinding, StartViewModel>() {
-    override fun getViewModelClass() = StartViewModel::class
+
+    override val vmc: KClass<StartViewModel>
+        get() = StartViewModel::class
 
     override fun inflate(): Inflater<FragmentStartBinding> = FragmentStartBinding::inflate
 
