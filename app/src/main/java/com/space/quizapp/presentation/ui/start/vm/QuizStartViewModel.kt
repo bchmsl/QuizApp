@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.ui.start.vm
 
+import android.util.Log
 import com.space.quizapp.common.extensions.executeAsync
 import com.space.quizapp.common.util.QuizValidateUser
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
@@ -8,7 +9,7 @@ import com.space.quizapp.domain.usecase.user.save_user_data.QuizSaveUserDataUseC
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.common.model.QuizUserUiModel
 import com.space.quizapp.presentation.common.model.mapper.QuizUserUiDomainMapper
-import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.START_TO_HOME
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizStartViewModel(
@@ -22,7 +23,7 @@ class QuizStartViewModel(
             saveUserDataUC(userUiDomainMapper(QuizUserUiModel(username))).collect { validateUser ->
                 val error = when (validateUser) {
                     QuizValidateUser.VALID -> {
-                        navigate(START_TO_HOME)
+                        navigate(QuizFragmentDirections.HOME)
                         null
                     }
                     else -> validateUser.message
@@ -35,8 +36,9 @@ class QuizStartViewModel(
     fun checkUserToken() {
         executeAsync(IO) {
             readUserTokenUC().collect { token ->
+                Log.d("TAGG", token)
                 if (token != QuizUserDataStoreManager.EMPTY_STRING) {
-                    navigate(START_TO_HOME)
+                    navigate(QuizFragmentDirections.HOME)
                 }
             }
         }

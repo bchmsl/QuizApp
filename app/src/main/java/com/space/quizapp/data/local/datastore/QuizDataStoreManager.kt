@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 interface QuizDataStoreManager<T : Any> {
 
     suspend fun saveValue(value: T)
-    fun readValue(): Flow<T>
+    suspend fun readValue(): Flow<T>
 }

@@ -1,5 +1,6 @@
 package com.space.quizapp.data.repository
 
+import android.util.Log
 import com.space.quizapp.data.local.database.dao.QuizUserDao
 import com.space.quizapp.data.local.database.model.mapper.QuizUserDomainEntityMapper
 import com.space.quizapp.data.local.database.model.mapper.QuizUserEntityDomainMapper
@@ -19,6 +20,7 @@ class QuizUserDataRepositoryImpl(
     }
 
     override suspend fun retrieveUserInfo(token: String): Flow<QuizUserDomainModel> {
+        Log.d("TAG_REPO", token)
         return dao.retrieveUserInfo(token).map {
             userEntityDomainMapper(it[0])
         }

@@ -18,7 +18,7 @@ abstract class QuizUserDataStoreManager(private val context: Context) :
         }
     }
 
-    override fun readValue(): Flow<String> {
+    override suspend fun readValue(): Flow<String> {
         val preferences = context.dataStore.data.map { preference ->
             preference[stringPreferencesKey(key)] ?: EMPTY_STRING
         }

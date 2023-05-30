@@ -1,8 +1,11 @@
 package com.space.quizapp.presentation.ui.common.navigation
 
 import androidx.navigation.NavDirections
-import com.space.quizapp.presentation.ui.start.fragment.QuizStartFragmentDirections
+import com.space.quizapp.NavGraphDirections
 
 enum class QuizFragmentDirections(val directions: NavDirections) {
-    START_TO_HOME(QuizStartFragmentDirections.actionStartFragmentToHomeFragment())
+    HOME(NavGraphDirections.actionGlobalHomeFragment()),
+    START(NavGraphDirections.actionGlobalStartFragment()),
+    QUESTION(NavGraphDirections.actionGlobalQuestionFragment()),
+    POINTS(NavGraphDirections.actionGlobalPointsFragment())
 }

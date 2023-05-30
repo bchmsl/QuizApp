@@ -5,19 +5,18 @@ import com.space.quizapp.domain.model.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.user.base.QuizBaseUserDataUseCase
 import com.space.quizapp.domain.usecase.user.read_user_token.QuizReadUserTokenUseCase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class RetrieveUserDataDataUseCaseImpl(
     private val readUserTokenUC: QuizReadUserTokenUseCase
 ) : QuizBaseUserDataUseCase(), QuizRetrieveUserDataUseCase {
     override suspend fun invoke(): Flow<QuizUserDomainModel> {
-        var userToken = EMPTY_STRING
-        readUserTokenUC().collect { token ->
-            if (token != EMPTY_STRING) {
-                userToken = token
-            } else {
-                throw RuntimeException("User token not found!")
-            }
+        val userToken = readUserTokenUC().first()
+        if (userToken != EMPTY_STRING) {
+            return repository.retrieveUserInfo(userToken)
+        } else {
+            throw RuntimeException("User token not found!")
         }
-        return repository.retrieveUserInfo(userToken)
     }
+
 }
