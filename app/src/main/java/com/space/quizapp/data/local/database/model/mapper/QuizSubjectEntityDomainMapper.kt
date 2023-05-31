@@ -2,7 +2,7 @@ package com.space.quizapp.data.local.database.model.mapper
 
 import com.space.quizapp.common.mapper.QuizModelMapper
 import com.space.quizapp.data.local.database.model.QuizSubjectEntity
-import com.space.quizapp.domain.model.QuizSubjectDomainModel
+import com.space.quizapp.domain.model.user.QuizSubjectDomainModel
 
 class QuizSubjectEntityDomainMapper :
     QuizModelMapper<QuizSubjectEntity, QuizSubjectDomainModel> {

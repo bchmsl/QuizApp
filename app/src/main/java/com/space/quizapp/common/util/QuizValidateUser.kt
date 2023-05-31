@@ -2,7 +2,7 @@ package com.space.quizapp.common.util
 
 import androidx.annotation.StringRes
 
-enum class QuizValidateUser(@StringRes val message: Int?) {
+enum class QuizValidateUser(@StringRes val message: Int) {
     VALID(S.message_valid),
     INVALID_LENGTH_LONG(S.message_error_length_long),
     INVALID_LENGTH_SHORT(S.message_error_length_short),

@@ -1,6 +1,6 @@
 package com.space.quizapp.domain.usecase.questions.base
 
-import com.space.quizapp.domain.repository.QuizQuestionsRepository
+import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 import org.koin.java.KoinJavaComponent.inject
 
 abstract class QuizBaseQuestionsUseCase {

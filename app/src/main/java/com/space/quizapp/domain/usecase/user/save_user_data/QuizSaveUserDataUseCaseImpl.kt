@@ -2,7 +2,7 @@ package com.space.quizapp.domain.usecase.user.save_user_data
 
 import com.space.quizapp.common.util.QuizValidateUser
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
-import com.space.quizapp.domain.model.QuizUserDomainModel
+import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.user.base.QuizBaseUserDataUseCase
 import com.space.quizapp.domain.usecase.user.save_user_token.QuizSaveUserTokenUseCase
 import kotlinx.coroutines.flow.Flow

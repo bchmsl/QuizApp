@@ -1,6 +1,6 @@
 package com.space.quizapp.domain.usecase.user.base
 
-import com.space.quizapp.domain.repository.QuizUserTokenRepository
+import com.space.quizapp.domain.repository.user.QuizUserTokenRepository
 import org.koin.java.KoinJavaComponent
 
 abstract class QuizBaseUserTokenUseCase {

@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".presentation.ui.start.fragment.QuizStartFragment">
+    tools:context=".presentation.ui.ui_start.fragment.QuizStartFragment">
 
-    <com.space.quizapp.presentation.ui.start.view.QuizCustomBlueVector
+    <com.space.quizapp.presentation.ui.ui_start.view.QuizCustomBlueVector
         android:id="@+id/customBlueVector"
         android:layout_width="match_parent"
         android:layout_height="0dp"

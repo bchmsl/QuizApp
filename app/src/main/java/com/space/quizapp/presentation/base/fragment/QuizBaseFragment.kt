@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.space.quizapp.common.extensions.collectAsync
-import com.space.quizapp.common.extensions.executeAsync
-import com.space.quizapp.common.extensions.makeSnackbar
-import com.space.quizapp.common.extensions.withBinding
+import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.coroutines.executeAsync
+import com.space.quizapp.common.extensions.utils.makeSnackbar
+import com.space.quizapp.common.extensions.utils.withBinding
+import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
@@ -68,25 +69,21 @@ abstract class BaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment
     }
 
     private fun observeError() {
-            collectAsync(vm.errorState) {
-                it?.let {
-                    setError(it)
-                }
-
+        collectAsync(vm.errorState) {
+            it?.let {
+                setError(it)
             }
+        }
     }
 
-    open fun setError(error: Any) {
+    open fun setError(error: QuizCustomThrowable) {
         withBinding {
-            binding.root.makeSnackbar(
-                when (error) {
-                    is String -> error
-                    is Int -> getString(error)
-                    else -> {
-                        ""
-                    }
-                }
-            )
+            error.errorResource?.let {
+                binding.root.makeSnackbar(getString(it))
+            }
+            error.errorString?.let {
+                binding.root.makeSnackbar(it)
+            }
         }
     }
 }

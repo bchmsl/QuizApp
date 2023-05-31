@@ -2,7 +2,7 @@ package com.space.quizapp.data.local.database.model.mapper
 
 import com.space.quizapp.common.mapper.QuizModelMapper
 import com.space.quizapp.data.local.database.model.QuizUserEntity
-import com.space.quizapp.domain.model.QuizUserDomainModel
+import com.space.quizapp.domain.model.user.QuizUserDomainModel
 
 class QuizUserEntityDomainMapper : QuizModelMapper<QuizUserEntity, QuizUserDomainModel> {
     override fun invoke(model: QuizUserEntity): QuizUserDomainModel =

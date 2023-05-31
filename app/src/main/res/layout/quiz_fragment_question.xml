@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ui.question.fragment.QuizQuestionFragment">
+    tools:context=".presentation.ui.ui_question.fragment.QuizQuestionFragment">
 
-    <com.space.quizapp.presentation.ui.question.view.QuizCustomGreyVector
+    <com.space.quizapp.presentation.ui.ui_question.view.QuizCustomGreyVector
         android:id="@+id/customGreyVector"
         android:layout_width="match_parent"
         android:layout_height="0dp"
