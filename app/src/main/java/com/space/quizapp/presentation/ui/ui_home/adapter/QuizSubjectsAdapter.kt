@@ -10,6 +10,12 @@ import com.space.quizapp.presentation.model.quiz.QuizQuestionsUiModel
 
 class QuizSubjectsAdapter :
     ListAdapter<QuizQuestionsUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(QuizBaseItemCallback<QuizQuestionsUiModel>()) {
+
+    private var itemCallback: ((QuizQuestionsUiModel) -> Unit)? = null
+    fun setOnClickListener(block: (QuizQuestionsUiModel) -> Unit) {
+        itemCallback = block
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectsViewHolder =
         SubjectsViewHolder(
             QuizItemSubjectBinding.inflate(
@@ -20,15 +26,18 @@ class QuizSubjectsAdapter :
         )
 
     override fun onBindViewHolder(holder: SubjectsViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(getItem(position), itemCallback)
     }
 
     class SubjectsViewHolder(private val binding: QuizItemSubjectBinding) :
         ViewHolder(binding.root) {
-        fun onBind(model: QuizQuestionsUiModel) {
+        fun onBind(model: QuizQuestionsUiModel, itemCallback: ((QuizQuestionsUiModel) -> Unit)?) {
             with(binding) {
                 root.setContent(model.quizTitle, model.quizDescription, model.quizIcon)
                 root.setPointsCount()
+                root.setOnClickListener {
+                    itemCallback?.invoke(model)
+                }
             }
         }
     }

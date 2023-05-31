@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.ui.ui_home.vm
 
+import android.util.Log
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.resource.QuizResource
 import com.space.quizapp.common.util.QuizCustomThrowable
@@ -57,13 +58,18 @@ class QuizHomeViewModel(
     fun retrieveQuestions() {
         executeAsync(IO) {
             questionsUC().collect {
+                Log.wtf("TAG", "retrieveQuestions: $it ")
                 _loadingState.emit(it.isLoading)
                 when (it) {
-                    is QuizResource.Success -> _questionsState.emit(it.data.map {
-                        questionsDomainUiMapper(
-                            it
+                    is QuizResource.Success -> {
+                        _questionsState.emit(
+                            it.data.map {
+                                questionsDomainUiMapper(
+                                    it
+                                )
+                            }
                         )
-                    })
+                    }
                     is QuizResource.Error -> emitError(it.error)
                     else -> {}
                 }

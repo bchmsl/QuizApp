@@ -20,8 +20,9 @@ abstract class QuizBaseViewModel : ViewModel() {
     private val _navigationState = MutableStateFlow<QuizFragmentDirections?>(null)
     val navigationState get() = _navigationState.asStateFlow()
 
-    fun navigate(directions: QuizFragmentDirections) {
+    fun navigate(directions: QuizFragmentDirections, argument: String? = null) {
         viewModelScope.launch {
+            argument?.let { directions.addStringArgument(it) }
             _navigationState.emit(directions)
         }
     }

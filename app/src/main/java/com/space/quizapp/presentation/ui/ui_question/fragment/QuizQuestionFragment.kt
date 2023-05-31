@@ -1,8 +1,11 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
+import android.util.Log
+import com.space.quizapp.common.extensions.coroutines.collectAsync
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
 import com.space.quizapp.presentation.base.fragment.Inflater
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import kotlin.reflect.KClass
 
@@ -15,10 +18,18 @@ class QuizQuestionFragment : BaseFragment<QuizFragmentQuestionBinding, QuizQuest
         QuizFragmentQuestionBinding::inflate
 
     override fun setContent() {
-//        TODO
+        arguments?.getString(TAG)?.let { vm.retrieveQuestions(it) }
+    }
+
+    fun observe() {
+        collectAsync(vm.questionsState) {
+            it.forEach {
+                Log.d("TAG", it.questionTitle)
+            }
+        }
     }
 
     override fun onBind() {
-//        TODO
+        observe()
     }
 }

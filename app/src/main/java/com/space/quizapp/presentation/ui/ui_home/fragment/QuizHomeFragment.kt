@@ -7,6 +7,7 @@ import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentHomeBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
 import com.space.quizapp.presentation.base.fragment.Inflater
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.ui_home.adapter.QuizSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import kotlin.reflect.KClass
@@ -36,6 +37,9 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
             logOutFloatingButton.setOnClickListener {
                 vm.logOut()
             }
+        }
+        subjectsAdapter.setOnClickListener {
+            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
         }
     }
 
