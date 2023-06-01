@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_question.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -20,6 +21,10 @@ class QuizAnswerOptionView(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         setSelection(QuizAnswerSelectedState.ANSWER_UNSELECTED)
+    }
+
+    fun setContent(title: String) {
+        binding.optionTitleTextView.text = title
     }
 
     fun setSelection(selectState: QuizAnswerSelectedState) {
@@ -50,7 +55,8 @@ class QuizAnswerOptionView(
 
     private fun unselected() {
         with(binding) {
-            root.setBackgroundColor(context.getColor(C.neutral_04_lighter_grey))
+            root.backgroundTintList =
+                ColorStateList.valueOf(context.getColor(C.neutral_03_light_grey))
             optionTitleTextView.setTextColor(context.getColor(C.black))
             starsTextView.visibility = View.GONE
         }

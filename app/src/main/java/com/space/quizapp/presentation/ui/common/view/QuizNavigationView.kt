@@ -24,7 +24,7 @@ class QuizNavigationView(
         binding.navExitImageButton.visibility = if (closeAvailable) {
             View.VISIBLE
         } else {
-            View.GONE
+            View.INVISIBLE
         }
     }
 
@@ -32,7 +32,7 @@ class QuizNavigationView(
         binding.navBackImageButton.visibility = if (backAvailable) {
             View.VISIBLE
         } else {
-            View.GONE
+            View.INVISIBLE
         }
     }
 

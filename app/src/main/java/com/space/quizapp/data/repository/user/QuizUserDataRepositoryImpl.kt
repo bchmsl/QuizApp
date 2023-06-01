@@ -1,6 +1,5 @@
 package com.space.quizapp.data.repository.user
 
-import android.util.Log
 import com.space.quizapp.data.local.database.dao.QuizUserDao
 import com.space.quizapp.data.local.database.model.mapper.QuizUserDomainEntityMapper
 import com.space.quizapp.data.local.database.model.mapper.QuizUserEntityDomainMapper
@@ -16,18 +15,15 @@ class QuizUserDataRepositoryImpl(
 ) : QuizUserDataRepository {
 
     override suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel) {
-        Log.d("TAG_REPO", userDomainModel.toString())
         dao.saveUser(userDomainEntityMapper(userDomainModel))
     }
 
-    override suspend fun retrieveUserInfo(token: String): Flow<QuizUserDomainModel> {
-        Log.d("TAG_REPO", token)
-        return dao.retrieveUserInfo(token).map {
+    override suspend fun retrieveUserInfo(token: String): Flow<QuizUserDomainModel> =
+        dao.retrieveUserInfo(token).map {
             userEntityDomainMapper(it[0])
-        }
-    }
 
-    override suspend fun getUserTokenIfExists(username: String): String? {
-        return dao.checkUser(username)
-    }
+        }
+
+    override suspend fun getUserTokenIfExists(username: String): String? = dao.checkUser(username)
+
 }

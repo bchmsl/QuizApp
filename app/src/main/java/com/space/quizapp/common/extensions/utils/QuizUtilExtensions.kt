@@ -1,5 +1,6 @@
 package com.space.quizapp.common.extensions.utils
 
+import android.util.Log.wtf
 import android.view.View
 import android.widget.ImageView
 import androidx.viewbinding.ViewBinding
@@ -20,4 +21,8 @@ fun <VB : ViewBinding, VM : QuizBaseViewModel> BaseFragment<VB, VM>.withBinding(
 
 fun View.makeSnackbar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
+}
+
+fun Any.log(message: Any?, tag: String = "") {
+    wtf("TAG $tag ", message.toString())
 }

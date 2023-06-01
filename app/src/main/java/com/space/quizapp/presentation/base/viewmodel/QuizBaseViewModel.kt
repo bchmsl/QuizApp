@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.base.viewmodel
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.space.quizapp.common.util.QuizCustomThrowable
@@ -20,9 +21,14 @@ abstract class QuizBaseViewModel : ViewModel() {
     private val _navigationState = MutableStateFlow<QuizFragmentDirections?>(null)
     val navigationState get() = _navigationState.asStateFlow()
 
-    fun navigate(directions: QuizFragmentDirections, argument: String? = null) {
+    fun navigate(directions: QuizFragmentDirections, vararg arguments: Any) {
         viewModelScope.launch {
-            argument?.let { directions.addStringArgument(it) }
+            arguments.forEach { argument ->
+                when (argument) {
+                    is String -> directions.addArgument(argument)
+                    is Parcelable -> directions.addArgument(argument)
+                }
+            }
             _navigationState.emit(directions)
         }
     }
