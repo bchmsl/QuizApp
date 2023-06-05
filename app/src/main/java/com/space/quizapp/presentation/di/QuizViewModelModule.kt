@@ -2,8 +2,10 @@ package com.space.quizapp.presentation.di
 
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionDomainUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionsDomainUiMapper
-import com.space.quizapp.presentation.model.user.mapper.QuizUserDomainUiMapper
-import com.space.quizapp.presentation.model.user.mapper.QuizUserUiDomainMapper
+import com.space.quizapp.presentation.model.user.mapper.subject.QuizUserSubjectDomainUiMapper
+import com.space.quizapp.presentation.model.user.mapper.subject.QuizUserSubjectUiDomainMapper
+import com.space.quizapp.presentation.model.user.mapper.user.QuizUserDomainUiMapper
+import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiDomainMapper
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import com.space.quizapp.presentation.ui.ui_question.manager.QuestionManagerImpl
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
@@ -12,18 +14,32 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { QuizStartViewModel(get(), get(), QuizUserUiDomainMapper()) }
+    viewModel {
+        QuizStartViewModel(
+            get(),
+            get(),
+            QuizUserUiDomainMapper(
+                QuizUserSubjectUiDomainMapper()
+            )
+        )
+    }
     viewModel {
         QuizHomeViewModel(
-            get(), get(), QuizUserDomainUiMapper(), QuizQuestionsDomainUiMapper(
-                QuizQuestionDomainUiMapper()
-            ), get()
+            get(),
+            get(),
+            QuizUserDomainUiMapper(
+                QuizUserSubjectDomainUiMapper()
+            ),
+            QuizQuestionsDomainUiMapper(),
+            get()
         )
     }
     viewModel {
         QuizQuestionViewModel(
             get(),
-            QuizQuestionsDomainUiMapper(QuizQuestionDomainUiMapper()),
+            QuizQuestionsDomainUiMapper(
+                QuizQuestionDomainUiMapper()
+            ),
             QuestionManagerImpl()
         )
     }

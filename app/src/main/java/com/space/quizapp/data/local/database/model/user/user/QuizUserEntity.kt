@@ -1,4 +1,4 @@
-package com.space.quizapp.data.local.database.model
+package com.space.quizapp.data.local.database.model.user.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

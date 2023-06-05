@@ -1,7 +1,7 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.domain.usecase.questions.questions.QuizQuestionsUseCase
-import com.space.quizapp.domain.usecase.questions.questions.QuizQuestionsUseCaseImpl
+import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
+import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCaseImpl
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizRetrieveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.RetrieveUserDataDataUseCaseImpl
 import com.space.quizapp.domain.usecase.user.read_user_token.QuizReadUserTokenUseCase

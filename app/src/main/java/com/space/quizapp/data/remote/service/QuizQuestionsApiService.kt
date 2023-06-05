@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface QuizQuestionsApiService {
 
-    @GET("73a800bf-fb55-4aae-8db7-12841a65579e")
+    @GET("9a2cbd2f-d77c-498a-a410-91351fe42577")
     suspend fun retrieveQuestions(): Response<List<QuizQuestionsDto>>
 
     companion object {

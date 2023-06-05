@@ -3,7 +3,7 @@ package com.space.quizapp.presentation.ui.ui_question.vm
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.extensions.utils.onError
 import com.space.quizapp.common.extensions.utils.onSuccess
-import com.space.quizapp.domain.usecase.questions.questions.QuizQuestionsUseCase
+import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionsUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionsDomainUiMapper

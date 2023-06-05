@@ -1,14 +1,14 @@
 package com.space.quizapp.domain.model.quiz
 
-data class QuizQuestionsDomainModel(
+data class QuizSubjectDomainModel(
     val id: Int,
     val quizTitle: String,
     val quizDescription: String,
     val quizIcon: String,
     val questionsCount: Int,
-    val questions: List<Question>
+    val questions: List<QuizQuestionDomainModel>
 ) {
-    data class Question(
+    data class QuizQuestionDomainModel(
         val questionTitle: String,
         val answers: List<String>,
         val correctAnswer: String,

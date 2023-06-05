@@ -4,7 +4,7 @@ import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.resource.QuizResource
 import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
-import com.space.quizapp.domain.usecase.questions.questions.QuizQuestionsUseCase
+import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizRetrieveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.save_user_token.QuizSaveUserTokenUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel

@@ -1,8 +1,8 @@
 package com.space.quizapp.data.repository.user
 
 import com.space.quizapp.data.local.database.dao.QuizUserDao
-import com.space.quizapp.data.local.database.model.mapper.QuizUserDomainEntityMapper
-import com.space.quizapp.data.local.database.model.mapper.QuizUserEntityDomainMapper
+import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserDomainEntityMapper
+import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserEntityDomainMapper
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import kotlinx.coroutines.flow.Flow

@@ -5,7 +5,7 @@ import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.common.util.S
 import com.space.quizapp.data.remote.model.mapper.QuizQuestionsDtoDomainMapper
 import com.space.quizapp.data.remote.service.QuizQuestionsApiService
-import com.space.quizapp.domain.model.quiz.QuizQuestionsDomainModel
+import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +14,7 @@ class QuizQuestionsRepositoryImpl(
     private val api: QuizQuestionsApiService,
     private val quizQuestionsDtoDomainMapper: QuizQuestionsDtoDomainMapper
 ) : QuizQuestionsRepository {
-    override suspend fun retrieveQuestions(): Flow<QuizResource<List<QuizQuestionsDomainModel>>> =
+    override suspend fun retrieveQuestions(): Flow<QuizResource<List<QuizSubjectDomainModel>>> =
         flow {
             try {
                 val response = api.retrieveQuestions()

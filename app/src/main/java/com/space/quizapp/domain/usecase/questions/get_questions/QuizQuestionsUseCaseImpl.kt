@@ -1,4 +1,4 @@
-package com.space.quizapp.domain.usecase.questions.questions
+package com.space.quizapp.domain.usecase.questions.get_questions
 
 import com.space.quizapp.domain.usecase.questions.base.QuizBaseQuestionsUseCase
 
