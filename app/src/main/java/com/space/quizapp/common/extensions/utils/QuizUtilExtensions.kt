@@ -24,5 +24,5 @@ fun View.makeSnackbar(message: String) {
 }
 
 fun Any.log(message: Any?, tag: String = "") {
-    wtf("TAG $tag ", message.toString())
+    wtf("TAG $tag ", "\n${message.toString()}\n\n")
 }

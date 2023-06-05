@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
 import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.utils.log
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
@@ -24,8 +25,9 @@ class QuizQuestionFragment : BaseFragment<QuizFragmentQuestionBinding, QuizQuest
 
     override fun setContent() {
         val category = arguments?.getString(TAG).toString()
+        log(category)
+        vm.getQuestions(category)
         withBinding {
-            vm.getQuestions(category)
             navigationView.setContent(category, true, false)
             AnswerOptionsRecyclerView.adapter = answersAdapter
             nextButton.text = getString(S.next)
@@ -45,6 +47,7 @@ class QuizQuestionFragment : BaseFragment<QuizFragmentQuestionBinding, QuizQuest
     private fun observe() {
         collectAsync(vm.questionsState) { question ->
             question?.let {
+                log(question, "QuizQuestionFragment - observe()")
                 answersAdapter.submitList(it.answers.map { answer -> AnswerModel(answer) })
                 binding.questionTextView.text = it.questionTitle
             }
