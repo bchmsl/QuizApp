@@ -7,11 +7,4 @@ data class QuizSubjectDomainModel(
     val quizIcon: String,
     val questionsCount: Int,
     val questions: List<QuizQuestionDomainModel>
-) {
-    data class QuizQuestionDomainModel(
-        val questionTitle: String,
-        val answers: List<String>,
-        val correctAnswer: String,
-        val questionIndex: Int
-    )
-}
+)

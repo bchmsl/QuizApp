@@ -7,9 +7,9 @@ import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
 import com.space.quizapp.presentation.base.fragment.BaseFragment
 import com.space.quizapp.presentation.base.fragment.Inflater
+import com.space.quizapp.presentation.model.quiz.QuizAnswerUiModel
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG
 import com.space.quizapp.presentation.ui.ui_question.adapter.AnswersAdapter
-import com.space.quizapp.presentation.ui.ui_question.model.AnswerModel
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import kotlin.reflect.KClass
 
@@ -48,7 +48,7 @@ class QuizQuestionFragment : BaseFragment<QuizFragmentQuestionBinding, QuizQuest
         collectAsync(vm.questionsState) { question ->
             question?.let {
                 log(question, "QuizQuestionFragment - observe()")
-                answersAdapter.submitList(it.answers.map { answer -> AnswerModel(answer) })
+                answersAdapter.submitList(it.answers.map { answer -> QuizAnswerUiModel(answer) })
                 binding.questionTextView.text = it.questionTitle
             }
         }

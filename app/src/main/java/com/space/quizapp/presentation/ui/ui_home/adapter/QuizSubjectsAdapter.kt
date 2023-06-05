@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.space.quizapp.databinding.QuizItemSubjectBinding
 import com.space.quizapp.presentation.base.adapter.QuizBaseItemCallback
-import com.space.quizapp.presentation.model.quiz.QuizQuestionsUiModel
+import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 
 class QuizSubjectsAdapter :
-    ListAdapter<QuizQuestionsUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(QuizBaseItemCallback<QuizQuestionsUiModel>()) {
+    ListAdapter<QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(QuizBaseItemCallback<QuizSubjectUiModel>()) {
 
-    private var itemCallback: ((QuizQuestionsUiModel) -> Unit)? = null
-    fun setOnClickListener(block: (QuizQuestionsUiModel) -> Unit) {
+    private var itemCallback: ((QuizSubjectUiModel) -> Unit)? = null
+    fun setOnClickListener(block: (QuizSubjectUiModel) -> Unit) {
         itemCallback = block
     }
 
@@ -31,7 +31,7 @@ class QuizSubjectsAdapter :
 
     class SubjectsViewHolder(private val binding: QuizItemSubjectBinding) :
         ViewHolder(binding.root) {
-        fun onBind(model: QuizQuestionsUiModel, itemCallback: ((QuizQuestionsUiModel) -> Unit)?) {
+        fun onBind(model: QuizSubjectUiModel, itemCallback: ((QuizSubjectUiModel) -> Unit)?) {
             with(binding) {
                 root.setContent(model.quizTitle, model.quizDescription, model.quizIcon)
                 root.setPointsCount()

@@ -8,10 +8,10 @@ import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUse
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizRetrieveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.save_user_token.QuizSaveUserTokenUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.presentation.model.quiz.QuizQuestionsUiModel
-import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionsDomainUiMapper
+import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
+import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
-import com.space.quizapp.presentation.model.user.mapper.QuizUserDomainUiMapper
+import com.space.quizapp.presentation.model.user.mapper.user.QuizUserDomainUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,14 +22,14 @@ class QuizHomeViewModel(
     private val saveUserTokenUC: QuizSaveUserTokenUseCase,
     private val userDomainUiMapper: QuizUserDomainUiMapper,
 
-    private val questionsDomainUiMapper: QuizQuestionsDomainUiMapper,
+    private val subjectDomainUiMapper: QuizSubjectDomainUiMapper,
     private val questionsUC: QuizQuestionsUseCase
 ) : QuizBaseViewModel() {
 
     private val _userState = MutableStateFlow(QuizUserUiModel(""))
     val userState get() = _userState.asStateFlow()
 
-    private val _questionsState = MutableStateFlow<List<QuizQuestionsUiModel>?>(null)
+    private val _questionsState = MutableStateFlow<List<QuizSubjectUiModel>?>(null)
     val questionsState get() = _questionsState.asStateFlow()
 
     private val _loadingState = MutableStateFlow(true)
@@ -62,7 +62,7 @@ class QuizHomeViewModel(
                     is QuizResource.Success -> {
                         _questionsState.emit(
                             it.data.map {
-                                questionsDomainUiMapper(
+                                subjectDomainUiMapper(
                                     it
                                 )
                             }

@@ -1,7 +1,7 @@
 package com.space.quizapp.domain.usecase.questions.check_answers
 
-import com.space.quizapp.presentation.ui.ui_question.model.AnswerModel
+import com.space.quizapp.presentation.model.quiz.QuizAnswerUiModel
 
 interface CheckAnswersUseCase {
-    suspend operator fun invoke(): List<AnswerModel>
+    suspend operator fun invoke(): List<QuizAnswerUiModel>
 }
