@@ -8,5 +8,6 @@ data class QuizQuestionUiModel(
     val questionTitle: String,
     val answers: List<QuizAnswerUiModel>,
     val correctAnswer: QuizAnswerUiModel,
+    val subjectId: Int,
     val questionIndex: Int
 ) : Parcelable

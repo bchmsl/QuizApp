@@ -6,10 +6,10 @@ import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserDoma
 import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserEntityDomainMapper
 import com.space.quizapp.data.remote.model.mapper.QuizQuestionDtoDomainMapper
 import com.space.quizapp.data.remote.model.mapper.QuizQuestionsDtoDomainMapper
-import com.space.quizapp.data.repository.quiz.QuizQuestionsRepositoryImpl
+import com.space.quizapp.data.repository.quiz.QuizRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserDataRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserTokenRepositoryImpl
-import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
+import com.space.quizapp.domain.repository.quiz.QuizRepository
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.repository.user.QuizUserTokenRepository
 import org.koin.dsl.module
@@ -27,8 +27,8 @@ val repositoryModule = module {
             get()
         )
     }
-    single<QuizQuestionsRepository> {
-        QuizQuestionsRepositoryImpl(
+    single<QuizRepository> {
+        QuizRepositoryImpl(
             get(),
             QuizQuestionsDtoDomainMapper(QuizQuestionDtoDomainMapper())
         )

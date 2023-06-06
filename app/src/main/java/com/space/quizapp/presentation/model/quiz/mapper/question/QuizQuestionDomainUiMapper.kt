@@ -13,6 +13,7 @@ class QuizQuestionDomainUiMapper(
             questionTitle = model.questionTitle,
             answers = model.answers.map { quizAnswerDomainUiMapper(it) },
             correctAnswer = quizAnswerDomainUiMapper(model.correctAnswer),
+            subjectId = model.subjectId,
             questionIndex = model.questionIndex
         )
     }

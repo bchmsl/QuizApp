@@ -47,7 +47,6 @@ class QuizQuestionViewModel(
         questionsUC().collect { resource ->
             resource.onSuccess { data ->
                 emit(data.map { quizSubjectDomainUiMapper(it) })
-
             }.onError { error ->
                 emitError(error)
             }

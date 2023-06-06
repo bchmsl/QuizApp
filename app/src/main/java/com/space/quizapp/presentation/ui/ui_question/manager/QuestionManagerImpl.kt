@@ -1,7 +1,6 @@
 package com.space.quizapp.presentation.ui.ui_question.manager
 
 import com.space.quizapp.common.extensions.utils.log
-import com.space.quizapp.domain.model.quiz.QuizAnswerDomainModel
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
