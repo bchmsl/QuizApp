@@ -1,8 +1,8 @@
 package com.space.quizapp.data.local.database.dao
 
 import androidx.room.*
-import com.space.quizapp.data.local.database.model.quiz.questions.QuizQuestionEntity
-import com.space.quizapp.data.local.database.model.quiz.subject.QuizSubjectEntity
+import com.space.quizapp.data.local.database.model.quiz.QuizQuestionEntity
+import com.space.quizapp.data.local.database.model.quiz.QuizSubjectEntity
 
 @Dao
 interface QuizSubjectsDao {

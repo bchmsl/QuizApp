@@ -8,7 +8,7 @@ import com.space.quizapp.domain.usecase.user.read_user_token.QuizReadUserTokenUs
 import com.space.quizapp.domain.usecase.user.save_user_data.QuizSaveUserDataUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
-import com.space.quizapp.presentation.model.user.mapper.QuizUserUiDomainMapper
+import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserUiDomainMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 
@@ -20,26 +20,26 @@ class QuizStartViewModel(
 
     fun saveUser(username: String) {
         executeAsync(IO) {
-            saveUserDataUC(userUiDomainMapper(QuizUserUiModel(username))).collect { validateUser ->
-                val error = when (validateUser) {
-                    QuizValidateUser.VALID -> {
-                        navigate(QuizFragmentDirections.HOME)
-                        null
-                    }
-                    else -> validateUser.message
+            val validateUser = saveUserDataUC(userUiDomainMapper(QuizUserUiModel(username)))
+            val error = when (validateUser) {
+                QuizValidateUser.VALID -> {
+                    navigate(QuizFragmentDirections.HOME)
+                    null
                 }
-                emitError(error?.let { QuizCustomThrowable(it) })
+                else -> validateUser.message
             }
+            emitError(error?.let { QuizCustomThrowable(it) })
         }
+
     }
 
     fun checkUserToken() {
         executeAsync(IO) {
-            readUserTokenUC().collect { token ->
-                if (token != QuizUserDataStoreManager.EMPTY_STRING) {
-                    navigate(QuizFragmentDirections.HOME)
-                }
+            val token = readUserTokenUC()
+            if (token != QuizUserDataStoreManager.EMPTY_STRING) {
+                navigate(QuizFragmentDirections.HOME)
             }
+
         }
     }
 }

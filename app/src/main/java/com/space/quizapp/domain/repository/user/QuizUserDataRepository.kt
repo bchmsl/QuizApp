@@ -1,10 +1,10 @@
 package com.space.quizapp.domain.repository.user
 
+import com.space.quizapp.data.repository.BaseRepository
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
-import kotlinx.coroutines.flow.Flow
 
-interface QuizUserDataRepository {
-    suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel)
-    suspend fun retrieveUserInfo(token: String): Flow<QuizUserDomainModel>
-    suspend fun getUserTokenIfExists(username: String): String?
+abstract class QuizUserDataRepository : BaseRepository() {
+    abstract suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel)
+    abstract suspend fun retrieveUserInfo(token: String): QuizUserDomainModel
+    abstract suspend fun getUserTokenIfExists(username: String): String?
 }

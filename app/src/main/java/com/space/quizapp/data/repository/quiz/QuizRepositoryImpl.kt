@@ -4,7 +4,9 @@ import com.space.quizapp.common.resource.QuizResource
 import com.space.quizapp.common.util.ApiHelper
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionDomainEntityMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionEntityDomainMapper
 import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectDomainEntityMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectEntityDomainMapper
 import com.space.quizapp.data.remote.model.mapper.subject.QuizSubjectDtoDomainMapper
 import com.space.quizapp.data.remote.service.QuizQuestionsApiService
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
@@ -17,8 +19,10 @@ class QuizRepositoryImpl(
     private val dao: QuizSubjectsDao,
     private val quizSubjectDtoDomainMapper: QuizSubjectDtoDomainMapper,
     private val quizSubjectDomainEntityMapper: QuizSubjectDomainEntityMapper,
-    private val quizQuestionDomainEntityMapper: QuizQuestionDomainEntityMapper
-) : QuizRepository {
+    private val quizQuestionDomainEntityMapper: QuizQuestionDomainEntityMapper,
+    private val quizSubjectEntityDomainMapper: QuizSubjectEntityDomainMapper,
+    private val quizQuestionEntityDomainMapper: QuizQuestionEntityDomainMapper
+) : QuizRepository() {
 
     override suspend fun retrieveQuestions(): QuizResource<List<QuizSubjectDomainModel>> {
         return apiHelper.retrofitCall(
@@ -26,7 +30,6 @@ class QuizRepositoryImpl(
             { api.retrieveQuestions() }
         )
     }
-
 
     override suspend fun updateLocalQuiz(
         subjects: List<QuizSubjectDomainModel>,
@@ -36,4 +39,15 @@ class QuizRepositoryImpl(
         dao.insertQuestions(questions.map { quizQuestionDomainEntityMapper(it) })
     }
 
+    override suspend fun getLocalSubjects(): List<QuizSubjectDomainModel> {
+        return dao.retrieveSubjects().map { quizSubjectEntityDomainMapper(it) }
+    }
+
+    override suspend fun getLocalQuestionsBySubject(
+        username: String,
+        subjectId: Int
+    ): List<QuizQuestionDomainModel> {
+        return dao.retrieveQuestionsBySubjectId(subjectId)
+            .map { quizQuestionEntityDomainMapper(it) }
+    }
 }

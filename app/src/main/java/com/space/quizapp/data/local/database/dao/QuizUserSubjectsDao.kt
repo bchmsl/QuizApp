@@ -3,7 +3,7 @@ package com.space.quizapp.data.local.database.dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.space.quizapp.data.local.database.model.user.subjects.QuizUserSubjectEntity
+import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 
 interface QuizUserSubjectsDao {
 

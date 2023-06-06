@@ -1,9 +1,8 @@
 package com.space.quizapp.domain.repository.user
 
-import kotlinx.coroutines.flow.Flow
+import com.space.quizapp.data.repository.BaseRepository
 
-
-interface QuizUserTokenRepository {
-    suspend fun saveUserToken(token: String)
-    suspend fun getUserToken(): Flow<String>
+abstract class QuizUserTokenRepository : BaseRepository() {
+    abstract suspend fun saveUserToken(token: String)
+    abstract suspend fun getUserToken(): String
 }

@@ -1,15 +1,20 @@
 package com.space.quizapp.domain.repository.quiz
 
 import com.space.quizapp.common.resource.QuizResource
+import com.space.quizapp.data.repository.BaseRepository
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 
-interface QuizRepository {
-    suspend fun retrieveQuestions(): QuizResource<List<QuizSubjectDomainModel>>
-    suspend fun updateLocalQuiz(
+abstract class QuizRepository : BaseRepository() {
+    abstract suspend fun retrieveQuestions(): QuizResource<List<QuizSubjectDomainModel>>
+    abstract suspend fun updateLocalQuiz(
         subjects: List<QuizSubjectDomainModel>,
         questions: List<QuizQuestionDomainModel>
     )
 
-    suspend fun getLocalSubjects(): List<QuizSubjectDomainModel>
+    abstract suspend fun getLocalSubjects(): List<QuizSubjectDomainModel>
+    abstract suspend fun getLocalQuestionsBySubject(
+        username: String,
+        subjectId: Int
+    ): List<QuizQuestionDomainModel>
 }

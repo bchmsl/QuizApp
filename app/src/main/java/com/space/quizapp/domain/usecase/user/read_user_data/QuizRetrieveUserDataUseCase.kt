@@ -1,8 +1,10 @@
 package com.space.quizapp.domain.usecase.user.read_user_data
 
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
-import kotlinx.coroutines.flow.Flow
+import com.space.quizapp.domain.repository.user.QuizUserDataRepository
+import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import org.koin.java.KoinJavaComponent.inject
 
-interface QuizRetrieveUserDataUseCase {
-    suspend operator fun invoke(): Flow<QuizUserDomainModel>
+abstract class QuizRetrieveUserDataUseCase : QuizBaseUseCase<Nothing, QuizUserDomainModel>() {
+    override val repository by inject<QuizUserDataRepository>(QuizUserDataRepository::class.java)
 }

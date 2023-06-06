@@ -1,13 +1,9 @@
 package com.space.quizapp.domain.usecase.questions.check_answers
 
-import com.space.quizapp.presentation.model.quiz.QuizAnswerUiModel
-import com.space.quizapp.presentation.ui.ui_question.manager.QuestionManager
+import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 
-class CheckAnswersUseCaseImpl(
-    private val questionManager: QuestionManager
-) : CheckAnswersUseCase {
-
-    override suspend fun invoke(): List<QuizAnswerUiModel> {
-        TODO("Not yet implemented")
+class CheckAnswersUseCaseImpl : CheckAnswersUseCase() {
+    override suspend fun invoke(params: Nothing?): List<QuizQuestionDomainModel.QuizAnswerDomainModel> {
+        // TODO( " IMPLEMENT CHECKING ANSWERS FUNCTIONALITY " )
     }
 }

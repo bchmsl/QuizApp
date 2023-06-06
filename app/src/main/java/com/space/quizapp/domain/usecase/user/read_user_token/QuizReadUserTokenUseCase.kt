@@ -1,8 +1,10 @@
 package com.space.quizapp.domain.usecase.user.read_user_token
 
-import kotlinx.coroutines.flow.Flow
+import com.space.quizapp.domain.repository.user.QuizUserTokenRepository
+import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import org.koin.java.KoinJavaComponent.inject
 
 
-interface QuizReadUserTokenUseCase {
-    suspend operator fun invoke(): Flow<String>
+abstract class QuizReadUserTokenUseCase : QuizBaseUseCase<Unit, String>() {
+    override val repository by inject<QuizUserTokenRepository>(QuizUserTokenRepository::class.java)
 }

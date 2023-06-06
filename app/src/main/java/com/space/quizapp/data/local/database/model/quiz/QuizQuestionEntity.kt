@@ -1,4 +1,4 @@
-package com.space.quizapp.data.local.database.model.quiz.questions
+package com.space.quizapp.data.local.database.model.quiz
 
 import androidx.room.Entity
 

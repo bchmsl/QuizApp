@@ -10,5 +10,4 @@ data class QuizSubjectUiModel(
     val quizDescription: String,
     val quizIcon: String,
     val questionsCount: Int,
-    val questions: List<QuizQuestionUiModel>
 ) : Parcelable

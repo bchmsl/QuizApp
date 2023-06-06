@@ -5,11 +5,11 @@ import com.space.quizapp.common.extensions.utils.onError
 import com.space.quizapp.common.extensions.utils.onSuccess
 import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.presentation.model.quiz.QuizAnswerUiModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.question.QuizQuestionDomainUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
+import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectUiDomainMapper
 import com.space.quizapp.presentation.ui.ui_question.manager.QuestionManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,13 +20,15 @@ class QuizQuestionViewModel(
     private val questionsUC: QuizQuestionsUseCase,
     private val quizSubjectDomainUiMapper: QuizSubjectDomainUiMapper,
     private val quizQuestionDomainUiMapper: QuizQuestionDomainUiMapper,
+    private val quizSubjectUiDomainMapper: QuizSubjectUiDomainMapper,
     private val questionManager: QuestionManager
 ) : QuizBaseViewModel() {
 
     private val _questionsState = MutableStateFlow<QuizQuestionUiModel?>(null)
     val questionsState get() = _questionsState.asStateFlow()
 
-    private val _checkedAnswerState = MutableStateFlow<List<QuizAnswerUiModel>?>(null)
+    private val _checkedAnswerState =
+        MutableStateFlow<List<QuizQuestionUiModel.QuizAnswerUiModel>?>(null)
     val checkedAnswerState get() = _checkedAnswerState.asStateFlow()
 
     fun getNextQuestion() {
@@ -37,19 +39,21 @@ class QuizQuestionViewModel(
         }
     }
 
-    fun checkAnswer(submittedAnswer: String, answers: MutableList<QuizAnswerUiModel>) {
+    fun checkAnswer(
+        submittedAnswer: String,
+        answers: MutableList<QuizQuestionUiModel.QuizAnswerUiModel>
+    ) {
         executeAsync {
             questionManager.getCheckedAnswersList(submittedAnswer, answers)
         }
     }
 
     private suspend fun retrieveQuestions(): Flow<List<QuizSubjectUiModel>> = flow {
-        questionsUC().collect { resource ->
-            resource.onSuccess { data ->
-                emit(data.map { quizSubjectDomainUiMapper(it) })
-            }.onError { error ->
-                emitError(error)
-            }
+        val resource = questionsUC()
+        resource.onSuccess { data ->
+            emit(data.map { quizSubjectDomainUiMapper(it) })
+        }.onError { error ->
+            emitError(error)
         }
     }
 
@@ -57,7 +61,7 @@ class QuizQuestionViewModel(
         executeAsync {
             retrieveQuestions().collect { questions ->
                 with(questionManager) {
-                    submitQuestionsList(questions)
+                    submitQuestionsList(questions.map { quizSubjectUiDomainMapper(it) })
                     selectCategory(category)
                 }
             }

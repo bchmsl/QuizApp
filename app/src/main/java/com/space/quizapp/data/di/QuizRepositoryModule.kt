@@ -1,11 +1,13 @@
 package com.space.quizapp.data.di
 
-import com.space.quizapp.data.local.database.model.user.mapper.subject.QuizUserSubjectDomainEntityMapper
-import com.space.quizapp.data.local.database.model.user.mapper.subject.QuizUserSubjectEntityDomainMapper
+import com.space.quizapp.common.util.ApiHelper
+import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionDomainEntityMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionEntityDomainMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectDomainEntityMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectEntityDomainMapper
 import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserDomainEntityMapper
 import com.space.quizapp.data.local.database.model.user.mapper.user.QuizUserEntityDomainMapper
-import com.space.quizapp.data.remote.model.mapper.QuizQuestionDtoDomainMapper
-import com.space.quizapp.data.remote.model.mapper.QuizQuestionsDtoDomainMapper
+import com.space.quizapp.data.remote.model.mapper.subject.QuizSubjectDtoDomainMapper
 import com.space.quizapp.data.repository.quiz.QuizRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserDataRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserTokenRepositoryImpl
@@ -18,8 +20,8 @@ val repositoryModule = module {
     single<QuizUserDataRepository> {
         QuizUserDataRepositoryImpl(
             get(),
-            QuizUserDomainEntityMapper(QuizUserSubjectDomainEntityMapper()),
-            QuizUserEntityDomainMapper(QuizUserSubjectEntityDomainMapper())
+            QuizUserDomainEntityMapper(),
+            QuizUserEntityDomainMapper()
         )
     }
     single<QuizUserTokenRepository> {
@@ -30,7 +32,14 @@ val repositoryModule = module {
     single<QuizRepository> {
         QuizRepositoryImpl(
             get(),
-            QuizQuestionsDtoDomainMapper(QuizQuestionDtoDomainMapper())
+            object : ApiHelper {},
+            get(),
+            QuizSubjectDtoDomainMapper(),
+            QuizSubjectDomainEntityMapper(),
+            QuizQuestionDomainEntityMapper(),
+            QuizSubjectEntityDomainMapper(),
+            QuizQuestionEntityDomainMapper()
         )
+
     }
 }

@@ -1,7 +1,8 @@
 package com.space.quizapp.presentation.ui.ui_home.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.resource.QuizResource
+import com.space.quizapp.common.extensions.utils.onError
+import com.space.quizapp.common.extensions.utils.onSuccess
 import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
 import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
@@ -11,7 +12,7 @@ import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
-import com.space.quizapp.presentation.model.user.mapper.user.QuizUserDomainUiMapper
+import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserDomainUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,9 +39,8 @@ class QuizHomeViewModel(
     fun retrieveUserInfo() {
         executeAsync(IO) {
             try {
-                retrieveUserDataUC().collect { userDomainModel ->
-                    _userState.emit(userDomainUiMapper(userDomainModel))
-                }
+                val userDomainModel = retrieveUserDataUC()
+                _userState.emit(userDomainUiMapper(userDomainModel))
             } catch (e: Throwable) {
                 emitError(QuizCustomThrowable(e.message))
             }
@@ -56,21 +56,12 @@ class QuizHomeViewModel(
 
     fun retrieveQuestions() {
         executeAsync(IO) {
-            questionsUC().collect {
-                _loadingState.emit(it.isLoading)
-                when (it) {
-                    is QuizResource.Success -> {
-                        _questionsState.emit(
-                            it.data.map {
-                                subjectDomainUiMapper(
-                                    it
-                                )
-                            }
-                        )
-                    }
-                    is QuizResource.Error -> emitError(it.error)
-                    else -> {}
-                }
+            val resource = questionsUC()
+            _loadingState.emit(resource.isLoading)
+            resource.onSuccess { data ->
+                _questionsState.emit(data.map { subjectDomainUiMapper(it) })
+            }.onError { error ->
+                emitError(error)
             }
         }
     }
