@@ -23,7 +23,7 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
 
     override fun setContent() {
         vm.retrieveUserInfo()
-        vm.retrieveQuestions()
+        vm.retrieveSubjects()
         binding.subjectsRecyclerView.adapter = subjectsAdapter
     }
 
@@ -39,7 +39,7 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
             }
         }
         subjectsAdapter.setOnClickListener {
-            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+            vm.navigate(QuizFragmentDirections.QUESTION, it.id, it.quizTitle)
         }
     }
 
@@ -50,7 +50,7 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
                 scoreView.setContent(user.gpa)
             }
         }
-        collectAsync(vm.questionsState) { questions ->
+        collectAsync(vm.subjectsState) { questions ->
             questions?.let {
                 subjectsAdapter.submitList(it.toList())
             }

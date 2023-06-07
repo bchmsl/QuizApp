@@ -27,6 +27,7 @@ abstract class QuizBaseViewModel : ViewModel() {
                 when (argument) {
                     is String -> directions.addArgument(argument)
                     is Parcelable -> directions.addArgument(argument)
+                    is Int -> directions.addArgument(argument)
                 }
             }
             _navigationState.emit(directions)

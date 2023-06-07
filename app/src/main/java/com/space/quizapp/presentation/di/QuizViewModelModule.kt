@@ -1,13 +1,12 @@
 package com.space.quizapp.presentation.di
 
 import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerDomainUiMapper
+import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerUiDomainMapper
 import com.space.quizapp.presentation.model.quiz.mapper.question.QuizQuestionDomainUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
-import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectUiDomainMapper
 import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserDomainUiMapper
 import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserUiDomainMapper
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
-import com.space.quizapp.presentation.ui.ui_question.manager.QuestionManagerImpl
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import com.space.quizapp.presentation.ui.ui_start.vm.QuizStartViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -33,10 +32,12 @@ val viewModelModule = module {
     viewModel {
         QuizQuestionViewModel(
             get(),
-            QuizSubjectDomainUiMapper(),
+            get(),
+            get(),
             QuizQuestionDomainUiMapper(QuizAnswerDomainUiMapper()),
-            QuizSubjectUiDomainMapper(),
-            QuestionManagerImpl()
+            QuizAnswerUiDomainMapper(),
+            QuizAnswerDomainUiMapper()
+
         )
     }
 }

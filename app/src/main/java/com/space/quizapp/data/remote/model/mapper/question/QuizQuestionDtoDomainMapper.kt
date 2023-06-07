@@ -9,8 +9,9 @@ class QuizQuestionDtoDomainMapper :
     override fun invoke(model: QuizSubjectDto.QuizQuestionDto): QuizQuestionDomainModel {
         return QuizQuestionDomainModel(
             questionTitle = model.questionTitle,
-            answers = model.answers.map { QuizAnswerDomainModel(it) },
-            correctAnswer = QuizAnswerDomainModel(model.correctAnswer),
+            answers = model.answers.map { QuizQuestionDomainModel.QuizAnswerDomainModel(it) }
+                .toMutableList(),
+            correctAnswer = QuizQuestionDomainModel.QuizAnswerDomainModel(model.correctAnswer),
             subjectId = model.subjectId,
             questionIndex = model.questionIndex
         )

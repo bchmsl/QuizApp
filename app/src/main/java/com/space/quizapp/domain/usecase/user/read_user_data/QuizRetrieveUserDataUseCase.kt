@@ -5,6 +5,6 @@ import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import org.koin.java.KoinJavaComponent.inject
 
-abstract class QuizRetrieveUserDataUseCase : QuizBaseUseCase<Nothing, QuizUserDomainModel>() {
-    override val repository by inject<QuizUserDataRepository>(QuizUserDataRepository::class.java)
+abstract class QuizRetrieveUserDataUseCase : QuizBaseUseCase<Unit, QuizUserDomainModel>() {
+    protected val repository by inject<QuizUserDataRepository>(QuizUserDataRepository::class.java)
 }

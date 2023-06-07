@@ -4,15 +4,14 @@ import com.space.quizapp.common.resource.QuizResource
 import retrofit2.Response
 
 interface ApiHelper {
-    suspend fun <DTO : Any, DOMAIN : Any> retrofitCall(
-        mapper: (DTO) -> DOMAIN,
+    suspend fun <DTO : Any> retrofitCall(
         call: suspend () -> Response<DTO>
-    ): QuizResource<DOMAIN> {
+    ): QuizResource<DTO> {
         return try {
             val response = call.invoke()
             if (response.isSuccessful) {
                 if (response.body() != null) {
-                    QuizResource.Success(mapper(response.body()!!))
+                    QuizResource.Success(response.body()!!)
                 } else {
                     QuizResource.Error(QuizCustomThrowable(S.error_bad_request))
                 }

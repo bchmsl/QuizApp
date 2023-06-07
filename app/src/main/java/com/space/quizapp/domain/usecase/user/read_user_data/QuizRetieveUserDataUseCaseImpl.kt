@@ -4,10 +4,10 @@ import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.user.read_user_token.QuizReadUserTokenUseCase
 
-class RetrieveUserDataDataUseCaseImpl(
+class RetrieveUserDataUseCaseImpl(
     private val readUserTokenUC: QuizReadUserTokenUseCase
 ) : QuizRetrieveUserDataUseCase() {
-    override suspend fun invoke(params: Nothing?): QuizUserDomainModel {
+    override suspend fun invoke(params: Unit?): QuizUserDomainModel {
         val userToken = readUserTokenUC()
         if (userToken != EMPTY_STRING) {
             return repository.retrieveUserInfo(userToken)

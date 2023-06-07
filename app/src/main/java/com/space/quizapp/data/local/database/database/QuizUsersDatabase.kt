@@ -5,12 +5,13 @@ import androidx.room.RoomDatabase
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.dao.QuizUserDao
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
+import com.space.quizapp.data.local.database.model.quiz.QuizQuestionEntity
 import com.space.quizapp.data.local.database.model.quiz.QuizSubjectEntity
 import com.space.quizapp.data.local.database.model.user.QuizUserEntity
 import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 
 @Database(
-    entities = [QuizUserEntity::class, QuizUserSubjectEntity::class, QuizSubjectEntity::class],
+    entities = [QuizUserEntity::class, QuizUserSubjectEntity::class, QuizSubjectEntity::class, QuizQuestionEntity::class],
     version = 1
 )
 abstract class QuizUsersDatabase : RoomDatabase() {

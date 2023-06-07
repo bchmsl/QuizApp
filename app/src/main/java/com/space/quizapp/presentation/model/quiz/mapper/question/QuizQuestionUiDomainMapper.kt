@@ -11,7 +11,7 @@ class QuizQuestionUiDomainMapper(
     override fun invoke(model: QuizQuestionUiModel): QuizQuestionDomainModel {
         return QuizQuestionDomainModel(
             questionTitle = model.questionTitle,
-            answers = model.answers.map { quizAnswerUiDomainMapper(it) },
+            answers = model.answers.map { quizAnswerUiDomainMapper(it) }.toMutableList(),
             correctAnswer = quizAnswerUiDomainMapper(model.correctAnswer),
             subjectId = model.subjectId,
             questionIndex = model.questionIndex

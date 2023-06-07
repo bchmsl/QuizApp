@@ -1,70 +1,54 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.extensions.utils.onError
-import com.space.quizapp.common.extensions.utils.onSuccess
-import com.space.quizapp.domain.usecase.questions.get_questions.QuizQuestionsUseCase
+import com.space.quizapp.domain.usecase.questions.check_answers.CheckAnswersUseCase
+import com.space.quizapp.domain.usecase.questions.next_question.GetNextQuestionUseCase
+import com.space.quizapp.domain.usecase.quiz.retrieve_questions.QuizRetrieveQuestionsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
-import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
+import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerDomainUiMapper
+import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerUiDomainMapper
 import com.space.quizapp.presentation.model.quiz.mapper.question.QuizQuestionDomainUiMapper
-import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
-import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectUiDomainMapper
-import com.space.quizapp.presentation.ui.ui_question.manager.QuestionManager
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
 
 class QuizQuestionViewModel(
-    private val questionsUC: QuizQuestionsUseCase,
-    private val quizSubjectDomainUiMapper: QuizSubjectDomainUiMapper,
+    private val getNextQuestionUC: GetNextQuestionUseCase,
+    private val checkAnswersUC: CheckAnswersUseCase,
+    private val retrieveQuestionsUC: QuizRetrieveQuestionsUseCase,
     private val quizQuestionDomainUiMapper: QuizQuestionDomainUiMapper,
-    private val quizSubjectUiDomainMapper: QuizSubjectUiDomainMapper,
-    private val questionManager: QuestionManager
+    private val quizAnswerUiDomainMapper: QuizAnswerUiDomainMapper,
+    private val quizAnswerDomainUiMapper: QuizAnswerDomainUiMapper
 ) : QuizBaseViewModel() {
 
-    private val _questionsState = MutableStateFlow<QuizQuestionUiModel?>(null)
-    val questionsState get() = _questionsState.asStateFlow()
+    private val _questionState = MutableStateFlow<QuizQuestionUiModel?>(null)
+    val questionState get() = _questionState.asStateFlow()
 
-    private val _checkedAnswerState =
+    private val _checkedAnswersState =
         MutableStateFlow<List<QuizQuestionUiModel.QuizAnswerUiModel>?>(null)
-    val checkedAnswerState get() = _checkedAnswerState.asStateFlow()
+    val checkedAnswersState get() = _checkedAnswersState.asStateFlow()
 
     fun getNextQuestion() {
-        executeAsync {
-            questionManager.getNextQuestion()?.let {
-                _questionsState.emit(quizQuestionDomainUiMapper(it))
-            }
+        executeAsync(Main) {
+            val question = getNextQuestionUC()
+            _questionState.emit(quizQuestionDomainUiMapper(question))
         }
     }
 
     fun checkAnswer(
-        submittedAnswer: String,
-        answers: MutableList<QuizQuestionUiModel.QuizAnswerUiModel>
+        submittedAnswer: QuizQuestionUiModel.QuizAnswerUiModel
     ) {
-        executeAsync {
-            questionManager.getCheckedAnswersList(submittedAnswer, answers)
+        executeAsync(Main) {
+            val answersList = checkAnswersUC(quizAnswerUiDomainMapper(submittedAnswer))
+            _checkedAnswersState.emit(answersList.map { quizAnswerDomainUiMapper(it) })
         }
     }
 
-    private suspend fun retrieveQuestions(): Flow<List<QuizSubjectUiModel>> = flow {
-        val resource = questionsUC()
-        resource.onSuccess { data ->
-            emit(data.map { quizSubjectDomainUiMapper(it) })
-        }.onError { error ->
-            emitError(error)
-        }
-    }
-
-    fun getQuestions(category: String) {
-        executeAsync {
-            retrieveQuestions().collect { questions ->
-                with(questionManager) {
-                    submitQuestionsList(questions.map { quizSubjectUiDomainMapper(it) })
-                    selectCategory(category)
-                }
-            }
+    fun retrieveQuestions(subjectId: Int) {
+        executeAsync(IO) {
+            retrieveQuestionsUC(subjectId)
             getNextQuestion()
         }
     }

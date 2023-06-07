@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.space.quizapp.databinding.QuizItemAnswerOptionBinding
 import com.space.quizapp.presentation.base.adapter.BaseAdapter
-import com.space.quizapp.presentation.model.quiz.QuizAnswerUiModel
+import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
-class AnswersAdapter : BaseAdapter<QuizAnswerUiModel>() {
+class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHolder<QuizAnswerUiModel> =
+    ): BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel> =
         AnswerViewHolder(
             QuizItemAnswerOptionBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -21,10 +21,10 @@ class AnswersAdapter : BaseAdapter<QuizAnswerUiModel>() {
         )
 
     class AnswerViewHolder(private val binding: QuizItemAnswerOptionBinding) :
-        BaseViewHolder<QuizAnswerUiModel>(binding) {
+        BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel>(binding) {
         override fun onBind(
-            item: QuizAnswerUiModel,
-            onClickCallback: ((QuizAnswerUiModel) -> Unit)?
+            item: QuizQuestionUiModel.QuizAnswerUiModel,
+            onClickCallback: ((QuizQuestionUiModel.QuizAnswerUiModel) -> Unit)?
         ) {
             binding.root.setContent(item.answerOption)
             binding.root.setSelection(item.selectedState)

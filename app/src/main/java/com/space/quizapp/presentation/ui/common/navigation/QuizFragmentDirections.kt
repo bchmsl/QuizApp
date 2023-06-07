@@ -11,14 +11,20 @@ enum class QuizFragmentDirections(val directions: NavDirections) {
     POINTS(NavGraphDirections.actionGlobalPointsFragment());
 
     fun addArgument(argument: String) {
-        this.directions.arguments.putString(TAG, argument)
+        this.directions.arguments.putString(TAG_STRING, argument)
     }
 
     fun addArgument(argument: Parcelable) {
-        this.directions.arguments.putParcelable(TAG, argument)
+        this.directions.arguments.putParcelable(TAG_PARCELABLE, argument)
+    }
+
+    fun addArgument(argument: Int) {
+        this.directions.arguments.putInt(TAG_INT, argument)
     }
 
     companion object {
-        const val TAG = "extra_tag"
+        const val TAG_STRING = "extra_tag_string"
+        const val TAG_INT = "extra_tag_int"
+        const val TAG_PARCELABLE = "extra_tag_parcelable"
     }
 }

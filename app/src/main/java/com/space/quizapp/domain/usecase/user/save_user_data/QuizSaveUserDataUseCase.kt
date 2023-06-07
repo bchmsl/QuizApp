@@ -7,5 +7,5 @@ import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import org.koin.java.KoinJavaComponent.inject
 
 abstract class QuizSaveUserDataUseCase : QuizBaseUseCase<QuizUserDomainModel, QuizValidateUser>() {
-    override val repository by inject<QuizUserDataRepository>(QuizUserDataRepository::class.java)
+    protected val repository by inject<QuizUserDataRepository>(QuizUserDataRepository::class.java)
 }

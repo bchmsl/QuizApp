@@ -6,5 +6,5 @@ import org.koin.java.KoinJavaComponent.inject
 
 
 abstract class QuizReadUserTokenUseCase : QuizBaseUseCase<Unit, String>() {
-    override val repository by inject<QuizUserTokenRepository>(QuizUserTokenRepository::class.java)
+    protected val repository by inject<QuizUserTokenRepository>(QuizUserTokenRepository::class.java)
 }
