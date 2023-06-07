@@ -51,8 +51,7 @@ class QuizRepositoryImpl(
     override suspend fun getLocalQuestionsBySubject(
         subjectId: Int
     ): List<QuizQuestionDomainModel> {
-        val list = dao.retrieveQuestionsBySubjectId(subjectId)
+        return dao.retrieveQuestionsBySubjectId(subjectId)
             .map { quizQuestionEntityDomainMapper(it) }
-        return list
     }
 }

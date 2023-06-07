@@ -38,7 +38,7 @@ class QuizAnswerOptionView(
 
     private fun selectedCorrect() {
         with(binding) {
-            root.setBackgroundColor(context.getColor(C.success))
+            root.backgroundTintList = ColorStateList.valueOf(context.getColor(C.success))
             optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
             starsTextView.visibility = View.VISIBLE
             starsTextView.text = "+1"
@@ -47,7 +47,7 @@ class QuizAnswerOptionView(
 
     private fun selectedIncorrect() {
         with(binding) {
-            root.setBackgroundColor(context.getColor(C.wrong))
+            root.backgroundTintList = ColorStateList.valueOf(context.getColor(C.wrong))
             optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
             starsTextView.visibility = View.GONE
         }

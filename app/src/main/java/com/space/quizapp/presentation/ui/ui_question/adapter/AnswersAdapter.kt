@@ -28,7 +28,10 @@ class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
         ) {
             binding.root.setContent(item.answerOption)
             binding.root.setSelection(item.selectedState)
+
+            binding.root.setOnClickListener {
+                onClickCallback?.invoke(item)
+            }
         }
     }
-
 }
