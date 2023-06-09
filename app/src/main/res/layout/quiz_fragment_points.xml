@@ -17,6 +17,7 @@
         android:id="@+id/creditSubjectsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:itemCount="3"
         tools:listitem="@layout/quiz_view_subject"
         tools:visibility="gone" />
@@ -28,6 +29,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/dimen_80_dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/not_earned_warning"
         android:textSize="@dimen/dimen_18_sp"
         tools:visibility="visible" />

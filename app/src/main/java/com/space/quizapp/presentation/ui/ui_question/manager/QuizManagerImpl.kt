@@ -32,7 +32,4 @@ class QuizManagerImpl : QuizManager() {
         }
         return currentQuestion.answers
     }
-
-    companion object {
-    }
 }

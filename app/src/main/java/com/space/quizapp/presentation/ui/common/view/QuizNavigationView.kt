@@ -14,6 +14,18 @@ class QuizNavigationView(
     private val binding =
         QuizViewNavigationBinding.inflate(LayoutInflater.from(context), this, true)
 
+
+    private var backButtonCallback: (() -> Unit)? = null
+    fun onBackButtonPressed(block: () -> Unit) {
+        closeButtonCallback = block
+    }
+
+    private var closeButtonCallback: (() -> Unit)? = null
+    fun onCloseButtonPressed(block: () -> Unit) {
+        closeButtonCallback = block
+    }
+
+
     fun setContent(title: String, closeAvailable: Boolean, backAvailable: Boolean) {
         binding.navTitleTextView.text = title
         setCloseAvailable(closeAvailable)
@@ -26,6 +38,9 @@ class QuizNavigationView(
         } else {
             View.INVISIBLE
         }
+        binding.navExitImageButton.setOnClickListener {
+            closeButtonCallback?.invoke()
+        }
     }
 
     private fun setBackAvailable(backAvailable: Boolean) {
@@ -33,6 +48,9 @@ class QuizNavigationView(
             View.VISIBLE
         } else {
             View.INVISIBLE
+        }
+        binding.navBackImageButton.setOnClickListener {
+            backButtonCallback?.invoke()
         }
     }
 

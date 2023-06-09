@@ -39,7 +39,6 @@ class QuizStartViewModel(
             if (token != QuizUserDataStoreManager.EMPTY_STRING) {
                 navigate(QuizFragmentDirections.HOME)
             }
-
         }
     }
 }

@@ -22,7 +22,7 @@ fun <T : Any?> Fragment.collectAsync(
 }
 
 fun Fragment.executeAsync(
-    coroutineContext: CoroutineContext = Dispatchers.Unconfined,
+    coroutineContext: CoroutineContext = Dispatchers.Main,
     lifecycleState: Lifecycle.State = Lifecycle.State.RESUMED,
     block: suspend CoroutineScope.() -> Unit
 ) {
@@ -34,7 +34,7 @@ fun Fragment.executeAsync(
 }
 
 fun ViewModel.executeAsync(
-    coroutineContext: CoroutineContext = Dispatchers.Unconfined,
+    coroutineContext: CoroutineContext = Dispatchers.Main,
     block: suspend CoroutineScope.() -> Unit
 ) {
     viewModelScope.launch(coroutineContext) {

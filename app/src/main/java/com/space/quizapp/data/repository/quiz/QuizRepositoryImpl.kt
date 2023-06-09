@@ -23,24 +23,23 @@ class QuizRepositoryImpl(
     private val quizQuestionDomainEntityMapper: QuizQuestionDomainEntityMapper,
     private val quizSubjectEntityDomainMapper: QuizSubjectEntityDomainMapper,
     private val quizQuestionEntityDomainMapper: QuizQuestionEntityDomainMapper
-) : QuizRepository() {
+) : QuizRepository(), ApiHelper {
 
-    private val apiHelper = object : ApiHelper {}
 
     override suspend fun retrieveSubjects(): List<QuizSubjectDomainModel> {
-        val quizResource = apiHelper.retrofitCall { api.retrieveQuestions() }
-        quizResource.onSuccess { data ->
-            dao.insertSubjects(data
-                .map { quizSubjectDtoDomainMapper(it) }
-                .map { quizSubjectDomainEntityMapper(it) }
-            )
-            data.forEach { subject ->
-                dao.insertQuestions(subject.questions
-                    .map { quizQuestionDtoDomainMapper(it) }
-                    .map { quizQuestionDomainEntityMapper(it) }
+        retrofitCall { api.retrieveQuestions() }
+            .onSuccess { data ->
+                dao.insertSubjects(data
+                    .map { quizSubjectDtoDomainMapper(it) }
+                    .map { quizSubjectDomainEntityMapper(it) }
                 )
+                data.forEach { subject ->
+                    dao.insertQuestions(subject.questions
+                        .map { quizQuestionDtoDomainMapper(it) }
+                        .map { quizQuestionDomainEntityMapper(it) }
+                    )
+                }
             }
-        }
         return getLocalSubjects()
     }
 
