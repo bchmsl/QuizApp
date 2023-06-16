@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.di
 
+import com.space.quizapp.domain.di.QuizUseCaseNames
 import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerDomainUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerUiDomainMapper
 import com.space.quizapp.presentation.model.quiz.mapper.question.QuizQuestionDomainUiMapper
@@ -16,25 +17,26 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel {
         QuizStartViewModel(
-            get(),
-            get(),
+            get(QuizUseCaseNames.SAVE_USER_DATA),
+            get(QuizUseCaseNames.READ_USER_TOKEN),
             QuizUserUiDomainMapper()
         )
     }
     viewModel {
         QuizHomeViewModel(
-            get(),
-            get(),
+            get(QuizUseCaseNames.READ_USER_DATA),
+            get(QuizUseCaseNames.SAVE_USER_TOKEN),
+            get(QuizUseCaseNames.RETRIEVE_SUBJECTS),
             QuizUserDomainUiMapper(),
-            QuizSubjectDomainUiMapper(),
-            get()
+            QuizSubjectDomainUiMapper()
         )
     }
     viewModel {
         QuizQuestionViewModel(
-            get(),
-            get(),
-            get(),
+            get(QuizUseCaseNames.GET_NEXT_QUESTION),
+            get(QuizUseCaseNames.CHECK_ANSWERS),
+            get(QuizUseCaseNames.RETRIEVE_QUESTIONS),
+            get(QuizUseCaseNames.GET_POINTS),
             QuizQuestionDomainUiMapper(QuizAnswerDomainUiMapper()),
             QuizAnswerUiDomainMapper(),
             QuizAnswerDomainUiMapper()

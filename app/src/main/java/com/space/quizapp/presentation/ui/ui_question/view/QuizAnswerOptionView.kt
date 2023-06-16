@@ -32,16 +32,24 @@ class QuizAnswerOptionView(
             QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrect()
             QuizAnswerSelectedState.ANSWER_SELECTED_INCORRECT -> selectedIncorrect()
             QuizAnswerSelectedState.ANSWER_UNSELECTED -> unselected()
+            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT_POINTS -> selectedCorrectPoints(1)
         }
 
+    }
+
+    private fun selectedCorrectPoints(pointAmount: Int) {
+        selectedCorrect()
+        with(binding) {
+            starsTextView.visibility = View.VISIBLE
+            starsTextView.text = "+".plus("$pointAmount")
+        }
     }
 
     private fun selectedCorrect() {
         with(binding) {
             root.backgroundTintList = ColorStateList.valueOf(context.getColor(C.success))
             optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
-            starsTextView.visibility = View.VISIBLE
-            starsTextView.text = "+1"
+            starsTextView.visibility = View.GONE
         }
     }
 

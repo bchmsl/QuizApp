@@ -4,7 +4,6 @@ import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 
 class QuizManagerImpl : QuizManager() {
-    private var index = -1
     override suspend fun getNextQuestion(): QuizQuestionDomainModel {
         if (index < lastIndex) {
             index += 1
@@ -23,7 +22,8 @@ class QuizManagerImpl : QuizManager() {
             currentQuestion.answers.indexOf(currentQuestion.answers.find { it.answerOption == answer.answerOption })
         if (isCorrect) {
             currentQuestion.answers[currentInAnswersIndex] =
-                answer.copy(selectedState = QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT)
+                answer.copy(selectedState = QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT_POINTS)
+            points += 1
         } else {
             currentQuestion.answers[currentInAnswersIndex] =
                 answer.copy(selectedState = QuizAnswerSelectedState.ANSWER_SELECTED_INCORRECT)

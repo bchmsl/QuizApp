@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_39_dp"
             android:gravity="center"
-            android:paddingVertical="@dimen/dimen_5_dp"
+            android:paddingVertical="@dimen/dimen_10_dp"
             android:text="@string/close"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/dimen_14_sp"

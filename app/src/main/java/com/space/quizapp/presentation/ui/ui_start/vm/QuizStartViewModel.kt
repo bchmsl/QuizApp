@@ -4,8 +4,8 @@ import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.common.util.QuizValidateUser
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
-import com.space.quizapp.domain.usecase.user.read_user_token.QuizReadUserTokenUseCase
-import com.space.quizapp.domain.usecase.user.save_user_data.QuizSaveUserDataUseCase
+import com.space.quizapp.domain.model.user.QuizUserDomainModel
+import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserUiDomainMapper
@@ -13,8 +13,9 @@ import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirection
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizStartViewModel(
-    private val saveUserDataUC: QuizSaveUserDataUseCase,
-    private val readUserTokenUC: QuizReadUserTokenUseCase,
+    private val saveUserDataUC: QuizBaseUseCase<QuizUserDomainModel, QuizValidateUser>,
+    private val readUserTokenUC: QuizBaseUseCase<Unit, String>,
+
     private val userUiDomainMapper: QuizUserUiDomainMapper
 ) : QuizBaseViewModel() {
 
@@ -30,7 +31,6 @@ class QuizStartViewModel(
             }
             emitError(error?.let { QuizCustomThrowable(it) })
         }
-
     }
 
     fun checkUserToken() {

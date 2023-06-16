@@ -17,7 +17,7 @@ class QuizNavigationView(
 
     private var backButtonCallback: (() -> Unit)? = null
     fun onBackButtonPressed(block: () -> Unit) {
-        closeButtonCallback = block
+        backButtonCallback = block
     }
 
     private var closeButtonCallback: (() -> Unit)? = null

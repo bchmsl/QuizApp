@@ -8,15 +8,17 @@ enum class QuizValidateUser(@StringRes val message: Int) {
     INVALID_LENGTH_SHORT(S.message_error_length_short),
     INVALID_CONTAINING(S.message_error_containing_symbol);
 
-
     companion object {
         fun validate(s: String): QuizValidateUser {
             return when {
-                s.length <= 3 -> INVALID_LENGTH_SHORT
-                s.length > 20 -> INVALID_LENGTH_LONG
+                s.length < MINIMUM_LENGTH -> INVALID_LENGTH_SHORT
+                s.length > MAXIMUM_LENGTH -> INVALID_LENGTH_LONG
                 !s.contains(Regex(QuizRegex.USERNAME_PATTERN)) -> INVALID_CONTAINING
                 else -> VALID
             }
         }
+
+        private const val MINIMUM_LENGTH = 2
+        private const val MAXIMUM_LENGTH = 20
     }
 }

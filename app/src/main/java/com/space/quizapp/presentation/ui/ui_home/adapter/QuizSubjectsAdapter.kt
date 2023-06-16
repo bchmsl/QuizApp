@@ -35,7 +35,7 @@ class QuizSubjectsAdapter :
             with(binding) {
                 root.setContent(model.quizTitle, model.quizDescription, model.quizIcon)
                 root.setPointsCount()
-                root.setOnClickListener {
+                root.setCustomClickListener {
                     itemCallback?.invoke(model)
                 }
             }

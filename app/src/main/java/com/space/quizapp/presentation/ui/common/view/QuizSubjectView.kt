@@ -3,6 +3,7 @@ package com.space.quizapp.presentation.ui.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import com.space.quizapp.common.extensions.utils.setImage
 import com.space.quizapp.common.util.D
@@ -30,6 +31,15 @@ class QuizSubjectView(
             subjectTitleTextView.text = title
             subjectDescriptionTextView.text = description
             iconSubjectImageView.setImage(drawable)
+        }
+    }
+
+    fun setCustomClickListener(block: (View) -> Unit) {
+        binding.root.setOnClickListener {
+            block(it)
+        }
+        binding.startButton.setOnClickListener {
+            block(it)
         }
     }
 }

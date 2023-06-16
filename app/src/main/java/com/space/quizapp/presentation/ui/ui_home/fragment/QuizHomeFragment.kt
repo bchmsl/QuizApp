@@ -59,7 +59,12 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
             scoreView.setOnClickListener {
                 navigate(QuizFragmentDirections.POINTS)
             }
-
+            subjectsSwipeRefreshLayout.setProgressViewEndTarget(false, -100)
+            subjectsSwipeRefreshLayout.setOnRefreshListener {
+                vm.retrieveUserInfo()
+                vm.retrieveSubjects()
+                subjectsSwipeRefreshLayout.isRefreshing = false
+            }
         }
         subjectsAdapter.setOnClickListener {
             vm.navigate(QuizFragmentDirections.QUESTION, it.id, it.quizTitle)

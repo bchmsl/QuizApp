@@ -47,21 +47,26 @@ class QuizQuestionFragment :
 
     override fun observe() {
         collectAsync(vm.questionState) { question ->
-            binding.questionTextView.text = question?.questionTitle
-            answersAdapter.submitList(question?.answers?.toList())
+            question?.let {
+                binding.questionTextView.text = question.questionModel.questionTitle
+                answersAdapter.submitList(question.questionModel.answers.toList())
+                binding.nextButton.text =
+                    getString(if (question.isLastQuestion) S.finish else S.next)
+                binding.nextButton.setOnClickListener(null)
+            }
         }
 
         collectAsync(vm.checkedAnswersState) {
             it?.let {
                 answersAdapter.submitList(it.toList())
             }
+            binding.nextButton.setOnClickListener {
+                vm.getNextQuestion()
+            }
         }
     }
 
     override fun setListeners() {
-        binding.nextButton.setOnClickListener {
-            vm.getNextQuestion()
-        }
         answersAdapter.onItemClickListener {
             vm.checkAnswer(it)
         }

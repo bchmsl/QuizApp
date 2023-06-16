@@ -1,9 +1,9 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.domain.usecase.questions.check_answers.CheckAnswersUseCase
-import com.space.quizapp.domain.usecase.questions.next_question.GetNextQuestionUseCase
-import com.space.quizapp.domain.usecase.quiz.retrieve_questions.QuizRetrieveQuestionsUseCase
+import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
+import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionResponse
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerDomainUiMapper
@@ -15,15 +15,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class QuizQuestionViewModel(
-    private val getNextQuestionUC: GetNextQuestionUseCase,
-    private val checkAnswersUC: CheckAnswersUseCase,
-    private val retrieveQuestionsUC: QuizRetrieveQuestionsUseCase,
+    private val getNextQuestionUC: QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel>>,
+    private val checkAnswersUC: QuizBaseUseCase<QuizQuestionDomainModel.QuizAnswerDomainModel, List<QuizQuestionDomainModel.QuizAnswerDomainModel>>,
+    private val retrieveQuestionsUC: QuizBaseUseCase<Int, Unit>,
+    private val getPointsUC: QuizBaseUseCase<Unit, Int>,
+
     private val quizQuestionDomainUiMapper: QuizQuestionDomainUiMapper,
     private val quizAnswerUiDomainMapper: QuizAnswerUiDomainMapper,
     private val quizAnswerDomainUiMapper: QuizAnswerDomainUiMapper
 ) : QuizBaseViewModel() {
 
-    private val _questionState = MutableStateFlow<QuizQuestionUiModel?>(null)
+    private val _questionState =
+        MutableStateFlow<QuizGetNextQuestionResponse<QuizQuestionUiModel>?>(null)
     val questionState get() = _questionState.asStateFlow()
 
     private val _checkedAnswersState =
@@ -33,7 +36,11 @@ class QuizQuestionViewModel(
     fun getNextQuestion() {
         executeAsync(Main) {
             val question = getNextQuestionUC()
-            _questionState.emit(quizQuestionDomainUiMapper(question))
+            val questionUi = QuizGetNextQuestionResponse(
+                quizQuestionDomainUiMapper(question.questionModel),
+                question.isLastQuestion
+            )
+            _questionState.emit(questionUi)
         }
     }
 
