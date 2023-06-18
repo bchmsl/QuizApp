@@ -13,7 +13,7 @@ class QuizUserSubjectRepositoryImpl(
         val userSubjectEntity = userSubjectEntityMapper.toEntity(userSubjectDomainModel)
         val oldSubject = userSubjectsDao.getUserSubjectByIdIfExists(
             userSubjectEntity.username,
-            userSubjectEntity.subjectId
+            userSubjectEntity.quizTitle
         )
         if (oldSubject == null) {
             userSubjectsDao.insertUserSubject(userSubjectEntity)

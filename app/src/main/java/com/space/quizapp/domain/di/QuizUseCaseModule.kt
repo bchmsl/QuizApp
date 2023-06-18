@@ -99,11 +99,13 @@ val useCaseModule = module {
         )
     }
 
-    single<QuizBaseUseCase<String, List<QuizUserSubjectDomainModel>>>(
+    single<QuizBaseUseCase<Unit, List<QuizUserSubjectDomainModel>>>(
         QuizUseCaseNames.READ_USER_SUBJECTS
     ) {
         QuizReadUserSubjectsUseCase(
-            repository = get()
+            readUserDataUC = get(QuizUseCaseNames.READ_USER_DATA),
+            userSubjectRepository = get(),
+            subjectRepository = get()
         )
     }
 

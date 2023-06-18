@@ -8,8 +8,10 @@ class QuizUserSubjectUiMapper : QuizUiMapper<QuizUserSubjectUiModel, QuizUserSub
     override fun toDomain(model: QuizUserSubjectUiModel): QuizUserSubjectDomainModel {
         return with(model) {
             QuizUserSubjectDomainModel(
-                subjectId = subjectId,
-                score = score
+                quizTitle = quizTitle,
+                score = score,
+                quizDescription = quizDescription,
+                quizIcon = quizIcon
             )
         }
     }
@@ -17,8 +19,10 @@ class QuizUserSubjectUiMapper : QuizUiMapper<QuizUserSubjectUiModel, QuizUserSub
     override fun toUi(model: QuizUserSubjectDomainModel): QuizUserSubjectUiModel {
         return with(model) {
             QuizUserSubjectUiModel(
-                subjectId = subjectId,
-                score = score
+                quizTitle = quizTitle,
+                score = score,
+                quizIcon = quizIcon,
+                quizDescription = quizDescription
             )
         }
     }

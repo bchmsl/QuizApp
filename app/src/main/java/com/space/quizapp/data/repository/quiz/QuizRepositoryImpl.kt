@@ -48,4 +48,8 @@ class QuizRepositoryImpl(
         return subjectsDao.retrieveQuestionsBySubjectId(subjectId)
             .map { questionEntityMapper.toDomain(it) }
     }
+
+    override suspend fun retrieveLocalSubjectByTitle(quizTitle: String): QuizSubjectDomainModel {
+        return subjectEntityMapper.toDomain(subjectsDao.getSubjectByTitle(quizTitle))
+    }
 }

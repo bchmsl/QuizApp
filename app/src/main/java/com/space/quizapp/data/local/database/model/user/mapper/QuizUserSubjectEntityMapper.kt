@@ -10,7 +10,7 @@ class QuizUserSubjectEntityMapper :
         return with(model) {
             QuizUserSubjectDomainModel(
                 username = username,
-                subjectId = subjectId,
+                quizTitle = quizTitle,
                 score = score
             )
         }
@@ -21,7 +21,7 @@ class QuizUserSubjectEntityMapper :
             QuizUserSubjectEntity(
                 id = 0,
                 username = username,
-                subjectId = subjectId,
+                quizTitle = quizTitle,
                 score = score
             )
         }

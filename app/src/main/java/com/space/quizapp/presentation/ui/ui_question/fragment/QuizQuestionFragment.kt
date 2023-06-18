@@ -71,6 +71,7 @@ class QuizQuestionFragment :
         collectAsync(vm.pointsState) {
             it?.let {
                 showAlertDialog(it)
+                vm.saveUserSubject(subject, it)
             }
         }
     }
@@ -100,7 +101,11 @@ class QuizQuestionFragment :
 
     private fun showAlertDialog(score: Int) {
         alertDialog
-            .setContent(score.toString())
+            .setContent(
+                getString(S.emoji_congrats),
+                getString(S.congrats),
+                String.format(getString(S.you_earned_points), score)
+            )
             .onButtonClick {
                 vm.navigate(QuizFragmentDirections.HOME)
                 alertDialog.dismiss()

@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
-import android.util.Log
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
@@ -41,7 +40,6 @@ class QuizQuestionViewModel(
             val question = getNextQuestionUC()
             if (question.questionModel == null) {
                 val points = getPointsUC()
-                saveUserSubject(questionState.value!!.questionModel.subjectId, points)
                 _pointsState.emit(points)
                 return@executeAsync
             }
@@ -69,10 +67,9 @@ class QuizQuestionViewModel(
         }
     }
 
-    private fun saveUserSubject(subjectId: Int, score: Int) {
+    fun saveUserSubject(quizTitle: String, score: Int) {
         executeAsync(IO) {
-            Log.d("TAG", subjectId.toString())
-            saveUserSubjectUC(QuizUserSubjectDomainModel(subjectId = subjectId, score = score))
+            saveUserSubjectUC(QuizUserSubjectDomainModel(quizTitle = quizTitle, score = score))
         }
     }
 }

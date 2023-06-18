@@ -37,6 +37,9 @@ val viewModelModule = module {
         )
     }
     viewModel {
-        QuizPointsViewModel()
+        QuizPointsViewModel(
+            readUserSubjectsUC = get(QuizUseCaseNames.READ_USER_SUBJECTS),
+            userSubjectsMapper = get()
+        )
     }
 }

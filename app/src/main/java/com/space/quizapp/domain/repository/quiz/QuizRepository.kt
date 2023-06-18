@@ -10,4 +10,6 @@ abstract class QuizRepository : BaseRepository() {
     abstract suspend fun getLocalQuestionsBySubjectId(
         subjectId: Int
     ): List<QuizQuestionDomainModel>
+
+    abstract suspend fun retrieveLocalSubjectByTitle(quizTitle: String): QuizSubjectDomainModel
 }

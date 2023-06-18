@@ -50,8 +50,9 @@
             android:id="@+id/usernameEditText"
             style="@style/Space.QuizApp.TextInputEditText.NormalEditText"
             android:layout_width="match_parent"
+            android:hint="@string/enter_name"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_name" />
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

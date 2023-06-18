@@ -15,6 +15,9 @@ interface QuizUserSubjectsDao {
     @Query("SELECT * FROM user_subject WHERE username=:username")
     suspend fun getUserSubjects(username: String): List<QuizUserSubjectEntity>
 
-    @Query("SELECT * FROM user_subject WHERE username=:username AND subjectId=:subjectId")
-    suspend fun getUserSubjectByIdIfExists(username: String, subjectId: Int): QuizUserSubjectEntity?
+    @Query("SELECT * FROM user_subject WHERE username=:username AND quizTitle=:quizTitle")
+    suspend fun getUserSubjectByIdIfExists(
+        username: String,
+        quizTitle: String
+    ): QuizUserSubjectEntity?
 }

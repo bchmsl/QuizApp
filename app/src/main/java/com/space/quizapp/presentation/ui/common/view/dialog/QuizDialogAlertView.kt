@@ -9,9 +9,15 @@ class QuizDialogAlertView(context: Context) : QuizDialogView(context) {
         QuizLayoutDialogAlertBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setContent(
-        message: String
+        title: String,
+        message: String,
+        description: String
     ): QuizDialogAlertView {
-        binding.messageTextView.text = message
+        with(binding) {
+            titleTextView.text = title
+            messageTextView.text = message
+            descriptionTextView.text = description
+        }
         alertDialog.setView(this)
         return this
     }

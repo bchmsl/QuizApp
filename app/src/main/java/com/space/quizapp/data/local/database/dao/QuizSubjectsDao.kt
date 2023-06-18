@@ -13,6 +13,9 @@ interface QuizSubjectsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuestions(questions: List<QuizQuestionEntity>)
 
+    @Query("SELECT * FROM subjects WHERE quizTitle=:quizTitle")
+    suspend fun getSubjectByTitle(quizTitle: String): QuizSubjectEntity
+
     @Query("SELECT * FROM subjects")
     suspend fun getSubjects(): List<QuizSubjectEntity>
 
