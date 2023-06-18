@@ -4,19 +4,17 @@ import androidx.annotation.StringRes
 
 class QuizCustomThrowable() : Throwable() {
 
-    @StringRes
-    private var _errorResource: Int? = null
-    val errorResource get() = _errorResource
+    var errorResource: Int? = null
+        private set
 
-    private var _errorString: String? = null
-    val errorString get() = _errorString
-
+    var errorString: String? = null
+        private set
 
     constructor(@StringRes errorMessage: Int) : this() {
-        this._errorResource = errorMessage
+        this.errorResource = errorMessage
     }
 
     constructor(errorMessage: String?) : this() {
-        this._errorString = errorMessage.toString()
+        this.errorString = errorMessage.toString()
     }
 }

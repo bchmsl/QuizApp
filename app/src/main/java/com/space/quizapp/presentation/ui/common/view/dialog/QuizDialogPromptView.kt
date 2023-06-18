@@ -34,7 +34,6 @@ class QuizDialogPromptView(context: Context) : QuizDialogView(context) {
     fun onNegativeButtonListener(block: () -> Unit): QuizDialogPromptView {
         binding.negativeButton.setOnClickListener {
             block.invoke()
-
         }
         dismiss()
         return this

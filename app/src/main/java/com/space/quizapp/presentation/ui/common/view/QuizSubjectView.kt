@@ -16,13 +16,13 @@ class QuizSubjectView(
     private val binding = QuizViewSubjectBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setPointsCount(points: Int? = null) {
-        with(binding) {
+        with(binding.startButton) {
             points?.let { points ->
-                startButton.setCompoundDrawables(null, null, null, null)
-                startButton.text = points.toString()
+                setCompoundDrawables(null, null, null, null)
+                text = points.toString()
                 return
             }
-            startButton.setIconResource(D.quiz_ic_next)
+            setIconResource(D.quiz_ic_next)
         }
     }
 
@@ -35,11 +35,13 @@ class QuizSubjectView(
     }
 
     fun setCustomClickListener(block: (View) -> Unit) {
-        binding.root.setOnClickListener {
-            block(it)
-        }
-        binding.startButton.setOnClickListener {
-            block(it)
+        with(binding) {
+            root.setOnClickListener {
+                block(it)
+            }
+            startButton.setOnClickListener {
+                block(it)
+            }
         }
     }
 }

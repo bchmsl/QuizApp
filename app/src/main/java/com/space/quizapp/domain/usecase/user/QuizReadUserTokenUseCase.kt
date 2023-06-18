@@ -8,6 +8,6 @@ class QuizReadUserTokenUseCase(
 ) : QuizBaseUseCase<Unit, String>() {
 
     override suspend fun invoke(params: Unit?): String {
-        return repository.getUserToken()
+        return repository.retrieveUserToken()
     }
 }

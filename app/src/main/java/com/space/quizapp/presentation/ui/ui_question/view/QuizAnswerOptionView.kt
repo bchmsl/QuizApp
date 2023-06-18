@@ -5,8 +5,9 @@ import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
+import com.space.quizapp.common.extensions.utils.gone
+import com.space.quizapp.common.extensions.utils.visible
 import com.space.quizapp.common.util.C
 import com.space.quizapp.databinding.QuizViewAnswerOptionBinding
 import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
@@ -39,9 +40,9 @@ class QuizAnswerOptionView(
 
     private fun selectedCorrectPoints(pointAmount: Int) {
         selectedCorrect()
-        with(binding) {
-            starsTextView.visibility = View.VISIBLE
-            starsTextView.text = "+".plus("$pointAmount")
+        with(binding.starsTextView) {
+            visible()
+            text = "+".plus("$pointAmount")
         }
     }
 
@@ -49,7 +50,7 @@ class QuizAnswerOptionView(
         with(binding) {
             root.backgroundTintList = ColorStateList.valueOf(context.getColor(C.success))
             optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
-            starsTextView.visibility = View.GONE
+            starsTextView.gone()
         }
     }
 
@@ -57,7 +58,7 @@ class QuizAnswerOptionView(
         with(binding) {
             root.backgroundTintList = ColorStateList.valueOf(context.getColor(C.wrong))
             optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
-            starsTextView.visibility = View.GONE
+            starsTextView.gone()
         }
     }
 
@@ -66,7 +67,7 @@ class QuizAnswerOptionView(
             root.backgroundTintList =
                 ColorStateList.valueOf(context.getColor(C.neutral_03_light_grey))
             optionTitleTextView.setTextColor(context.getColor(C.black))
-            starsTextView.visibility = View.GONE
+            starsTextView.gone()
         }
     }
 }

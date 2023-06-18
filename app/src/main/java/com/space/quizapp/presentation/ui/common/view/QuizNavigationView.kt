@@ -3,8 +3,9 @@ package com.space.quizapp.presentation.ui.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
+import com.space.quizapp.common.extensions.utils.invisible
+import com.space.quizapp.common.extensions.utils.visible
 import com.space.quizapp.databinding.QuizViewNavigationBinding
 
 class QuizNavigationView(
@@ -33,24 +34,29 @@ class QuizNavigationView(
     }
 
     private fun setCloseAvailable(closeAvailable: Boolean) {
-        binding.navExitImageButton.visibility = if (closeAvailable) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
-        }
-        binding.navExitImageButton.setOnClickListener {
-            closeButtonCallback?.invoke()
+        with(binding.navExitImageButton) {
+            if (closeAvailable) {
+                visible()
+            } else {
+                invisible()
+            }
+            setOnClickListener {
+                closeButtonCallback?.invoke()
+            }
+
         }
     }
 
     private fun setBackAvailable(backAvailable: Boolean) {
-        binding.navBackImageButton.visibility = if (backAvailable) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
-        }
-        binding.navBackImageButton.setOnClickListener {
-            backButtonCallback?.invoke()
+        with(binding.navBackImageButton) {
+            if (backAvailable) {
+                visible()
+            } else {
+                invisible()
+            }
+            setOnClickListener {
+                backButtonCallback?.invoke()
+            }
         }
     }
 

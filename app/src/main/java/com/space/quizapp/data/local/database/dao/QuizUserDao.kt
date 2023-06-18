@@ -12,8 +12,8 @@ interface QuizUserDao {
     suspend fun saveUser(user: QuizUserEntity)
 
     @Query("SELECT * FROM users WHERE token=:token")
-    fun retrieveUserInfo(token: String): QuizUserEntity
+    fun getUser(token: String): QuizUserEntity
 
     @Query("SELECT token FROM users WHERE username=:username")
-    suspend fun checkUser(username: String): String?
+    suspend fun getUserTokenOrNull(username: String): String?
 }

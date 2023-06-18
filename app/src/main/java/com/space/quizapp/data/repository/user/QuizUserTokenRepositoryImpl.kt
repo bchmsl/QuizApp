@@ -12,7 +12,7 @@ class QuizUserTokenRepositoryImpl(
         userDataStoreManager.saveValue(token)
     }
 
-    override suspend fun getUserToken(): String {
+    override suspend fun retrieveUserToken(): String {
         return userDataStoreManager.readValue().first()
     }
 }

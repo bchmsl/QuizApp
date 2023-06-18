@@ -12,10 +12,9 @@ class QuizReadUserDataUseCase(
 
     override suspend fun invoke(params: Unit?): QuizUserDomainModel {
         val userToken = readUserTokenUC()
-        if (userToken != EMPTY_STRING) {
-            return repository.retrieveUserInfo(userToken)
-        } else {
-            throw RuntimeException("User Token Not Found")
+        return when {
+            userToken != EMPTY_STRING -> repository.retrieveUser(userToken)
+            else -> throw RuntimeException("User Token Not Found")
         }
     }
 }

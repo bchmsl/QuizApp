@@ -1,7 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_points.fragment
 
-import android.view.View
 import androidx.activity.addCallback
+import com.space.quizapp.common.extensions.utils.visible
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentPointsBinding
@@ -25,7 +25,7 @@ class QuizPointsFragment :
     override fun onBind() {
         binding.navigationView.setContent(getString(S.points_earned), false, true)
         binding.notEarnedTextView.text = getString(S.not_earned_warning)
-        binding.notEarnedTextView.visibility = View.VISIBLE
+        binding.notEarnedTextView.visible()
     }
 
     override fun setListeners() {

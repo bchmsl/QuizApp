@@ -48,11 +48,13 @@ class QuizQuestionFragment :
     override fun observe() {
         collectAsync(vm.questionState) { question ->
             question?.let {
-                binding.questionTextView.text = question.questionModel.questionTitle
-                answersAdapter.submitList(question.questionModel.answers.toList())
-                binding.nextButton.text =
-                    getString(if (question.isLastQuestion) S.finish else S.next)
-                binding.nextButton.setOnClickListener(null)
+                with(binding) {
+                    questionTextView.text = it.questionModel.questionTitle
+                    answersAdapter.submitList(it.questionModel.answers.toList())
+                    nextButton.text =
+                        getString(if (it.isLastQuestion) S.finish else S.next)
+                    nextButton.setOnClickListener(null)
+                }
             }
         }
 

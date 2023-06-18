@@ -12,7 +12,7 @@ class QuizRetrieveQuestionsUseCase(
 ) : QuizBaseUseCase<Int, Unit>() {
 
     override suspend fun invoke(subjectId: Int?) {
-        val questions = repository.getLocalQuestionsBySubject(subjectId!!)
+        val questions = repository.getLocalQuestionsBySubjectId(subjectId!!)
         withContext(Main) {
             manager.submitQuestions(questions)
         }

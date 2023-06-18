@@ -14,12 +14,12 @@ class QuizUserDataRepositoryImpl(
         userDao.saveUser(userMapper.toEntity(userDomainModel))
     }
 
-    override suspend fun retrieveUserInfo(token: String): QuizUserDomainModel {
-        return userMapper.toDomain(userDao.retrieveUserInfo(token))
+    override suspend fun retrieveUser(token: String): QuizUserDomainModel {
+        return userMapper.toDomain(userDao.getUser(token))
     }
 
-    override suspend fun getUserTokenIfExists(username: String): String? {
-        return userDao.checkUser(username)
+    override suspend fun getUserTokenOrNull(username: String): String? {
+        return userDao.getUserTokenOrNull(username)
     }
 
 }

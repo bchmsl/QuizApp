@@ -13,6 +13,4 @@ data class QuizQuestionEntity(
     val correctAnswer: String = "",
     val subjectId: Int,
     val questionIndex: Int = -1
-) {
-
-}
+)

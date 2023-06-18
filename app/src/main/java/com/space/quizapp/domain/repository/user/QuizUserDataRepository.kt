@@ -5,6 +5,6 @@ import com.space.quizapp.domain.model.user.QuizUserDomainModel
 
 abstract class QuizUserDataRepository : BaseRepository() {
     abstract suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel)
-    abstract suspend fun retrieveUserInfo(token: String): QuizUserDomainModel
-    abstract suspend fun getUserTokenIfExists(username: String): String?
+    abstract suspend fun retrieveUser(token: String): QuizUserDomainModel
+    abstract suspend fun getUserTokenOrNull(username: String): String?
 }

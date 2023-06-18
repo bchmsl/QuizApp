@@ -25,5 +25,3 @@ abstract class QuizDialogView(context: Context) :
         alertDialog.dismiss()
     }
 }
-
-

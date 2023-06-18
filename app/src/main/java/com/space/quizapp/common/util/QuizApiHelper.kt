@@ -3,7 +3,7 @@ package com.space.quizapp.common.util
 import com.space.quizapp.common.resource.QuizResource
 import retrofit2.Response
 
-interface ApiHelper {
+interface QuizApiHelper {
     suspend fun <DTO : Any> retrofitCall(
         call: suspend () -> Response<DTO>
     ): QuizResource<DTO> {
@@ -13,7 +13,7 @@ interface ApiHelper {
                 if (response.body() != null) {
                     QuizResource.Success(response.body()!!)
                 } else {
-                    QuizResource.Error(QuizCustomThrowable(S.error_bad_request))
+                    QuizResource.Error(QuizCustomThrowable(response.errorBody().toString()))
                 }
             } else {
                 QuizResource.Error(QuizCustomThrowable(response.message()))

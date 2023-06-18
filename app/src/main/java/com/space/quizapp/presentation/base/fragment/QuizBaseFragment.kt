@@ -90,10 +90,10 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
     open fun setError(error: QuizCustomThrowable) {
         withBinding {
             error.errorResource?.let {
-                binding.root.makeSnackbar(getString(it))
+                root.makeSnackbar(getString(it))
             }
             error.errorString?.let {
-                binding.root.makeSnackbar(it)
+                root.makeSnackbar(it)
             }
         }
     }

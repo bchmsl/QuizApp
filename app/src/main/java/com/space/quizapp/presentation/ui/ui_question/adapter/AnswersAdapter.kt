@@ -26,11 +26,12 @@ class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
             item: QuizQuestionUiModel.QuizAnswerUiModel,
             onClickCallback: ((QuizQuestionUiModel.QuizAnswerUiModel) -> Unit)?
         ) {
-            binding.root.setContent(item.answerOption)
-            binding.root.setSelection(item.selectedState)
-
-            binding.root.setOnClickListener {
-                onClickCallback?.invoke(item)
+            with(binding.root) {
+                setContent(item.answerOption)
+                setSelection(item.selectedState)
+                setOnClickListener {
+                    onClickCallback?.invoke(item)
+                }
             }
         }
     }

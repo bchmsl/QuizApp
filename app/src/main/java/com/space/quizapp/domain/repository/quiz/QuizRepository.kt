@@ -6,8 +6,8 @@ import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 
 abstract class QuizRepository : BaseRepository() {
     abstract suspend fun retrieveSubjects(): List<QuizSubjectDomainModel>
-    protected abstract suspend fun getLocalSubjects(): List<QuizSubjectDomainModel>
-    abstract suspend fun getLocalQuestionsBySubject(
+    protected abstract suspend fun retrieveLocalSubjects(): List<QuizSubjectDomainModel>
+    abstract suspend fun getLocalQuestionsBySubjectId(
         subjectId: Int
     ): List<QuizQuestionDomainModel>
 }

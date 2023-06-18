@@ -1,7 +1,7 @@
 package com.space.quizapp.data.repository.quiz
 
 import com.space.quizapp.common.extensions.utils.onSuccess
-import com.space.quizapp.common.util.ApiHelper
+import com.space.quizapp.common.util.QuizApiHelper
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.model.quiz.mapper.QuizQuestionEntityMapper
 import com.space.quizapp.data.local.database.model.quiz.mapper.QuizSubjectEntityMapper
@@ -19,7 +19,7 @@ class QuizRepositoryImpl(
     private val questionDtoMapper: QuizQuestionDtoMapper,
     private val subjectEntityMapper: QuizSubjectEntityMapper,
     private val questionEntityMapper: QuizQuestionEntityMapper
-) : QuizRepository(), ApiHelper {
+) : QuizRepository(), QuizApiHelper {
 
     override suspend fun retrieveSubjects(): List<QuizSubjectDomainModel> {
         retrofitCall { questionsApi.retrieveQuestions() }
@@ -35,14 +35,14 @@ class QuizRepositoryImpl(
                     )
                 }
             }
-        return getLocalSubjects()
+        return retrieveLocalSubjects()
     }
 
-    override suspend fun getLocalSubjects(): List<QuizSubjectDomainModel> {
-        return subjectsDao.retrieveSubjects().map { subjectEntityMapper.toDomain(it) }
+    override suspend fun retrieveLocalSubjects(): List<QuizSubjectDomainModel> {
+        return subjectsDao.getSubjects().map { subjectEntityMapper.toDomain(it) }
     }
 
-    override suspend fun getLocalQuestionsBySubject(
+    override suspend fun getLocalQuestionsBySubjectId(
         subjectId: Int
     ): List<QuizQuestionDomainModel> {
         return subjectsDao.retrieveQuestionsBySubjectId(subjectId)

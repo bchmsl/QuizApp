@@ -13,8 +13,8 @@ interface QuizUserSubjectsDao {
     suspend fun insertUserSubject(userSubject: QuizUserSubjectEntity)
 
     @Query("SELECT * FROM user_subject WHERE username=:username")
-    suspend fun retrieveUserSubjects(username: String): QuizUserSubjectEntity
+    suspend fun getUserSubjects(username: String): List<QuizUserSubjectEntity>
 
     @Query("SELECT * FROM user_subject WHERE username=:username AND subjectId=:subjectId")
-    suspend fun retrieveUserSubjectWithId(username: String, subjectId: Int): QuizUserSubjectEntity
+    suspend fun getUserSubjectById(username: String, subjectId: Int): QuizUserSubjectEntity
 }

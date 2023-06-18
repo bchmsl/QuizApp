@@ -14,7 +14,7 @@ interface QuizSubjectsDao {
     suspend fun insertQuestions(questions: List<QuizQuestionEntity>)
 
     @Query("SELECT * FROM subjects")
-    suspend fun retrieveSubjects(): List<QuizSubjectEntity>
+    suspend fun getSubjects(): List<QuizSubjectEntity>
 
     @Query("SELECT * FROM questions WHERE subjectId=:subjectId")
     suspend fun retrieveQuestionsBySubjectId(subjectId: Int): List<QuizQuestionEntity>
