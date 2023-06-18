@@ -5,5 +5,5 @@ import com.space.quizapp.data.local.datastore.QuizUserDataStoreManagerImpl
 import org.koin.dsl.module
 
 val dataStoreModule = module {
-    single<QuizUserDataStoreManager> { QuizUserDataStoreManagerImpl(get()) }
+    single<QuizUserDataStoreManager> { QuizUserDataStoreManagerImpl(context = get()) }
 }

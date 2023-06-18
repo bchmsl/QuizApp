@@ -22,8 +22,8 @@ private fun provideSubjectsDao(database: QuizUsersDatabase): QuizSubjectsDao =
     database.subjectsDao()
 
 val dbModule = module {
-    single { provideUserDao(get()) }
-    single { provideUserSubjectsDao(get()) }
-    single { provideSubjectsDao(get()) }
-    single { provideUsersDatabase(get()) }
+    single { provideUserDao(database = get()) }
+    single { provideUserSubjectsDao(database = get()) }
+    single { provideSubjectsDao(database = get()) }
+    single { provideUsersDatabase(context = get()) }
 }

@@ -14,9 +14,6 @@ val retrofitModule = module {
             .build()
     }
     single {
-        provideService(get())
+        get<Retrofit>().create(QuizQuestionsApiService::class.java)
     }
 }
-
-fun provideService(retrofit: Retrofit): QuizQuestionsApiService =
-    retrofit.create(QuizQuestionsApiService::class.java)
