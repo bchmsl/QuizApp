@@ -3,40 +3,35 @@ package com.space.quizapp.data.repository.quiz
 import com.space.quizapp.common.extensions.utils.onSuccess
 import com.space.quizapp.common.util.ApiHelper
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
-import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionDomainEntityMapper
-import com.space.quizapp.data.local.database.model.quiz.mapper.question.QuizQuestionEntityDomainMapper
-import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectDomainEntityMapper
-import com.space.quizapp.data.local.database.model.quiz.mapper.subject.QuizSubjectEntityDomainMapper
-import com.space.quizapp.data.remote.model.mapper.question.QuizQuestionDtoDomainMapper
-import com.space.quizapp.data.remote.model.mapper.subject.QuizSubjectDtoDomainMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.QuizQuestionEntityMapper
+import com.space.quizapp.data.local.database.model.quiz.mapper.QuizSubjectEntityMapper
+import com.space.quizapp.data.remote.model.mapper.QuizQuestionDtoMapper
+import com.space.quizapp.data.remote.model.mapper.QuizSubjectDtoMapper
 import com.space.quizapp.data.remote.service.QuizQuestionsApiService
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.domain.repository.quiz.QuizRepository
 
 class QuizRepositoryImpl(
-    private val api: QuizQuestionsApiService,
-    private val dao: QuizSubjectsDao,
-    private val quizSubjectDtoDomainMapper: QuizSubjectDtoDomainMapper,
-    private val quizQuestionDtoDomainMapper: QuizQuestionDtoDomainMapper,
-    private val quizSubjectDomainEntityMapper: QuizSubjectDomainEntityMapper,
-    private val quizQuestionDomainEntityMapper: QuizQuestionDomainEntityMapper,
-    private val quizSubjectEntityDomainMapper: QuizSubjectEntityDomainMapper,
-    private val quizQuestionEntityDomainMapper: QuizQuestionEntityDomainMapper
+    private val questionsApi: QuizQuestionsApiService,
+    private val subjectsDao: QuizSubjectsDao,
+    private val subjectDtoMapper: QuizSubjectDtoMapper,
+    private val questionDtoMapper: QuizQuestionDtoMapper,
+    private val subjectEntityMapper: QuizSubjectEntityMapper,
+    private val questionEntityMapper: QuizQuestionEntityMapper
 ) : QuizRepository(), ApiHelper {
 
-
     override suspend fun retrieveSubjects(): List<QuizSubjectDomainModel> {
-        retrofitCall { api.retrieveQuestions() }
+        retrofitCall { questionsApi.retrieveQuestions() }
             .onSuccess { data ->
-                dao.insertSubjects(data
-                    .map { quizSubjectDtoDomainMapper(it) }
-                    .map { quizSubjectDomainEntityMapper(it) }
+                subjectsDao.insertSubjects(data
+                    .map { subjectDtoMapper.toDomain(it) }
+                    .map { subjectEntityMapper.toEntity(it) }
                 )
                 data.forEach { subject ->
-                    dao.insertQuestions(subject.questions
-                        .map { quizQuestionDtoDomainMapper(it) }
-                        .map { quizQuestionDomainEntityMapper(it) }
+                    subjectsDao.insertQuestions(subject.questions
+                        .map { questionDtoMapper.toDomain(it) }
+                        .map { questionEntityMapper.toEntity(it) }
                     )
                 }
             }
@@ -44,13 +39,13 @@ class QuizRepositoryImpl(
     }
 
     override suspend fun getLocalSubjects(): List<QuizSubjectDomainModel> {
-        return dao.retrieveSubjects().map { quizSubjectEntityDomainMapper(it) }
+        return subjectsDao.retrieveSubjects().map { subjectEntityMapper.toDomain(it) }
     }
 
     override suspend fun getLocalQuestionsBySubject(
         subjectId: Int
     ): List<QuizQuestionDomainModel> {
-        return dao.retrieveQuestionsBySubjectId(subjectId)
-            .map { quizQuestionEntityDomainMapper(it) }
+        return subjectsDao.retrieveQuestionsBySubjectId(subjectId)
+            .map { questionEntityMapper.toDomain(it) }
     }
 }

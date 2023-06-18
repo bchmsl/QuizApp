@@ -4,6 +4,7 @@ import com.space.quizapp.common.util.QuizValidateUser
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
+import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
 import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
@@ -25,7 +26,7 @@ val useCaseModule = module {
     ) {
         QuizSaveUserDataUseCase(
             get(QuizUseCaseNames.SAVE_USER_TOKEN),
-            get()
+            get<QuizUserDataRepository>()
         )
     }
 

@@ -21,7 +21,9 @@ import kotlin.reflect.KClass
 abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment() {
 
     private var _binding: VB? = null
-    val binding get() = _binding!!
+
+    val binding
+        get() = _binding!!
 
     abstract val vmc: KClass<VM>
     protected val vm: VM by viewModelForClass(clazz = vmc)

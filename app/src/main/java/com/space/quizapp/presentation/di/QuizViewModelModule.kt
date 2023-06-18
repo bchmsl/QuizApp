@@ -1,12 +1,6 @@
 package com.space.quizapp.presentation.di
 
 import com.space.quizapp.domain.di.QuizUseCaseNames
-import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerDomainUiMapper
-import com.space.quizapp.presentation.model.quiz.mapper.answer.QuizAnswerUiDomainMapper
-import com.space.quizapp.presentation.model.quiz.mapper.question.QuizQuestionDomainUiMapper
-import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
-import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserDomainUiMapper
-import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserUiDomainMapper
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import com.space.quizapp.presentation.ui.ui_points.vm.QuizPointsViewModel
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
@@ -17,30 +11,28 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel {
         QuizStartViewModel(
-            get(QuizUseCaseNames.SAVE_USER_DATA),
-            get(QuizUseCaseNames.READ_USER_TOKEN),
-            QuizUserUiDomainMapper()
+            saveUserDataUC = get(QuizUseCaseNames.SAVE_USER_DATA),
+            readUserTokenUC = get(QuizUseCaseNames.READ_USER_TOKEN),
+            userMapper = get()
         )
     }
     viewModel {
         QuizHomeViewModel(
-            get(QuizUseCaseNames.READ_USER_DATA),
-            get(QuizUseCaseNames.SAVE_USER_TOKEN),
-            get(QuizUseCaseNames.RETRIEVE_SUBJECTS),
-            QuizUserDomainUiMapper(),
-            QuizSubjectDomainUiMapper()
+            readUserDataUC = get(QuizUseCaseNames.READ_USER_DATA),
+            saveUserTokenUC = get(QuizUseCaseNames.SAVE_USER_TOKEN),
+            retrieveSubjectsUC = get(QuizUseCaseNames.RETRIEVE_SUBJECTS),
+            userMapper = get(),
+            subjectMapper = get()
         )
     }
     viewModel {
         QuizQuestionViewModel(
-            get(QuizUseCaseNames.GET_NEXT_QUESTION),
-            get(QuizUseCaseNames.CHECK_ANSWERS),
-            get(QuizUseCaseNames.RETRIEVE_QUESTIONS),
-            get(QuizUseCaseNames.GET_POINTS),
-            QuizQuestionDomainUiMapper(QuizAnswerDomainUiMapper()),
-            QuizAnswerUiDomainMapper(),
-            QuizAnswerDomainUiMapper()
-
+            getNextQuestionUC = get(QuizUseCaseNames.GET_NEXT_QUESTION),
+            checkAnswersUC = get(QuizUseCaseNames.CHECK_ANSWERS),
+            retrieveQuestionsUC = get(QuizUseCaseNames.RETRIEVE_QUESTIONS),
+            getPointsUC = get(QuizUseCaseNames.GET_POINTS),
+            questionMapper = get(),
+            answerMapper = get()
         )
     }
     viewModel {

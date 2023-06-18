@@ -9,21 +9,20 @@ import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
-import com.space.quizapp.presentation.model.quiz.mapper.subject.QuizSubjectDomainUiMapper
+import com.space.quizapp.presentation.model.quiz.mapper.QuizSubjectUiMapper
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
-import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserDomainUiMapper
+import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class QuizHomeViewModel(
-    private val retrieveUserDataUC: QuizBaseUseCase<Unit, QuizUserDomainModel>,
+    private val readUserDataUC: QuizBaseUseCase<Unit, QuizUserDomainModel>,
     private val saveUserTokenUC: QuizBaseUseCase<String, Unit>,
     private val retrieveSubjectsUC: QuizBaseUseCase<Unit, List<QuizSubjectDomainModel>>,
-
-    private val userDomainUiMapper: QuizUserDomainUiMapper,
-    private val subjectDomainUiMapper: QuizSubjectDomainUiMapper,
+    private val userMapper: QuizUserUiMapper,
+    private val subjectMapper: QuizSubjectUiMapper,
 ) : QuizBaseViewModel() {
 
     private val _userState = MutableStateFlow(QuizUserUiModel(""))
@@ -38,8 +37,8 @@ class QuizHomeViewModel(
     fun retrieveUserInfo() {
         executeAsync(IO) {
             try {
-                val userDomainModel = retrieveUserDataUC()
-                _userState.emit(userDomainUiMapper(userDomainModel))
+                val userDomainModel = readUserDataUC()
+                _userState.emit(userMapper.toUi(userDomainModel))
             } catch (e: Throwable) {
                 emitError(QuizCustomThrowable(e.message))
             }
@@ -53,7 +52,7 @@ class QuizHomeViewModel(
             if (data.isEmpty()) {
                 emitError(QuizCustomThrowable(S.error_bad_request))
             }
-            _subjectsState.emit(data.map { subjectDomainUiMapper(it) })
+            _subjectsState.emit(data.map { subjectMapper.toUi(it) })
             _loadingState.emit(false)
         }
     }

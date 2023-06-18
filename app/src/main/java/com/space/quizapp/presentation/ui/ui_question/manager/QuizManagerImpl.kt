@@ -20,6 +20,7 @@ class QuizManagerImpl : QuizManager() {
             currentQuestion.answers.indexOf(currentQuestion.answers.find { it.answerOption == correctAnswer.answerOption })
         val currentInAnswersIndex =
             currentQuestion.answers.indexOf(currentQuestion.answers.find { it.answerOption == answer.answerOption })
+
         if (isCorrect) {
             currentQuestion.answers[currentInAnswersIndex] =
                 answer.copy(selectedState = QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT_POINTS)

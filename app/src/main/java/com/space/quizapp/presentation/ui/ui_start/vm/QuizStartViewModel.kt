@@ -8,20 +8,19 @@ import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
-import com.space.quizapp.presentation.model.user.mapper.user.user.QuizUserUiDomainMapper
+import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizStartViewModel(
     private val saveUserDataUC: QuizBaseUseCase<QuizUserDomainModel, QuizValidateUser>,
     private val readUserTokenUC: QuizBaseUseCase<Unit, String>,
-
-    private val userUiDomainMapper: QuizUserUiDomainMapper
+    private val userMapper: QuizUserUiMapper
 ) : QuizBaseViewModel() {
 
     fun saveUser(username: String) {
         executeAsync(IO) {
-            val validateUser = saveUserDataUC(userUiDomainMapper(QuizUserUiModel(username)))
+            val validateUser = saveUserDataUC(userMapper.toDomain(QuizUserUiModel(username)))
             val error = when (validateUser) {
                 QuizValidateUser.VALID -> {
                     navigate(QuizFragmentDirections.HOME)
