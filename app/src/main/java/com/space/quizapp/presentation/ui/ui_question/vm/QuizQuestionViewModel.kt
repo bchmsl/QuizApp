@@ -1,7 +1,9 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
+import android.util.Log
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
+import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionResponse
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
@@ -14,10 +16,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class QuizQuestionViewModel(
-    private val getNextQuestionUC: QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel>>,
+    private val getNextQuestionUC: QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel?>>,
     private val checkAnswersUC: QuizBaseUseCase<QuizQuestionDomainModel.QuizAnswerDomainModel, List<QuizQuestionDomainModel.QuizAnswerDomainModel>>,
     private val retrieveQuestionsUC: QuizBaseUseCase<Int, Unit>,
     private val getPointsUC: QuizBaseUseCase<Unit, Int>,
+    private val saveUserSubjectUC: QuizBaseUseCase<QuizUserSubjectDomainModel, Unit>,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
@@ -30,9 +33,18 @@ class QuizQuestionViewModel(
         MutableStateFlow<List<QuizQuestionUiModel.QuizAnswerUiModel>?>(null)
     val checkedAnswersState get() = _checkedAnswersState.asStateFlow()
 
+    private val _pointsState = MutableStateFlow<Int?>(null)
+    val pointsState get() = _pointsState.asStateFlow()
+
     fun getNextQuestion() {
-        executeAsync(Main) {
+        executeAsync(IO) {
             val question = getNextQuestionUC()
+            if (question.questionModel == null) {
+                val points = getPointsUC()
+                saveUserSubject(questionState.value!!.questionModel.subjectId, points)
+                _pointsState.emit(points)
+                return@executeAsync
+            }
             val questionUi = QuizGetNextQuestionResponse(
                 questionMapper.toUi(question.questionModel),
                 question.isLastQuestion
@@ -54,6 +66,13 @@ class QuizQuestionViewModel(
         executeAsync(IO) {
             retrieveQuestionsUC(subjectId)
             getNextQuestion()
+        }
+    }
+
+    private fun saveUserSubject(subjectId: Int, score: Int) {
+        executeAsync(IO) {
+            Log.d("TAG", subjectId.toString())
+            saveUserSubjectUC(QuizUserSubjectDomainModel(subjectId = subjectId, score = score))
         }
     }
 }

@@ -13,7 +13,7 @@ abstract class QuizManager {
         points = 0
     }
 
-    abstract suspend fun getNextQuestion(): QuizQuestionDomainModel
+    abstract suspend fun getNextQuestionIfExists(): QuizQuestionDomainModel?
     abstract suspend fun checkAnswer(
         answer: QuizQuestionDomainModel.QuizAnswerDomainModel
     ): List<QuizQuestionDomainModel.QuizAnswerDomainModel>

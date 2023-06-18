@@ -10,6 +10,7 @@ import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_INT
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_STRING
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogAlertView
 import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogPromptView
 import com.space.quizapp.presentation.ui.ui_question.adapter.AnswersAdapter
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
@@ -19,7 +20,8 @@ class QuizQuestionFragment :
     QuizBaseFragment<QuizFragmentQuestionBinding, QuizQuestionViewModel>() {
 
     private val answersAdapter by lazy { AnswersAdapter() }
-    private val dialog by lazy { QuizDialogPromptView(requireContext()) }
+    private val promptDialog by lazy { QuizDialogPromptView(requireContext()) }
+    private val alertDialog by lazy { QuizDialogAlertView(requireContext()) }
 
     private lateinit var subject: String
     private var subjectId: Int = -1
@@ -66,6 +68,11 @@ class QuizQuestionFragment :
                 vm.getNextQuestion()
             }
         }
+        collectAsync(vm.pointsState) {
+            it?.let {
+                showAlertDialog(it)
+            }
+        }
     }
 
     override fun setListeners() {
@@ -73,21 +80,30 @@ class QuizQuestionFragment :
             vm.checkAnswer(it)
         }
         binding.navigationView.onCloseButtonPressed {
-            showDialog()
+            showPromptDialog()
         }
         requireActivity().onBackPressedDispatcher.addCallback {
-            showDialog()
+            showPromptDialog()
         }
     }
 
-    private fun showDialog() {
-        dialog
+    private fun showPromptDialog() {
+        promptDialog
             .setContent(getString(S.stop_quiz_prompt))
             .onPositiveButtonListener {
                 vm.navigate(QuizFragmentDirections.HOME)
-                dialog.dismiss()
+                promptDialog.dismiss()
             }.onNegativeButtonListener {
-                dialog.dismiss()
+                promptDialog.dismiss()
+            }.show()
+    }
+
+    private fun showAlertDialog(score: Int) {
+        alertDialog
+            .setContent(score.toString())
+            .onButtonClick {
+                vm.navigate(QuizFragmentDirections.HOME)
+                alertDialog.dismiss()
             }.show()
     }
 }

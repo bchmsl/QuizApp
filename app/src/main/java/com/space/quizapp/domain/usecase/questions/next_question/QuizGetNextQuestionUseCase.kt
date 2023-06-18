@@ -6,9 +6,9 @@ import com.space.quizapp.presentation.ui.ui_question.manager.QuizManager
 
 class QuizGetNextQuestionUseCase(
     private val manager: QuizManager,
-) : QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel>>() {
-    override suspend fun invoke(params: Unit?): QuizGetNextQuestionResponse<QuizQuestionDomainModel> {
-        val nextQuestion = manager.getNextQuestion()
+) : QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel?>>() {
+    override suspend fun invoke(params: Unit?): QuizGetNextQuestionResponse<QuizQuestionDomainModel?> {
+        val nextQuestion = manager.getNextQuestionIfExists()
         val isLastQuestion = manager.isLastQuestion()
         return QuizGetNextQuestionResponse(nextQuestion, isLastQuestion)
     }

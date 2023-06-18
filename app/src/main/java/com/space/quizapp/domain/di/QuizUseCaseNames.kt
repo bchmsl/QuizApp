@@ -12,4 +12,6 @@ object QuizUseCaseNames {
     val SAVE_USER_TOKEN = named("saveUserToken")
     val READ_USER_DATA = named("readUserData")
     val SAVE_USER_DATA = named("saveUserData")
+    val SAVE_USER_SUBJECT = named("saveUserSubject")
+    val READ_USER_SUBJECTS = named("readUserSubjects")
 }

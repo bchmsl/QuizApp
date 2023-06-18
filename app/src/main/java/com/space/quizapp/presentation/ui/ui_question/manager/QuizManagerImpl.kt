@@ -4,11 +4,9 @@ import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 
 class QuizManagerImpl : QuizManager() {
-    override suspend fun getNextQuestion(): QuizQuestionDomainModel {
-        if (index < lastIndex) {
-            index += 1
-        }
-        return questions[index]
+    override suspend fun getNextQuestionIfExists(): QuizQuestionDomainModel? {
+        index += 1
+        return questions.getOrNull(index)
     }
 
     override suspend fun checkAnswer(answer: QuizQuestionDomainModel.QuizAnswerDomainModel)
