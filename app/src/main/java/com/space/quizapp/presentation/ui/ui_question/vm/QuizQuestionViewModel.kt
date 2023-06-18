@@ -20,6 +20,7 @@ class QuizQuestionViewModel(
     private val retrieveQuestionsUC: QuizBaseUseCase<Int, Unit>,
     private val getPointsUC: QuizBaseUseCase<Unit, Int>,
     private val saveUserSubjectUC: QuizBaseUseCase<QuizUserSubjectDomainModel, Unit>,
+    private val updateGpaUC: QuizBaseUseCase<Unit, Unit>,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
@@ -70,6 +71,7 @@ class QuizQuestionViewModel(
     fun saveUserSubject(quizTitle: String, score: Int) {
         executeAsync(IO) {
             saveUserSubjectUC(QuizUserSubjectDomainModel(quizTitle = quizTitle, score = score))
+            updateGpaUC()
         }
     }
 }

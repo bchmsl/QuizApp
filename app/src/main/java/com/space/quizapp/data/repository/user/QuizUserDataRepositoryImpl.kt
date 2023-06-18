@@ -22,4 +22,7 @@ class QuizUserDataRepositoryImpl(
         return userDao.getUserTokenOrNull(username)
     }
 
+    override suspend fun updateGPA(token: String, gpa: Double) {
+        userDao.saveUser(userDao.getUser(token).copy(gpa = gpa.toFloat()))
+    }
 }

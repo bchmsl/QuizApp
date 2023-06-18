@@ -33,7 +33,8 @@ val viewModelModule = module {
             getPointsUC = get(QuizUseCaseNames.GET_POINTS),
             questionMapper = get(),
             answerMapper = get(),
-            saveUserSubjectUC = get(QuizUseCaseNames.SAVE_USER_SUBJECT)
+            saveUserSubjectUC = get(QuizUseCaseNames.SAVE_USER_SUBJECT),
+            updateGpaUC = get(QuizUseCaseNames.UPDATE_GPA)
         )
     }
     viewModel {

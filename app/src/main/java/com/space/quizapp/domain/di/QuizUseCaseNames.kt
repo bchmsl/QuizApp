@@ -14,4 +14,5 @@ object QuizUseCaseNames {
     val SAVE_USER_DATA = named("saveUserData")
     val SAVE_USER_SUBJECT = named("saveUserSubject")
     val READ_USER_SUBJECTS = named("readUserSubjects")
+    val UPDATE_GPA = named("updateGpa")
 }

@@ -15,6 +15,7 @@ import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
+import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
@@ -115,6 +116,17 @@ val useCaseModule = module {
         QuizSaveUserSubjectUseCase(
             repository = get(),
             readUserData = get(QuizUseCaseNames.READ_USER_DATA)
+        )
+    }
+
+    single<QuizBaseUseCase<Unit, Unit>>(
+        QuizUseCaseNames.UPDATE_GPA
+    ) {
+        QuizUpdateGpaUseCase(
+            getUserTokenUseCase = get(QuizUseCaseNames.READ_USER_TOKEN),
+            readUserSubjectsUseCase = get(QuizUseCaseNames.READ_USER_SUBJECTS),
+            subjectsRepository = get(),
+            userDataRepository = get()
         )
     }
 

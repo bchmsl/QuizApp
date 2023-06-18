@@ -38,3 +38,7 @@ fun View.gone() {
 fun View.invisible() {
     this.visibility = View.INVISIBLE
 }
+
+fun Float.roundToSingleDecimal(): Float {
+    return String.format("%.1f", this).toFloat()
+}

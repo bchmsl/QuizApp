@@ -7,4 +7,5 @@ abstract class QuizUserDataRepository : BaseRepository() {
     abstract suspend fun saveUserInfo(userDomainModel: QuizUserDomainModel)
     abstract suspend fun retrieveUser(token: String): QuizUserDomainModel
     abstract suspend fun getUserTokenOrNull(username: String): String?
+    abstract suspend fun updateGPA(token: String, gpa: Double)
 }

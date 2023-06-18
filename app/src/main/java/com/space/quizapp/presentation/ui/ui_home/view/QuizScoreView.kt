@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.space.quizapp.common.extensions.utils.roundToSingleDecimal
 import com.space.quizapp.databinding.QuizViewScoreSectionBinding
 
 class QuizScoreView(
@@ -15,7 +16,7 @@ class QuizScoreView(
 
     fun setContent(gpa: Float) {
         with(binding) {
-            gpaTextView.text = gpa.toString()
+            gpaTextView.text = gpa.roundToSingleDecimal().toString()
         }
     }
 
