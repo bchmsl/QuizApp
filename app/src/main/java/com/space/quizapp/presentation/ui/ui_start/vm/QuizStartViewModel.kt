@@ -2,7 +2,7 @@ package com.space.quizapp.presentation.ui.ui_start.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizCustomThrowable
-import com.space.quizapp.common.util.QuizValidateUser
+import com.space.quizapp.common.util.QuizUserValidation
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
@@ -13,7 +13,7 @@ import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirection
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizStartViewModel(
-    private val saveUserDataUC: QuizBaseUseCase<QuizUserDomainModel, QuizValidateUser>,
+    private val saveUserDataUC: QuizBaseUseCase<QuizUserDomainModel, QuizUserValidation>,
     private val readUserTokenUC: QuizBaseUseCase<Unit, String>,
     private val userMapper: QuizUserUiMapper
 ) : QuizBaseViewModel() {
@@ -22,7 +22,7 @@ class QuizStartViewModel(
         executeAsync(IO) {
             val validateUser = saveUserDataUC(userMapper.toDomain(QuizUserUiModel(username)))
             val error = when (validateUser) {
-                QuizValidateUser.VALID -> {
+                QuizUserValidation.VALID -> {
                     navigate(QuizFragmentDirections.HOME)
                     null
                 }

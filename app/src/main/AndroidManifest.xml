@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp"
-        android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
 
         <activity
             android:name=".presentation.activity.QuizActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

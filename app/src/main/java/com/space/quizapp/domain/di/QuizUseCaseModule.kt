@@ -1,6 +1,6 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.common.util.QuizValidateUser
+import com.space.quizapp.common.util.QuizUserValidation
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
@@ -24,7 +24,7 @@ import com.space.quizapp.presentation.ui.ui_question.manager.QuizManagerImpl
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single<QuizBaseUseCase<QuizUserDomainModel, QuizValidateUser>>(
+    single<QuizBaseUseCase<QuizUserDomainModel, QuizUserValidation>>(
         QuizUseCaseNames.SAVE_USER_DATA
     ) {
         QuizSaveUserDataUseCase(

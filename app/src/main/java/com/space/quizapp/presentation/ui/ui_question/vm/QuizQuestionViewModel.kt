@@ -57,7 +57,7 @@ class QuizQuestionViewModel(
     ) {
         executeAsync(Main) {
             val answersList = checkAnswersUC(answerMapper.toDomain(submittedAnswer))
-            _checkedAnswersState.emit(answersList.map { answerMapper.toUi(it) })
+            _checkedAnswersState.emit(answerMapper.toUiList(answersList))
         }
     }
 

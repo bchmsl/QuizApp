@@ -20,7 +20,9 @@ class QuizPointsViewModel(
 
     fun getUserSubjects() {
         executeAsync(IO) {
-            _userSubjects.emit(readUserSubjectsUC().map { userSubjectsMapper.toUi(it) })
+            _userSubjects.emit(
+                userSubjectsMapper.toUiList(readUserSubjectsUC())
+            )
         }
     }
 

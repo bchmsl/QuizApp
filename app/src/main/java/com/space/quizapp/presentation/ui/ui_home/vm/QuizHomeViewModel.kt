@@ -52,7 +52,7 @@ class QuizHomeViewModel(
             if (data.isEmpty()) {
                 emitError(QuizCustomThrowable(S.error_bad_request))
             }
-            _subjectsState.emit(data.map { subjectMapper.toUi(it) })
+            _subjectsState.emit(subjectMapper.toUiList(data))
             _loadingState.emit(false)
         }
     }

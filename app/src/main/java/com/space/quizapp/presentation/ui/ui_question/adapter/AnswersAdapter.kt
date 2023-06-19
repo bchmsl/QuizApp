@@ -8,34 +8,27 @@ import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
 class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
 
-    fun removeClickListener() {
-        onClickCallback = null
-    }
-
-    override fun onCreateViewHolder(
+    override fun createVH(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel> =
-        AnswerViewHolder(
+    ): BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel> {
+        return AnswerViewHolder(
             QuizItemAnswerOptionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
+    }
 
     class AnswerViewHolder(private val binding: QuizItemAnswerOptionBinding) :
         BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel>(binding) {
         override fun onBind(
             item: QuizQuestionUiModel.QuizAnswerUiModel,
-            onClickCallback: ((QuizQuestionUiModel.QuizAnswerUiModel) -> Unit)?
         ) {
             with(binding.root) {
                 setContent(item.answerOption)
                 setSelection(item.selectedState)
-                setOnClickListener {
-                    onClickCallback?.invoke(item)
-                }
             }
         }
     }

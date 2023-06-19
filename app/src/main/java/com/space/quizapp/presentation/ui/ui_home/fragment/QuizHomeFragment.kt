@@ -66,7 +66,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
                 subjectsSwipeRefreshLayout.isRefreshing = false
             }
         }
-        subjectsAdapter.setOnClickListener {
+        subjectsAdapter.onItemClickListener {
             vm.navigate(QuizFragmentDirections.QUESTION, it.id, it.quizTitle)
         }
         requireActivity().onBackPressedDispatcher.addCallback {

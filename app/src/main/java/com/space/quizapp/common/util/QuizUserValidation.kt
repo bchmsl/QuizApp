@@ -2,18 +2,18 @@ package com.space.quizapp.common.util
 
 import androidx.annotation.StringRes
 
-enum class QuizValidateUser(@StringRes val message: Int) {
+enum class QuizUserValidation(@StringRes val message: Int) {
     VALID(S.message_valid),
     INVALID_LENGTH_LONG(S.message_error_length_long),
     INVALID_LENGTH_SHORT(S.message_error_length_short),
     INVALID_CONTAINING(S.message_error_containing_symbol);
 
     companion object {
-        fun validate(s: String): QuizValidateUser {
+        fun validateUser(username: String): QuizUserValidation {
             return when {
-                s.length < MINIMUM_LENGTH -> INVALID_LENGTH_SHORT
-                s.length > MAXIMUM_LENGTH -> INVALID_LENGTH_LONG
-                !s.contains(Regex(QuizRegex.USERNAME_PATTERN)) -> INVALID_CONTAINING
+                username.length < MINIMUM_LENGTH -> INVALID_LENGTH_SHORT
+                username.length > MAXIMUM_LENGTH -> INVALID_LENGTH_LONG
+                !username.contains(Regex(QuizRegex.USERNAME_PATTERN)) -> INVALID_CONTAINING
                 else -> VALID
             }
         }

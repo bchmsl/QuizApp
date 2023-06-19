@@ -24,14 +24,16 @@ class QuizRepositoryImpl(
     override suspend fun retrieveSubjects(): List<QuizSubjectDomainModel> {
         retrofitCall { questionsApi.retrieveQuestions() }
             .onSuccess { data ->
-                subjectsDao.insertSubjects(data
-                    .map { subjectDtoMapper.toDomain(it) }
-                    .map { subjectEntityMapper.toEntity(it) }
+                subjectsDao.insertSubjects(
+                    subjectEntityMapper.toEntityList(
+                        subjectDtoMapper.toDomainList(data)
+                    )
                 )
                 data.forEach { subject ->
-                    subjectsDao.insertQuestions(subject.questions
-                        .map { questionDtoMapper.toDomain(it) }
-                        .map { questionEntityMapper.toEntity(it) }
+                    subjectsDao.insertQuestions(
+                        questionEntityMapper.toEntityList(
+                            questionDtoMapper.toDomainList(subject.questions)
+                        )
                     )
                 }
             }
@@ -39,14 +41,13 @@ class QuizRepositoryImpl(
     }
 
     override suspend fun retrieveLocalSubjects(): List<QuizSubjectDomainModel> {
-        return subjectsDao.getSubjects().map { subjectEntityMapper.toDomain(it) }
+        return subjectEntityMapper.toDomainList(subjectsDao.getSubjects())
     }
 
     override suspend fun getLocalQuestionsBySubjectId(
         subjectId: Int
     ): List<QuizQuestionDomainModel> {
-        return subjectsDao.retrieveQuestionsBySubjectId(subjectId)
-            .map { questionEntityMapper.toDomain(it) }
+        return questionEntityMapper.toDomainList(subjectsDao.retrieveQuestionsBySubjectId(subjectId))
     }
 
     override suspend fun retrieveLocalSubjectByTitle(quizTitle: String): QuizSubjectDomainModel {

@@ -7,7 +7,7 @@ import com.space.quizapp.presentation.base.adapter.BaseAdapter
 import com.space.quizapp.presentation.model.user.QuizUserSubjectUiModel
 
 class QuizUserSubjectsAdapter : BaseAdapter<QuizUserSubjectUiModel>() {
-    override fun onCreateViewHolder(
+    override fun createVH(
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder<QuizUserSubjectUiModel> {
@@ -24,7 +24,6 @@ class QuizUserSubjectsAdapter : BaseAdapter<QuizUserSubjectUiModel>() {
         BaseViewHolder<QuizUserSubjectUiModel>(binding) {
         override fun onBind(
             item: QuizUserSubjectUiModel,
-            onClickCallback: ((QuizUserSubjectUiModel) -> Unit)?
         ) {
             with(binding.root) {
                 setContent(item.quizTitle, item.quizDescription, item.quizIcon)

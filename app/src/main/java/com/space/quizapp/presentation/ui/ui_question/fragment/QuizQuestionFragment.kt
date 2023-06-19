@@ -60,7 +60,7 @@ class QuizQuestionFragment :
             }
             answersAdapter.onItemClickListener {
                 vm.checkAnswer(it)
-                answersAdapter.removeClickListener()
+                answersAdapter.onItemClickListener(null)
             }
         }
 
