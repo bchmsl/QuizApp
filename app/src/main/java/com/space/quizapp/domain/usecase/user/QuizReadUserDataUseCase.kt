@@ -4,9 +4,10 @@ import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 
 class QuizReadUserDataUseCase(
-    private val readUserToken: QuizBaseUseCase<Unit, String>,
+    private val readUserToken: QuizReadUserTokenUseCase,
     private val repository: QuizUserDataRepository
 ) : QuizBaseUseCase<Unit, QuizUserDomainModel>() {
 

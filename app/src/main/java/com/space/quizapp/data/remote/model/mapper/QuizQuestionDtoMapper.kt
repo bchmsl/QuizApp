@@ -6,15 +6,25 @@ import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 
 class QuizQuestionDtoMapper :
     QuizDtoMapper<QuizSubjectDto.QuizQuestionDto, QuizQuestionDomainModel> {
+    var isLastQuestion: ((QuizSubjectDto.QuizQuestionDto) -> Boolean)? = null
+    var subjectTitle: ((QuizSubjectDto.QuizQuestionDto) -> String)? = null
     override fun toDomain(model: QuizSubjectDto.QuizQuestionDto): QuizQuestionDomainModel {
         return with(model) {
             QuizQuestionDomainModel(
                 questionTitle = questionTitle,
-                answers = answers.map { QuizQuestionDomainModel.QuizAnswerDomainModel(it) }
+                answers = answers.map {
+                    QuizQuestionDomainModel.QuizAnswerDomainModel(
+                        it,
+                        correctAnswer == it
+                    )
+                }
                     .toMutableList(),
-                correctAnswer = QuizQuestionDomainModel.QuizAnswerDomainModel(correctAnswer),
+                correctAnswer = QuizQuestionDomainModel.QuizAnswerDomainModel(correctAnswer, true),
                 subjectId = subjectId,
-                questionIndex = questionIndex
+                questionIndex = questionIndex,
+                isLastQuestion = isLastQuestion?.invoke(this) ?: false,
+                isAnswered = false,
+                subjectTitle = subjectTitle?.invoke(this) ?: ""
             )
         }
     }

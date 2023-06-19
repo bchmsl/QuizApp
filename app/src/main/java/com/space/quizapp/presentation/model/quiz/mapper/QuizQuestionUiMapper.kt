@@ -14,7 +14,10 @@ class QuizQuestionUiMapper(
                 answers = answers.map { answerUiMapper.toDomain(it) }.toMutableList(),
                 correctAnswer = answerUiMapper.toDomain(correctAnswer),
                 subjectId = subjectId,
-                questionIndex = questionIndex
+                questionIndex = questionIndex,
+                isLastQuestion = isLastQuestion,
+                isAnswered = isAnswered,
+                subjectTitle = subjectTitle
             )
         }
     }
@@ -26,7 +29,10 @@ class QuizQuestionUiMapper(
                 answers = answers.map { answerUiMapper.toUi(it) },
                 correctAnswer = answerUiMapper.toUi(correctAnswer),
                 subjectId = subjectId,
-                questionIndex = questionIndex
+                questionIndex = questionIndex,
+                isLastQuestion = isLastQuestion,
+                isAnswered = isAnswered,
+                subjectTitle = subjectTitle
             )
         }
     }

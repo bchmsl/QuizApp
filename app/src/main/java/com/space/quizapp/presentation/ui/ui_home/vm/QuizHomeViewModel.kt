@@ -4,9 +4,9 @@ import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.common.util.S
 import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
-import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
-import com.space.quizapp.domain.model.user.QuizUserDomainModel
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
+import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
+import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizSubjectUiMapper
@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class QuizHomeViewModel(
-    private val readUserDataUC: QuizBaseUseCase<Unit, QuizUserDomainModel>,
-    private val saveUserTokenUC: QuizBaseUseCase<String, Unit>,
-    private val retrieveSubjectsUC: QuizBaseUseCase<Unit, List<QuizSubjectDomainModel>>,
+    private val readUserDataUC: QuizReadUserDataUseCase,
+    private val saveUserTokenUC: QuizSaveUserTokenUseCase,
+    private val retrieveSubjectsUC: QuizRetrieveSubjectsUseCase,
     private val userMapper: QuizUserUiMapper,
     private val subjectMapper: QuizSubjectUiMapper,
 ) : QuizBaseViewModel() {

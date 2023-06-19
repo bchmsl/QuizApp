@@ -1,8 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_points.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserSubjectUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.QuizUserSubjectUiMapper
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class QuizPointsViewModel(
-    private val readUserSubjectsUC: QuizBaseUseCase<Unit, List<QuizUserSubjectDomainModel>>,
+    private val readUserSubjectsUC: QuizReadUserSubjectsUseCase,
     private val userSubjectsMapper: QuizUserSubjectUiMapper
 ) : QuizBaseViewModel() {
 

@@ -8,7 +8,7 @@ import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import java.util.*
 
 class QuizSaveUserDataUseCase(
-    private val saveUserToken: QuizBaseUseCase<String, Unit>,
+    private val saveUserToken: QuizSaveUserTokenUseCase,
     private val repository: QuizUserDataRepository
 ) : QuizBaseUseCase<QuizUserDomainModel, QuizUserValidation>() {
 

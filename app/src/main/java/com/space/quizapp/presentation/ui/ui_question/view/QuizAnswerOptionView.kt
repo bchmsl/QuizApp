@@ -28,6 +28,14 @@ class QuizAnswerOptionView(
         binding.optionTitleTextView.text = title
     }
 
+    fun setSelection(isCorrect: Boolean?) {
+        when (isCorrect) {
+            true -> selectedCorrect()
+            false -> selectedIncorrect()
+            else -> unselected()
+        }
+    }
+
     fun setSelection(selectState: QuizAnswerSelectedState) {
         when (selectState) {
             QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrect()

@@ -10,5 +10,6 @@ data class QuizSubjectEntity(
     val quizTitle: String = "",
     val quizDescription: String = "",
     val quizIcon: String = "",
-    val questionsCount: Int = 0
+    val questionsCount: Int = 0,
+    val isCompleted: Boolean = false
 )

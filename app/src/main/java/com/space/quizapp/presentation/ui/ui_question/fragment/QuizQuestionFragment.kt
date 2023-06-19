@@ -35,7 +35,7 @@ class QuizQuestionFragment :
     override fun onFragmentCreate() {
         subject = arguments?.getString(TAG_STRING).toString()
         subjectId = arguments?.getInt(TAG_INT) ?: -1
-        vm.retrieveQuestions(subjectId)
+        vm.getNextQuestion(subject)
     }
 
     override fun onBind() {
@@ -51,25 +51,26 @@ class QuizQuestionFragment :
         collectAsync(vm.questionState) { question ->
             question?.let {
                 with(binding) {
-                    questionTextView.text = it.questionModel.questionTitle
-                    answersAdapter.submitList(it.questionModel.answers.toList())
+                    questionTextView.text = it.questionTitle
+                    answersAdapter.submitList(it.answers.toList())
                     nextButton.text =
                         getString(if (it.isLastQuestion) S.finish else S.next)
                     nextButton.setOnClickListener(null)
                 }
             }
             answersAdapter.onItemClickListener {
-                vm.checkAnswer(it)
+                vm.checkAnswer(it, subject)
                 answersAdapter.onItemClickListener(null)
             }
         }
-
-        collectAsync(vm.checkedAnswersState) {
-            it?.let {
-                answersAdapter.submitList(it.toList())
+        vm.checkedAnswerState.observe(viewLifecycleOwner) {
+            it?.let { isCorrect ->
+                AnswersAdapter.correctState = {
+                    isCorrect
+                }
             }
             binding.nextButton.setOnClickListener {
-                vm.getNextQuestion()
+                vm.getNextQuestion(subject)
             }
         }
         collectAsync(vm.pointsState) {
