@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.ui_points.fragment
 
-import android.util.Log
 import androidx.activity.addCallback
 import com.space.quizapp.common.extensions.coroutines.collectAsync
 import com.space.quizapp.common.extensions.utils.visible
@@ -50,7 +49,6 @@ class QuizPointsFragment :
             if (it.isNullOrEmpty()) {
                 setEmptyMessage()
             } else {
-                Log.d("TAG", it.toString())
                 userSubjectsAdapter.submitList(it.toList())
                 binding.creditSubjectsRecyclerView.visible()
             }

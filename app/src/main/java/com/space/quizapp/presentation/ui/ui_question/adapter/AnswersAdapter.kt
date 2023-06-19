@@ -8,6 +8,10 @@ import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
 class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
 
+    fun removeClickListener() {
+        onClickCallback = null
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

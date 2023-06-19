@@ -47,4 +47,5 @@
     <dimen name="dimen_20_sp">20sp</dimen>
     <dimen name="dimen_32_sp">32sp</dimen>
     <dimen name="dimen_96_dp">96dp</dimen>
+    <dimen name="dimen_52_dp">52dp</dimen>
 </resources>

@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseAdapter<MODEL : Any> :
     ListAdapter<MODEL, BaseAdapter.BaseViewHolder<MODEL>>(QuizBaseItemCallback<MODEL>()) {
 
-    private var onClickCallback: ((MODEL) -> Unit)? = null
+    protected var onClickCallback: ((MODEL) -> Unit)? = null
 
     fun onItemClickListener(onClickCallback: (MODEL) -> Unit) {
         this.onClickCallback = onClickCallback

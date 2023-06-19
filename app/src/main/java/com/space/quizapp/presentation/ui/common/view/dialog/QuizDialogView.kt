@@ -14,6 +14,11 @@ abstract class QuizDialogView(context: Context) :
 
     init {
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.setCancelable(false)
+    }
+
+    fun setCancelable(cancelable: Boolean) {
+        alertDialog.setCancelable(cancelable)
     }
 
     fun show(): QuizDialogView {

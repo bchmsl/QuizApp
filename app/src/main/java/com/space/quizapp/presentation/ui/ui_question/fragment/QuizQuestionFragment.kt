@@ -58,6 +58,10 @@ class QuizQuestionFragment :
                     nextButton.setOnClickListener(null)
                 }
             }
+            answersAdapter.onItemClickListener {
+                vm.checkAnswer(it)
+                answersAdapter.removeClickListener()
+            }
         }
 
         collectAsync(vm.checkedAnswersState) {
@@ -77,9 +81,6 @@ class QuizQuestionFragment :
     }
 
     override fun setListeners() {
-        answersAdapter.onItemClickListener {
-            vm.checkAnswer(it)
-        }
         binding.navigationView.onCloseButtonPressed {
             showPromptDialog()
         }
