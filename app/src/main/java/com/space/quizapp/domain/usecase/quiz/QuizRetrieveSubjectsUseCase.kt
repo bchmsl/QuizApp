@@ -5,10 +5,10 @@ import com.space.quizapp.domain.repository.quiz.QuizSubjectsRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
 class QuizRetrieveSubjectsUseCase(
-    private val repository: QuizSubjectsRepository
+    private val subjectsRepository: QuizSubjectsRepository
 ) : QuizBaseUseCase<Unit, List<QuizSubjectDomainModel>>() {
 
     override suspend fun invoke(params: Unit?): List<QuizSubjectDomainModel> {
-        return repository.retrieveSubjects()
+        return subjectsRepository.retrieveSubjects()
     }
 }

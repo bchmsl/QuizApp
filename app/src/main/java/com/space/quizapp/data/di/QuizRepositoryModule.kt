@@ -5,6 +5,7 @@ import com.space.quizapp.data.repository.quiz.QuizSubjectsRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserDataRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserSubjectRepositoryImpl
 import com.space.quizapp.data.repository.user.QuizUserTokenRepositoryImpl
+import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 import com.space.quizapp.domain.repository.quiz.QuizSubjectsRepository
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.repository.user.QuizUserSubjectRepository
@@ -41,10 +42,12 @@ val repositoryModule = module {
             userSubjectEntityMapper = get()
         )
     }
-    single<QuizQuestionsRepositoryImpl> {
+    single<QuizQuestionsRepository> {
         QuizQuestionsRepositoryImpl(
             questionsDao = get(),
             questionEntityMapper = get()
         )
     }
+
+
 }

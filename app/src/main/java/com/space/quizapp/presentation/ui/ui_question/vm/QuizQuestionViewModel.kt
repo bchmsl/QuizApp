@@ -6,10 +6,7 @@ import com.space.quizapp.common.util.postValue
 import com.space.quizapp.common.util.postValueAsync
 import com.space.quizapp.common.util.postValueNonNull
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
-import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
-import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
-import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
+import com.space.quizapp.domain.usecase.questions.*
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
@@ -24,6 +21,7 @@ class QuizQuestionViewModel(
     private val getNextQuestionUC: QuizGetNextQuestionUseCase,
     private val checkAnswersUC: QuizCheckAnswersUseCase,
     private val getPointsUC: QuizGetPointsUseCase,
+    private val resetUserPointsUC: QuizResetUserPointsUseCase,
     private val saveUserSubjectUC: QuizSaveUserSubjectUseCase,
     private val saveUserPointsUC: QuizSaveUserPointsUseCase,
     private val updateGpaUC: QuizUpdateGpaUseCase,
@@ -33,12 +31,17 @@ class QuizQuestionViewModel(
 
     private val answers = mutableListOf<QuizQuestionUiModel.QuizAnswerUiModel>()
 
-
     val questionState by QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
     val answersListState by QuizLiveDataDelegate<
             List<QuizQuestionUiModel.QuizAnswerUiModel>?
             >(emptyList())
     val pointsState by QuizLiveDataDelegate<Int?>(null)
+
+    fun resetUserPoints() {
+        executeAsync(IO) {
+            resetUserPointsUC()
+        }
+    }
 
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {

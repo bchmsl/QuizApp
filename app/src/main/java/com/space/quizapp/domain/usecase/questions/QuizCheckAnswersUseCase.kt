@@ -1,12 +1,12 @@
 package com.space.quizapp.domain.usecase.questions
 
-import com.space.quizapp.data.repository.quiz.QuizQuestionsRepositoryImpl
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
+import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
 class QuizCheckAnswersUseCase(
-    private val questionsRepository: QuizQuestionsRepositoryImpl,
-    private val addPointsToSubjectUseCase: AddPointsToSubjectUseCase,
+    private val addPointsToSubjectUC: AddPointsToSubjectUseCase,
+    private val questionsRepository: QuizQuestionsRepository
 ) : QuizBaseUseCase<CheckAnswerParams, Boolean>() {
 
     override suspend fun invoke(params: CheckAnswerParams?): Boolean {
@@ -14,8 +14,9 @@ class QuizCheckAnswersUseCase(
         questionsRepository.updateQuestion(question!!.copy(isAnswered = true))
 
         val isCorrect = params.answerModel.isCorrect
-        if (isCorrect) addPointsToSubjectUseCase(AddPointsParams(question.subjectTitle, 1))
-        else addPointsToSubjectUseCase(AddPointsParams(question.subjectTitle, 0))
+        if (isCorrect) addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 1))
+        else addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 0))
+
         return params.answerModel.isCorrect
     }
 }

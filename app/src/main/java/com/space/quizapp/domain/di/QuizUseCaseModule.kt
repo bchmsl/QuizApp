@@ -1,9 +1,6 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.domain.usecase.questions.AddPointsToSubjectUseCase
-import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
-import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
-import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
+import com.space.quizapp.domain.usecase.questions.*
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
@@ -18,27 +15,27 @@ import org.koin.dsl.module
 val useCaseModule = module {
     single {
         QuizSaveUserDataUseCase(
-            saveUserToken = get(),
-            repository = get()
+            saveUserTokenUC = get(),
+            userDataRepository = get()
         )
     }
 
     single {
         QuizReadUserDataUseCase(
-            readUserToken = get(),
-            repository = get()
+            readUserTokenUC = get(),
+            userDataRepository = get()
         )
     }
 
     single {
         QuizSaveUserTokenUseCase(
-            repository = get()
+            userTokenRepository = get()
         )
     }
 
     single {
         QuizReadUserTokenUseCase(
-            repository = get()
+            userTokenRepository = get()
         )
     }
 
@@ -46,7 +43,7 @@ val useCaseModule = module {
     single {
         QuizCheckAnswersUseCase(
             questionsRepository = get(),
-            addPointsToSubjectUseCase = get()
+            addPointsToSubjectUC = get()
         )
     }
 
@@ -58,7 +55,7 @@ val useCaseModule = module {
 
     single {
         QuizRetrieveSubjectsUseCase(
-            repository = get()
+            subjectsRepository = get()
         )
     }
 
@@ -83,23 +80,29 @@ val useCaseModule = module {
 
     single {
         QuizSaveUserSubjectUseCase(
-            repository = get(),
-            readUserData = get()
+            userSubjectRepository = get(),
+            readUserDataUC = get()
         )
     }
 
     single {
         QuizUpdateGpaUseCase(
-            readUserTokenUseCase = get(),
-            readUserSubjectsUseCase = get(),
+            readUserSubjectsUC = get(),
             subjectsRepository = get(),
-            userDataRepository = get()
+            userDataRepository = get(),
+            readUserDataUC = get()
         )
     }
 
     single {
         QuizSaveUserPointsUseCase(
-            readUserDataUseCase = get(),
+            readUserDataUC = get(),
+            userSubjectRepository = get()
+        )
+    }
+
+    single {
+        QuizResetUserPointsUseCase(
             userSubjectRepository = get()
         )
     }

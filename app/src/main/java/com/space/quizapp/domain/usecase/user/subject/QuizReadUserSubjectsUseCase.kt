@@ -14,6 +14,7 @@ class QuizReadUserSubjectsUseCase(
     override suspend fun invoke(params: Unit?): List<QuizUserSubjectDomainModel> {
         val username = readUserDataUC().username
         val userSubjects = userSubjectRepository.retrieveUserSubjects(username)
+
         userSubjects.forEach {
             val subject = subjectRepository.retrieveLocalSubjectByTitle(it.quizTitle)
             it.quizIcon = subject.quizIcon

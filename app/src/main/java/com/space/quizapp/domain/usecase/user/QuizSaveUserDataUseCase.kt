@@ -8,8 +8,8 @@ import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import java.util.*
 
 class QuizSaveUserDataUseCase(
-    private val saveUserToken: QuizSaveUserTokenUseCase,
-    private val repository: QuizUserDataRepository
+    private val saveUserTokenUC: QuizSaveUserTokenUseCase,
+    private val userDataRepository: QuizUserDataRepository
 ) : QuizBaseUseCase<QuizUserDomainModel, QuizUserValidation>() {
 
     override suspend fun invoke(params: QuizUserDomainModel?): QuizUserValidation {
@@ -18,14 +18,14 @@ class QuizSaveUserDataUseCase(
         if (userNameValid != QuizUserValidation.VALID) return userNameValid
         var userToken: String? = null
         if (params.token == EMPTY_STRING) {
-            userToken = repository.getUserTokenOrNull(username)
+            userToken = userDataRepository.getUserTokenOrNull(username)
         }
         if (userToken == null) {
             userToken = UUID.randomUUID().toString()
             params.token = userToken
-            repository.saveUserInfo(params)
+            userDataRepository.saveUserInfo(params)
         }
-        saveUserToken(userToken)
+        saveUserTokenUC(userToken)
         return userNameValid
     }
 }

@@ -29,6 +29,7 @@ val viewModelModule = module {
             getNextQuestionUC = get(),
             checkAnswersUC = get(),
             getPointsUC = get(),
+            resetUserPointsUC = get(),
             questionMapper = get(),
             answerMapper = get(),
             saveUserSubjectUC = get(),

@@ -40,6 +40,7 @@ class QuizQuestionFragment :
 
     override fun onBind() {
         super.onBind()
+        vm.resetUserPoints()
         withBinding {
             navigationView.setContent(subject, true, false)
             AnswerOptionsRecyclerView.adapter = answersAdapter

@@ -16,4 +16,7 @@ interface QuizQuestionsDao {
 
     @Update
     suspend fun updateQuestion(question: QuizQuestionEntity)
+
+    @Query("SELECT * FROM questions WHERE subjectTitle=:subjectTitle")
+    suspend fun getAllQuestions(subjectTitle: String): List<QuizQuestionEntity>
 }

@@ -6,12 +6,12 @@ import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 
 class QuizSaveUserSubjectUseCase(
-    private val repository: QuizUserSubjectRepository,
-    private val readUserData: QuizReadUserDataUseCase
+    private val readUserDataUC: QuizReadUserDataUseCase,
+    private val userSubjectRepository: QuizUserSubjectRepository
 ) : QuizBaseUseCase<QuizUserSubjectDomainModel, Unit>() {
     override suspend fun invoke(params: QuizUserSubjectDomainModel?) {
-        val username = readUserData()
-        val model = params!!.copy(username = username.username)
-        repository.insertUserSubject(model)
+        val username = readUserDataUC().username
+        val model = params!!.copy(username = username)
+        userSubjectRepository.insertUserSubject(model)
     }
 }

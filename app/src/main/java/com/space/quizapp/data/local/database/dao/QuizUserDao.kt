@@ -12,9 +12,12 @@ interface QuizUserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveUser(user: QuizUserEntity)
 
-    @Query("SELECT * FROM users WHERE token=:token")
-    fun getUser(token: String): QuizUserEntity
+    @Query("SELECT * FROM users WHERE username=:username")
+    suspend fun getUser(username: String): QuizUserEntity
 
     @Query("SELECT token FROM users WHERE username=:username")
     suspend fun getUserTokenOrNull(username: String): String?
+
+    @Query("SELECT * FROM users WHERE token=:userToken")
+    suspend fun getUserByToken(userToken: String): QuizUserEntity
 }

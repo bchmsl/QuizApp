@@ -2,6 +2,7 @@ package com.space.quizapp.common.extensions.coroutines
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import com.space.quizapp.common.util.QuizLiveDataDelegate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -42,14 +43,20 @@ fun ViewModel.executeAsync(
     }
 }
 
-fun <T> Fragment.observeLiveData(liveData: LiveData<T>, block: (T) -> Unit): LiveData<T> {
+fun <T> Fragment.observeLiveData(
+    liveData: QuizLiveDataDelegate<T>,
+    block: (T) -> Unit
+): QuizLiveDataDelegate<T> {
     liveData.observe(viewLifecycleOwner) {
         block(it)
     }
     return liveData
 }
 
-fun <T> Fragment.observeLiveDataNonNull(liveData: LiveData<T?>, block: (T) -> Unit): LiveData<T?> {
+fun <T> Fragment.observeLiveDataNonNull(
+    liveData: QuizLiveDataDelegate<T?>,
+    block: (T) -> Unit
+): QuizLiveDataDelegate<T?> {
     liveData.observe(viewLifecycleOwner) {
         it?.let {
             block(it)
