@@ -1,8 +1,10 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.space.quizapp.common.extensions.coroutines.executeAsync
+import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.quizapp.common.util.postValue
+import com.space.quizapp.common.util.postValueAsync
+import com.space.quizapp.common.util.postValueNonNull
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
 import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
@@ -15,11 +17,8 @@ import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionUiMapper
+import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.withContext
 
 class QuizQuestionViewModel(
     private val getNextQuestionUC: QuizGetNextQuestionUseCase,
@@ -32,26 +31,35 @@ class QuizQuestionViewModel(
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
 
-    private val _questionState =
-        MutableStateFlow<QuizQuestionUiModel?>(null)
-    val questionState get() = _questionState.asStateFlow()
+    private val answers = mutableListOf<QuizQuestionUiModel.QuizAnswerUiModel>()
 
-    private val _checkedAnswerState =
-        MutableLiveData<Boolean?>(null)
-    val checkedAnswerState: LiveData<Boolean?> get() = _checkedAnswerState
 
-    private val _pointsState = MutableStateFlow<Int?>(null)
-    val pointsState get() = _pointsState.asStateFlow()
+    val questionState by QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
+    val answersListState by QuizLiveDataDelegate<
+            List<QuizQuestionUiModel.QuizAnswerUiModel>?
+            >(emptyList())
+    val pointsState by QuizLiveDataDelegate<Int?>(null)
 
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {
-            val question = getNextQuestionUC(subjectTitle)
-            if (question == null) {
-                _pointsState.emit(getPointsUC())
-                saveUserPointsUC(subjectTitle)
-                return@executeAsync
+            postValueAsync(questionState) {
+                val question = getNextQuestionUC(subjectTitle)
+                if (question == null) {
+                    saveUserPointsUC(subjectTitle)
+                    postValueAsync(pointsState) { getPointsUC() }
+                    return@postValueAsync null
+                }
+                answers.clear()
+                answers.addAll(answerMapper.toUiList(question.answers))
+                submitAnswers()
+                questionMapper.toUi(question)
             }
-            _questionState.emit(questionMapper.toUi(question))
+        }
+    }
+
+    private fun submitAnswers() {
+        postValueNonNull(answersListState) {
+            answers
         }
     }
 
@@ -60,15 +68,23 @@ class QuizQuestionViewModel(
         subjectTitle: String
     ) {
         executeAsync(IO) {
-            val bool = checkAnswersUC(
+            val isCorrect = checkAnswersUC(
                 CheckAnswerParams(
                     answerMapper.toDomain(submittedAnswer),
                     subjectTitle
                 )
             )
-            withContext(Main) {
-                _checkedAnswerState.value = bool
+            val checkedAnswersList = answers
+            if (isCorrect) {
+                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT
+            } else {
+                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE
+                checkedAnswersList.find { it == submittedAnswer }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE
             }
+            postValue(answersListState) { checkedAnswersList }
         }
     }
 

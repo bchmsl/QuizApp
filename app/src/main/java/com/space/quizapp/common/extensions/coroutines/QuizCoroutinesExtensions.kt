@@ -41,3 +41,19 @@ fun ViewModel.executeAsync(
         block()
     }
 }
+
+fun <T> Fragment.observeLiveData(liveData: LiveData<T>, block: (T) -> Unit): LiveData<T> {
+    liveData.observe(viewLifecycleOwner) {
+        block(it)
+    }
+    return liveData
+}
+
+fun <T> Fragment.observeLiveDataNonNull(liveData: LiveData<T?>, block: (T) -> Unit): LiveData<T?> {
+    liveData.observe(viewLifecycleOwner) {
+        it?.let {
+            block(it)
+        }
+    }
+    return liveData
+}

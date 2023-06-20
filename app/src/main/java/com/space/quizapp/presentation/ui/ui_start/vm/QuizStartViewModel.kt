@@ -20,15 +20,15 @@ class QuizStartViewModel(
 
     fun saveUser(username: String) {
         executeAsync(IO) {
-            val validateUser = saveUserDataUC(userMapper.toDomain(QuizUserUiModel(username)))
-            val error = when (validateUser) {
+            val error = when (val validateUser =
+                saveUserDataUC(userMapper.toDomain(QuizUserUiModel(username)))) {
                 QuizUserValidation.VALID -> {
                     navigate(QuizFragmentDirections.HOME)
                     null
                 }
                 else -> validateUser.message
             }
-            emitError(error?.let { QuizCustomThrowable(it) })
+            postError(error?.let { QuizCustomThrowable(it) })
         }
     }
 

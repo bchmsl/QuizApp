@@ -1,7 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
 import androidx.activity.addCallback
-import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
@@ -48,36 +48,28 @@ class QuizQuestionFragment :
     }
 
     override fun observe() {
-        collectAsync(vm.questionState) { question ->
-            question?.let {
-                with(binding) {
-                    questionTextView.text = it.questionTitle
-                    answersAdapter.submitList(it.answers.toList())
-                    nextButton.text =
-                        getString(if (it.isLastQuestion) S.finish else S.next)
-                    nextButton.setOnClickListener(null)
-                }
+        observeLiveDataNonNull(vm.questionState) {
+            with(binding) {
+                questionTextView.text = it.questionTitle
+                answersAdapter.submitList(it.answers.toList())
+                nextButton.text =
+                    getString(if (it.isLastQuestion) S.finish else S.next)
+                nextButton.setOnClickListener(null)
             }
             answersAdapter.onItemClickListener {
                 vm.checkAnswer(it, subject)
                 answersAdapter.onItemClickListener(null)
             }
         }
-        vm.checkedAnswerState.observe(viewLifecycleOwner) {
-            it?.let { isCorrect ->
-                AnswersAdapter.correctState = {
-                    isCorrect
-                }
-            }
+        observeLiveDataNonNull(vm.answersListState) { checkedList ->
+            answersAdapter.submitList(checkedList.toList())
             binding.nextButton.setOnClickListener {
                 vm.getNextQuestion(subject)
             }
         }
-        collectAsync(vm.pointsState) {
-            it?.let {
-                showAlertDialog(it)
-                vm.saveUserSubject(subject, it)
-            }
+        observeLiveDataNonNull(vm.pointsState) {
+            showAlertDialog(it)
+            vm.saveUserSubject(subject, it)
         }
     }
 

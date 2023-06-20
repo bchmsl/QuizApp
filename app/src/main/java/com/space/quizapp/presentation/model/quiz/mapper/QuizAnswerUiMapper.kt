@@ -10,7 +10,8 @@ class QuizAnswerUiMapper :
         return with(model) {
             QuizQuestionDomainModel.QuizAnswerDomainModel(
                 answerOption = answerOption,
-                isCorrect = isCorrect
+                isCorrect = isCorrect,
+                answerSelectedState = answerSelectedState
             )
         }
     }
@@ -19,7 +20,8 @@ class QuizAnswerUiMapper :
         return with(model) {
             QuizQuestionUiModel.QuizAnswerUiModel(
                 answerOption = answerOption,
-                isCorrect = isCorrect
+                isCorrect = isCorrect,
+                answerSelectedState = answerSelectedState
             )
         }
     }

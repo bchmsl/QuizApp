@@ -1,7 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_points.fragment
 
 import androidx.activity.addCallback
-import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.coroutines.observeLiveData
 import com.space.quizapp.common.extensions.utils.visible
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
@@ -45,7 +45,7 @@ class QuizPointsFragment :
     }
 
     override fun observe() {
-        collectAsync(vm.userSubjects) {
+        observeLiveData(vm.userSubjects) {
             if (it.isNullOrEmpty()) {
                 setEmptyMessage()
             } else {

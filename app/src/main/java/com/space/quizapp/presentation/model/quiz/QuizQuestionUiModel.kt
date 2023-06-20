@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.model.quiz
 
 import android.os.Parcelable
+import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -17,6 +18,7 @@ data class QuizQuestionUiModel(
     @Parcelize
     data class QuizAnswerUiModel(
         val answerOption: String,
-        val isCorrect: Boolean
+        val isCorrect: Boolean,
+        var answerSelectedState: QuizAnswerSelectedState
     ) : Parcelable
 }

@@ -1,5 +1,7 @@
 package com.space.quizapp.domain.model.quiz
 
+import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
+
 data class QuizQuestionDomainModel(
     val questionTitle: String,
     val answers: MutableList<QuizAnswerDomainModel>,
@@ -12,6 +14,8 @@ data class QuizQuestionDomainModel(
 ) {
     data class QuizAnswerDomainModel(
         val answerOption: String,
-        val isCorrect: Boolean
+        val isCorrect: Boolean,
+        val answerSelectedState: QuizAnswerSelectedState
+        = QuizAnswerSelectedState.ANSWER_NEUTRAL
     )
 }

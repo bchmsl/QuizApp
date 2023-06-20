@@ -1,6 +1,5 @@
 package com.space.quizapp.data.repository.user
 
-import android.util.Log
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
 import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 import com.space.quizapp.data.local.database.model.user.mapper.QuizUserSubjectEntityMapper
@@ -54,7 +53,6 @@ class QuizUserSubjectRepositoryImpl(
             userSubjectsDao.updateUserSubject(
                 userSubjectEntity
             )
-            Log.d("TAG_REPO_2", userSubjectEntity.score.toString())
             return
         }
         userSubjectsDao.insertUserSubject(userSubjectEntity)
@@ -62,7 +60,6 @@ class QuizUserSubjectRepositoryImpl(
 
     override suspend fun addPoint(points: Int) {
         userPoints.set(userPoints.get() + points)
-        Log.d("TAG_REPO", points.toString())
     }
 
     override suspend fun saveUserPoints(username: String, quizTitle: String) {
@@ -80,10 +77,11 @@ class QuizUserSubjectRepositoryImpl(
                 score = userPoints.get()
             )
         )
-        userPoints.set(0)
     }
 
     override suspend fun getUserPoints(): Int? {
-        return userPoints.get()
+        val points = userPoints.get()
+        userPoints.set(0)
+        return points
     }
 }

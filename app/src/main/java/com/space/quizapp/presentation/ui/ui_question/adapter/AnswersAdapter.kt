@@ -7,9 +7,6 @@ import com.space.quizapp.presentation.base.adapter.BaseAdapter
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
 class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
-    companion object {
-        var correctState: ((QuizQuestionUiModel.QuizAnswerUiModel) -> Boolean)? = null
-    }
 
     override fun createVH(
         parent: ViewGroup,
@@ -29,9 +26,9 @@ class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
         override fun onBind(
             item: QuizQuestionUiModel.QuizAnswerUiModel,
         ) {
-            val correctState = AnswersAdapter.correctState?.invoke(item)
             with(binding.root) {
                 setContent(item.answerOption)
+                setSelection(item.answerSelectedState)
             }
         }
     }

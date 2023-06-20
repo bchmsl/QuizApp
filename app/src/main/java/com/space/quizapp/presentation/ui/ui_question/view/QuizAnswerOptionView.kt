@@ -21,27 +21,19 @@ class QuizAnswerOptionView(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        setSelection(QuizAnswerSelectedState.ANSWER_UNSELECTED)
+        setSelection(QuizAnswerSelectedState.ANSWER_NEUTRAL)
     }
 
     fun setContent(title: String) {
         binding.optionTitleTextView.text = title
     }
 
-    fun setSelection(isCorrect: Boolean?) {
-        when (isCorrect) {
-            true -> selectedCorrect()
-            false -> selectedIncorrect()
-            else -> unselected()
-        }
-    }
-
     fun setSelection(selectState: QuizAnswerSelectedState) {
         when (selectState) {
-            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrect()
-            QuizAnswerSelectedState.ANSWER_SELECTED_INCORRECT -> selectedIncorrect()
-            QuizAnswerSelectedState.ANSWER_UNSELECTED -> unselected()
-            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT_POINTS -> selectedCorrectPoints(1)
+            QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE -> selectedCorrect()
+            QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE -> selectedIncorrect()
+            QuizAnswerSelectedState.ANSWER_NEUTRAL -> unselected()
+            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrectPoints(1)
         }
 
     }
