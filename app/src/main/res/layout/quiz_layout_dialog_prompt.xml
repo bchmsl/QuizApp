@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?colorPrimary"
+    app:cardCornerRadius="@dimen/dimen_31_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_39_dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/promptTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?colorOnPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/stop_quiz_prompt" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/positiveButton"
+            style="@style/Space.QuizApp.Button.AlphaButton"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5_dp"
+            android:layout_marginTop="@dimen/dimen_42_dp"
+            android:text="@string/yes"
+            app:layout_constraintEnd_toStartOf="@id/negativeButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/promptTextView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/negativeButton"
+            style="@style/Space.QuizApp.Button.AlphaButton"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5_dp"
+            android:text="@string/no"
+            app:layout_constraintBottom_toBottomOf="@+id/positiveButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/positiveButton"
+            app:layout_constraintTop_toTopOf="@+id/positiveButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

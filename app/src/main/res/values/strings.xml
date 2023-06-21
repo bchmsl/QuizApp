@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">QuizApp</string>
+    <string name="app_name">Quiz</string>
+    <string name="my_first_quiz">ჩემი პირველი ქვიზი</string>
+    <string name="enter_name">შეიყვანე სახელი</string>
+    <string name="start_quiz">ქვიზის დაწყება</string>
+    <string name="gpa">GPA -</string>
+    <string name="details">დეტალურად</string>
+    <string name="choose_subject">აირჩიე საგანი</string>
+    <string name="next">შემდეგი</string>
+    <string name="finish">დასრულება</string>
+    <string name="not_earned_warning">🧐\nსამწუხაროდ, ქულები ჯერ არ გაქვს დაგროვილი.</string>
+    <string name="yes">კი</string>
+    <string name="no">არა</string>
+    <string name="close">დახურვა</string>
+    <string name="exit_prompt">ნამდვილად გსურს გასვლა?</string>
+    <string name="stop_quiz_prompt">ნამდვილად გსურს ქვიზის შეწყვეტა?</string>
+
+    <string name="message_valid">ოპერაცია წარმატებით დასრულდა!</string>
+    <string name="message_error_length_long">სახელის ზომა უნდა არ უნდა აღემატებოდეს 20 სიმბოლოს</string>
+    <string name="message_error_length_short">სახელის ზომა უნდა არ უნდა იყოს 3 სიმბოლოზე ნაკლები</string>
+    <string name="message_error_containing_symbol">სახელი უნდა შედგებოდეს მხოლოდ ქართული ასოებისგან</string>
+
+    <string name="greeting">გამარჯობა, </string>
 </resources>
