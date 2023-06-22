@@ -19,7 +19,7 @@ class QuizAnswerOptionView(
     private val binding =
         QuizViewAnswerOptionBinding.inflate(LayoutInflater.from(context), this, true)
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         setSelection(QuizAnswerSelectedState.ANSWER_NEUTRAL)
     }

@@ -12,6 +12,7 @@ class QuizUserSubjectRepositoryImpl(
     private val userSubjectEntityMapper: QuizUserSubjectEntityMapper
 ) : QuizUserSubjectRepository() {
 
+
     override val userPoints = AtomicReference(0)
 
     override suspend fun insertUserSubject(userSubjectDomainModel: QuizUserSubjectDomainModel) {
