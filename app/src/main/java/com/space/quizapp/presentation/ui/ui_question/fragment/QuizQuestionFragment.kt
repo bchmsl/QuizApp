@@ -44,7 +44,6 @@ class QuizQuestionFragment :
 
     override fun onBind() {
         super.onBind()
-        vm.resetUserPoints()
         withBinding {
             navigationView.setContent(subject, true, false)
             AnswerOptionsRecyclerView.adapter = answersAdapter
@@ -60,7 +59,7 @@ class QuizQuestionFragment :
                 nextButton.text =
                     getString(if (it.isLastQuestion) S.finish else S.next)
                 nextButton.setOnClickListener(null)
-                progressView.setProgress(false, points)
+                progressView.setProgress(it.questionIndex + 1)
             }
             answersAdapter.onItemClickListener {
                 vm.checkAnswer(it, subject)
@@ -70,13 +69,14 @@ class QuizQuestionFragment :
         }
         observeLiveDataNonNull(vm.answersListState) { checkedList ->
             answersAdapter.submitList(checkedList.toList())
+            answersAdapter.notifyItemRangeChanged(0, answersAdapter.itemCount)
             binding.nextButton.setOnClickListener {
                 vm.getNextQuestion(subject)
             }
         }
-        observeLiveDataNonNull(vm.pointsState) {
+        observeLiveData(vm.pointsState) {
             points = it
-            binding.progressView.setProgress(true, points)
+            binding.progressView.setPoints(points)
         }
 
         observeLiveData(vm.isFinished) {

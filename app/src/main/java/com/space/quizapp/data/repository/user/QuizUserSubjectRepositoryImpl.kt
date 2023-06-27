@@ -5,15 +5,11 @@ import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 import com.space.quizapp.data.local.database.model.user.mapper.QuizUserSubjectEntityMapper
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
 import com.space.quizapp.domain.repository.user.QuizUserSubjectRepository
-import java.util.concurrent.atomic.AtomicReference
 
 class QuizUserSubjectRepositoryImpl(
     private val userSubjectsDao: QuizUserSubjectsDao,
     private val userSubjectEntityMapper: QuizUserSubjectEntityMapper
 ) : QuizUserSubjectRepository() {
-
-
-    override val userPoints = AtomicReference(0)
 
     override suspend fun insertUserSubject(userSubjectDomainModel: QuizUserSubjectDomainModel) {
         val userSubjectEntity = userSubjectEntityMapper.toEntity(userSubjectDomainModel)
@@ -59,15 +55,11 @@ class QuizUserSubjectRepositoryImpl(
         userSubjectsDao.insertUserSubject(userSubjectEntity)
     }
 
-    override suspend fun addPoint(points: Int) {
-        userPoints.set(userPoints.get() + points)
-    }
-
-    override suspend fun saveUserPoints(username: String, quizTitle: String) {
+    override suspend fun saveUserPoints(username: String, quizTitle: String, points: Int) {
         val subject = getUserSubject(username, quizTitle)
         subject?.let {
-            if (it.score >= userPoints.get()) return
-            val user = subject.copy(score = userPoints.get())
+            if (it.score >= points) return
+            val user = subject.copy(score = points)
             updateOrInsertUserSubject(username, user)
             return
         }
@@ -75,17 +67,8 @@ class QuizUserSubjectRepositoryImpl(
             QuizUserSubjectEntity(
                 username = username,
                 quizTitle = quizTitle,
-                score = userPoints.get()
+                score = points
             )
         )
-        resetUserPoints()
-    }
-
-    override suspend fun getUserPoints(): Int {
-        return userPoints.get()
-    }
-
-    override suspend fun resetUserPoints() {
-        userPoints.set(0)
     }
 }

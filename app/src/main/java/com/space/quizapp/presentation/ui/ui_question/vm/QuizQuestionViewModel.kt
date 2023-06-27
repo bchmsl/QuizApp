@@ -2,17 +2,12 @@ package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.common.util.postValue
-import com.space.quizapp.common.util.postValueAsync
-import com.space.quizapp.common.util.postValueAsyncNonNull
-import com.space.quizapp.common.util.postValueNonNull
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
 import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
-import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
-import com.space.quizapp.domain.usecase.questions.QuizResetUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
+import com.space.quizapp.domain.usecase.questions.SaveUserPointsRequest
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
@@ -25,10 +20,8 @@ import kotlinx.coroutines.Dispatchers.IO
 
 class QuizQuestionViewModel(
     private val getNextQuestionUC: QuizGetNextQuestionUseCase,
-    private val checkAnswersUC: QuizCheckAnswersUseCase,
-    private val getPointsUC: QuizGetPointsUseCase,
-    private val resetUserPointsUC: QuizResetUserPointsUseCase,
     private val saveUserSubjectUC: QuizSaveUserSubjectUseCase,
+    private val checkAnswersUC: QuizCheckAnswersUseCase,
     private val saveUserPointsUC: QuizSaveUserPointsUseCase,
     private val questionsCountUC: GetQuestionsCountUseCase,
     private val updateGpaUC: QuizUpdateGpaUseCase,
@@ -36,43 +29,32 @@ class QuizQuestionViewModel(
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
 
-    private val answers = mutableListOf<QuizQuestionUiModel.QuizAnswerUiModel>()
-
+    private var answers = listOf<QuizQuestionUiModel.QuizAnswerUiModel>()
+    private var question: QuizQuestionUiModel? = null
     val questionState by QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
     val answersListState by QuizLiveDataDelegate<
             List<QuizQuestionUiModel.QuizAnswerUiModel>?
             >(emptyList())
-    val pointsState by QuizLiveDataDelegate<Int?>(null)
+    val pointsState by QuizLiveDataDelegate(0)
     val questionCount by QuizLiveDataDelegate(0)
     val isFinished by QuizLiveDataDelegate(false)
 
-    fun resetUserPoints() {
-        executeAsync(IO) {
-            resetUserPointsUC()
-        }
-    }
-
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {
-            postValueAsync(questionState) {
-                val question = getNextQuestionUC(subjectTitle)
-                if (question == null) {
-                    saveUserPointsUC(subjectTitle)
-                    postValueAsyncNonNull(isFinished) { true }
-                    return@postValueAsync null
-                }
-                postValueAsync(pointsState) { getPointsUC() }
-                answers.clear()
-                answers.addAll(answerMapper.toUiList(question.answers))
-                submitAnswers()
-                questionMapper.toUi(question)
+            val question = getNextQuestionUC(subjectTitle)
+            if (question == null) {
+                questionState.post(null)
+                isFinished.post(true)
+                saveUserPointsUC(pointsState.value?.let { SaveUserPointsRequest(subjectTitle, it) })
+                pointsState.post(0)
+                return@executeAsync
             }
-        }
-    }
-
-    private fun submitAnswers() {
-        postValueNonNull(answersListState) {
-            answers
+            this@QuizQuestionViewModel.question = questionMapper.toUi(question)
+            questionState.post(this@QuizQuestionViewModel.question)
+            this@QuizQuestionViewModel.question?.let {
+                answers = it.answers
+                answersListState.post(answers)
+            }
         }
     }
 
@@ -91,14 +73,19 @@ class QuizQuestionViewModel(
             if (isCorrect) {
                 checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
                     QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT
+                addPoints()
             } else {
                 checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
                     QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE
                 checkedAnswersList.find { it == submittedAnswer }?.answerSelectedState =
                     QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE
             }
-            postValue(answersListState) { checkedAnswersList }
+            answersListState.post(checkedAnswersList)
         }
+    }
+
+    private fun addPoints() {
+        question?.points?.let { pointsState.post(pointsState.value?.plus(it) ?: 0) }
     }
 
     fun saveUserSubject(quizTitle: String, score: Int) {
@@ -110,9 +97,7 @@ class QuizQuestionViewModel(
 
     fun getQuestionCount(subjectTitle: String) {
         executeAsync {
-            postValueAsyncNonNull(questionCount) {
-                questionsCountUC(subjectTitle)
-            }
+            questionCount.post(questionsCountUC(subjectTitle))
         }
     }
 }

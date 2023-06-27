@@ -2,7 +2,6 @@ package com.space.quizapp.presentation.ui.ui_points.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.common.util.postValueAsync
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserSubjectUiModel
@@ -18,7 +17,7 @@ class QuizPointsViewModel(
 
     fun getUserSubjects() {
         executeAsync(IO) {
-            postValueAsync(userSubjects) { userSubjectsMapper.toUiList(readUserSubjectsUC()) }
+            userSubjects.post(userSubjectsMapper.toUiList(readUserSubjectsUC()))
         }
     }
 

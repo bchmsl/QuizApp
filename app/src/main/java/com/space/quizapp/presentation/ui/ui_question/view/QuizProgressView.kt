@@ -22,19 +22,23 @@ class QuizProgressView(
     fun setMaxValue(maxValue: Int) {
         this.maxValue = maxValue
         binding.progressIndicator.max = maxValue
+        setContent()
     }
 
-    fun setProgress(addOne: Boolean, correctAnswersValue: Int? = null) {
-        if (addOne) this.currentValue += 1
-        correctAnswersValue?.let {
-            this.correctAnswersValue = it
-        }
+    fun setProgress(index: Int) {
+        currentValue = index
+        setContent()
+    }
+
+    fun setPoints(pointsValue: Int) {
+        this.correctAnswersValue = pointsValue
         setContent()
     }
 
     private fun setContent() {
         with(binding) {
-            progressTextView.text = "$currentValue/$maxValue"
+            val progress = "$currentValue/$maxValue"
+            progressTextView.text = progress
             currentScoreTextView.text = context.getString(S.current_score, correctAnswersValue)
             progressIndicator.progress = currentValue
         }
