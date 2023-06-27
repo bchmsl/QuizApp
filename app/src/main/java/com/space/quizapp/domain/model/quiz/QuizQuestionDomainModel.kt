@@ -10,7 +10,8 @@ data class QuizQuestionDomainModel(
     val questionIndex: Int,
     val isAnswered: Boolean,
     val isLastQuestion: Boolean,
-    val subjectTitle: String
+    val subjectTitle: String,
+    val points: Int
 ) {
     data class QuizAnswerDomainModel(
         val answerOption: String,

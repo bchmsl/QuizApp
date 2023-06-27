@@ -17,7 +17,8 @@ class QuizQuestionUiMapper(
                 questionIndex = questionIndex,
                 isLastQuestion = isLastQuestion,
                 isAnswered = isAnswered,
-                subjectTitle = subjectTitle
+                subjectTitle = subjectTitle,
+                points = points
             )
         }
     }
@@ -32,7 +33,8 @@ class QuizQuestionUiMapper(
                 questionIndex = questionIndex,
                 isLastQuestion = isLastQuestion,
                 isAnswered = isAnswered,
-                subjectTitle = subjectTitle
+                subjectTitle = subjectTitle,
+                points = points
             )
         }
     }

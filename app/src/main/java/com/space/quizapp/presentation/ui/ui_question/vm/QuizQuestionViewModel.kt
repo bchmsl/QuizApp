@@ -4,9 +4,15 @@ import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
 import com.space.quizapp.common.util.postValue
 import com.space.quizapp.common.util.postValueAsync
+import com.space.quizapp.common.util.postValueAsyncNonNull
 import com.space.quizapp.common.util.postValueNonNull
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.usecase.questions.*
+import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
+import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
+import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
+import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
+import com.space.quizapp.domain.usecase.questions.QuizResetUserPointsUseCase
+import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
@@ -24,6 +30,7 @@ class QuizQuestionViewModel(
     private val resetUserPointsUC: QuizResetUserPointsUseCase,
     private val saveUserSubjectUC: QuizSaveUserSubjectUseCase,
     private val saveUserPointsUC: QuizSaveUserPointsUseCase,
+    private val questionsCountUC: GetQuestionsCountUseCase,
     private val updateGpaUC: QuizUpdateGpaUseCase,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
@@ -36,6 +43,8 @@ class QuizQuestionViewModel(
             List<QuizQuestionUiModel.QuizAnswerUiModel>?
             >(emptyList())
     val pointsState by QuizLiveDataDelegate<Int?>(null)
+    val questionCount by QuizLiveDataDelegate(0)
+    val isFinished by QuizLiveDataDelegate(false)
 
     fun resetUserPoints() {
         executeAsync(IO) {
@@ -49,9 +58,10 @@ class QuizQuestionViewModel(
                 val question = getNextQuestionUC(subjectTitle)
                 if (question == null) {
                     saveUserPointsUC(subjectTitle)
-                    postValueAsync(pointsState) { getPointsUC() }
+                    postValueAsyncNonNull(isFinished) { true }
                     return@postValueAsync null
                 }
+                postValueAsync(pointsState) { getPointsUC() }
                 answers.clear()
                 answers.addAll(answerMapper.toUiList(question.answers))
                 submitAnswers()
@@ -95,6 +105,14 @@ class QuizQuestionViewModel(
         executeAsync(IO) {
             saveUserSubjectUC(QuizUserSubjectDomainModel(quizTitle = quizTitle, score = score))
             updateGpaUC()
+        }
+    }
+
+    fun getQuestionCount(subjectTitle: String) {
+        executeAsync {
+            postValueAsyncNonNull(questionCount) {
+                questionsCountUC(subjectTitle)
+            }
         }
     }
 }

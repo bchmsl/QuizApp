@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
 import androidx.activity.addCallback
+import com.space.quizapp.common.extensions.coroutines.observeLiveData
 import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
@@ -26,6 +27,8 @@ class QuizQuestionFragment :
     private lateinit var subject: String
     private var subjectId: Int = -1
 
+    private var points = 0
+
     override val vmc: KClass<QuizQuestionViewModel>
         get() = QuizQuestionViewModel::class
 
@@ -35,6 +38,7 @@ class QuizQuestionFragment :
     override fun onFragmentCreate() {
         subject = arguments?.getString(TAG_STRING).toString()
         subjectId = arguments?.getInt(TAG_INT) ?: -1
+        vm.getQuestionCount(subject)
         vm.getNextQuestion(subject)
     }
 
@@ -56,11 +60,13 @@ class QuizQuestionFragment :
                 nextButton.text =
                     getString(if (it.isLastQuestion) S.finish else S.next)
                 nextButton.setOnClickListener(null)
+                progressView.setProgress(false, points)
             }
             answersAdapter.onItemClickListener {
                 vm.checkAnswer(it, subject)
                 answersAdapter.onItemClickListener(null)
             }
+
         }
         observeLiveDataNonNull(vm.answersListState) { checkedList ->
             answersAdapter.submitList(checkedList.toList())
@@ -69,8 +75,18 @@ class QuizQuestionFragment :
             }
         }
         observeLiveDataNonNull(vm.pointsState) {
-            showAlertDialog(it)
-            vm.saveUserSubject(subject, it)
+            points = it
+            binding.progressView.setProgress(true, points)
+        }
+
+        observeLiveData(vm.isFinished) {
+            if (it) {
+                vm.saveUserSubject(subject, points)
+                showAlertDialog(points)
+            }
+        }
+        observeLiveData(vm.questionCount) {
+            binding.progressView.setMaxValue(it)
         }
     }
 
@@ -104,6 +120,8 @@ class QuizQuestionFragment :
             .onButtonClick {
                 vm.navigate(QuizFragmentDirections.HOME)
                 alertDialog.dismiss()
+                binding.progressView.clear()
+                this.points = 0
             }.show()
     }
 }

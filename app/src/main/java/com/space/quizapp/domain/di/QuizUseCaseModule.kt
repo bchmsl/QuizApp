@@ -1,6 +1,11 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.domain.usecase.questions.*
+import com.space.quizapp.domain.usecase.questions.AddPointsToSubjectUseCase
+import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
+import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
+import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
+import com.space.quizapp.domain.usecase.questions.QuizResetUserPointsUseCase
+import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
@@ -104,6 +109,12 @@ val useCaseModule = module {
     single {
         QuizResetUserPointsUseCase(
             userSubjectRepository = get()
+        )
+    }
+
+    single {
+        GetQuestionsCountUseCase(
+            questionsRepository = get()
         )
     }
 }

@@ -34,7 +34,8 @@ val viewModelModule = module {
             answerMapper = get(),
             saveUserSubjectUC = get(),
             updateGpaUC = get(),
-            saveUserPointsUC = get()
+            saveUserPointsUC = get(),
+            questionsCountUC = get()
         )
     }
     viewModel {

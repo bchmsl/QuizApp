@@ -78,12 +78,11 @@ class QuizUserSubjectRepositoryImpl(
                 score = userPoints.get()
             )
         )
+        resetUserPoints()
     }
 
-    override suspend fun getUserPoints(): Int? {
-        val points = userPoints.get()
-        userPoints.set(0)
-        return points
+    override suspend fun getUserPoints(): Int {
+        return userPoints.get()
     }
 
     override suspend fun resetUserPoints() {

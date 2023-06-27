@@ -24,7 +24,8 @@ class QuizQuestionDtoMapper :
                 questionIndex = questionIndex,
                 isLastQuestion = isLastQuestion?.invoke(this) ?: false,
                 isAnswered = false,
-                subjectTitle = subjectTitle?.invoke(this) ?: ""
+                subjectTitle = subjectTitle?.invoke(this) ?: "",
+                points = 1
             )
         }
     }

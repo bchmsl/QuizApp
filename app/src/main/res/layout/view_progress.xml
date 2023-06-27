@@ -15,6 +15,7 @@
         tools:text="1/10" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/currentScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/quiz_ic_star"
@@ -25,6 +26,7 @@
         tools:text="მიმდინარე ქულა 1 " />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_10_dp"
         android:layout_marginTop="@dimen/dimen_5_dp"

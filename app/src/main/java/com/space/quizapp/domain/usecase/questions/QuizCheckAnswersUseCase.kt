@@ -14,7 +14,7 @@ class QuizCheckAnswersUseCase(
         questionsRepository.updateQuestion(question!!.copy(isAnswered = true))
 
         val isCorrect = params.answerModel.isCorrect
-        if (isCorrect) addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 1))
+        if (isCorrect) addPointsToSubjectUC(AddPointsParams(question.subjectTitle, question.points))
         else addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 0))
 
         return params.answerModel.isCorrect
