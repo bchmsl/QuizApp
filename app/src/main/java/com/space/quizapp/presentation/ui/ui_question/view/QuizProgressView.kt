@@ -40,7 +40,7 @@ class QuizProgressView(
             val progress = "$currentValue/$maxValue"
             progressTextView.text = progress
             currentScoreTextView.text = context.getString(S.current_score, correctAnswersValue)
-            progressIndicator.progress = currentValue
+            binding.progressIndicator.setProgress(currentValue, true)
         }
     }
 

@@ -11,7 +11,6 @@ import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
-import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -65,13 +64,6 @@ val useCaseModule = module {
             readUserDataUC = get(),
             userSubjectRepository = get(),
             subjectRepository = get()
-        )
-    }
-
-    single {
-        QuizSaveUserSubjectUseCase(
-            userSubjectRepository = get(),
-            readUserDataUC = get()
         )
     }
 

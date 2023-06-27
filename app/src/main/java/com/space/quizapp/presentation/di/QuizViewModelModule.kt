@@ -28,12 +28,11 @@ val viewModelModule = module {
         QuizQuestionViewModel(
             getNextQuestionUC = get(),
             checkAnswersUC = get(),
-            questionMapper = get(),
-            answerMapper = get(),
-            saveUserSubjectUC = get(),
-            updateGpaUC = get(),
             saveUserPointsUC = get(),
-            questionsCountUC = get()
+            questionsCountUC = get(),
+            updateGpaUC = get(),
+            questionMapper = get(),
+            answerMapper = get()
         )
     }
     viewModel {

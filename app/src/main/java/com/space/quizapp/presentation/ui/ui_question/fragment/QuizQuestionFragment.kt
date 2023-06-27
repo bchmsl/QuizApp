@@ -80,10 +80,8 @@ class QuizQuestionFragment :
         }
 
         observeLiveData(vm.isFinished) {
-            if (it) {
-                vm.saveUserSubject(subject, points)
-                showAlertDialog(points)
-            }
+            if (it) showAlertDialog(points)
+
         }
         observeLiveData(vm.questionCount) {
             binding.progressView.setMaxValue(it)

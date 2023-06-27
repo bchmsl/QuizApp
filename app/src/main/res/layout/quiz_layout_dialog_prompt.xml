@@ -21,19 +21,8 @@
             android:gravity="center"
             android:textColor="?colorOnPrimary"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/negativeButton"
             tools:text="@string/stop_quiz_prompt" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/positiveButton"
-            style="@style/Space.QuizApp.Button.AlphaButton"
-            android:layout_width="@dimen/dimen_0_dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_5_dp"
-            android:layout_marginTop="@dimen/dimen_42_dp"
-            android:text="@string/yes"
-            app:layout_constraintEnd_toStartOf="@id/negativeButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/promptTextView" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/negativeButton"
@@ -41,11 +30,25 @@
             android:layout_width="@dimen/dimen_0_dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_5_dp"
+            android:layout_marginTop="@dimen/dimen_30_dp"
             android:text="@string/no"
-            app:layout_constraintBottom_toBottomOf="@+id/positiveButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/positiveButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/promptTextView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/positiveButton"
+            style="@style/Space.QuizApp.Button.AlphaButton"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5_dp"
+            android:text="@string/yes"
+            app:layout_constraintBottom_toBottomOf="@+id/negativeButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/positiveButton"
-            app:layout_constraintTop_toTopOf="@+id/positiveButton" />
+            app:layout_constraintStart_toEndOf="@+id/negativeButton"
+            app:layout_constraintTop_toTopOf="@+id/negativeButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

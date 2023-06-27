@@ -11,21 +11,6 @@ class QuizUserSubjectRepositoryImpl(
     private val userSubjectEntityMapper: QuizUserSubjectEntityMapper
 ) : QuizUserSubjectRepository() {
 
-    override suspend fun insertUserSubject(userSubjectDomainModel: QuizUserSubjectDomainModel) {
-        val userSubjectEntity = userSubjectEntityMapper.toEntity(userSubjectDomainModel)
-        val oldSubject = userSubjectsDao.getUserSubjectByTitleIfExists(
-            userSubjectEntity.username,
-            userSubjectEntity.quizTitle
-        )
-        if (oldSubject == null) {
-            userSubjectsDao.insertUserSubject(userSubjectEntity)
-            return
-        }
-        if (oldSubject.score >= userSubjectEntity.score) return
-        userSubjectsDao.deleteUserSubject(oldSubject)
-        userSubjectsDao.insertUserSubject(userSubjectEntity)
-    }
-
     override suspend fun retrieveUserSubjects(username: String): List<QuizUserSubjectDomainModel> {
         return userSubjectsDao.getUserSubjects(username)
             .map { userSubjectEntityMapper.toDomain(it) }
@@ -39,31 +24,28 @@ class QuizUserSubjectRepositoryImpl(
     }
 
     override suspend fun updateOrInsertUserSubject(
-        username: String,
         userSubjectEntity: QuizUserSubjectEntity
     ) {
         val savedSubject = userSubjectsDao.getUserSubjectByTitleIfExists(
-            username,
+            userSubjectEntity.username,
             userSubjectEntity.quizTitle
         )
         savedSubject?.let {
-            userSubjectsDao.updateUserSubject(
-                userSubjectEntity
-            )
+            userSubjectsDao.updateUserSubject(it)
             return
         }
         userSubjectsDao.insertUserSubject(userSubjectEntity)
     }
 
     override suspend fun saveUserPoints(username: String, quizTitle: String, points: Int) {
-        val subject = getUserSubject(username, quizTitle)
-        subject?.let {
+        var userSubject = getUserSubject(username, quizTitle)
+        userSubject?.let {
             if (it.score >= points) return
-            val user = subject.copy(score = points)
-            updateOrInsertUserSubject(username, user)
+            userSubject = it.copy(score = points)
+            updateOrInsertUserSubject(userSubject!!)
             return
         }
-        userSubjectsDao.insertUserSubject(
+        updateOrInsertUserSubject(
             QuizUserSubjectEntity(
                 username = username,
                 quizTitle = quizTitle,
