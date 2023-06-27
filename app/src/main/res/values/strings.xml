@@ -25,7 +25,7 @@
     <string name="message_error_length_short">სახელის ზომა უნდა არ უნდა იყოს 3 სიმბოლოზე ნაკლები</string>
     <string name="message_error_containing_symbol">სახელი უნდა შედგებოდეს მხოლოდ ქართული ასოებისგან</string>
 
-    <string name="current_score">მიმდინარე ქულა: %d</string>
+    <string name="current_score">მიმდინარე ქულა: %d  </string>
 
     <string name="error_bad_request">არასწორი მოთხოვნა! სცადეთ ხელახლა!</string>
 

@@ -2,7 +2,6 @@ package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
 import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
@@ -10,7 +9,6 @@ import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.SaveUserPointsRequest
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
-import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
@@ -20,7 +18,6 @@ import kotlinx.coroutines.Dispatchers.IO
 
 class QuizQuestionViewModel(
     private val getNextQuestionUC: QuizGetNextQuestionUseCase,
-    private val saveUserSubjectUC: QuizSaveUserSubjectUseCase,
     private val checkAnswersUC: QuizCheckAnswersUseCase,
     private val saveUserPointsUC: QuizSaveUserPointsUseCase,
     private val questionsCountUC: GetQuestionsCountUseCase,
@@ -45,7 +42,7 @@ class QuizQuestionViewModel(
             if (question == null) {
                 questionState.post(null)
                 isFinished.post(true)
-                saveUserPointsUC(pointsState.value?.let { SaveUserPointsRequest(subjectTitle, it) })
+                pointsState.value?.let { saveUserSubject(subjectTitle, it) }
                 pointsState.post(0)
                 return@executeAsync
             }
@@ -88,9 +85,9 @@ class QuizQuestionViewModel(
         question?.points?.let { pointsState.post(pointsState.value?.plus(it) ?: 0) }
     }
 
-    fun saveUserSubject(quizTitle: String, score: Int) {
+    fun saveUserSubject(subjectTitle: String, points: Int) {
         executeAsync(IO) {
-            saveUserSubjectUC(QuizUserSubjectDomainModel(quizTitle = quizTitle, score = score))
+            saveUserPointsUC(SaveUserPointsRequest(subjectTitle, points))
             updateGpaUC()
         }
     }
