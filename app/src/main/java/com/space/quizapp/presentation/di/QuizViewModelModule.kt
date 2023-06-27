@@ -38,7 +38,8 @@ val viewModelModule = module {
     viewModel {
         QuizPointsViewModel(
             readUserSubjectsUC = get(),
-            userSubjectsMapper = get()
+            userSubjectsMapper = get(),
+            saveUserTokenUC = get()
         )
     }
 }

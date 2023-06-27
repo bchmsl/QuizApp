@@ -2,6 +2,7 @@ package com.space.quizapp.presentation.ui.ui_points.fragment
 
 import androidx.activity.addCallback
 import com.space.quizapp.common.extensions.coroutines.observeLiveData
+import com.space.quizapp.common.extensions.utils.gone
 import com.space.quizapp.common.extensions.utils.visible
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
@@ -9,6 +10,7 @@ import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentPointsBinding
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogPromptView
 import com.space.quizapp.presentation.ui.ui_points.adapter.QuizUserSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_points.vm.QuizPointsViewModel
 import kotlin.reflect.KClass
@@ -16,7 +18,8 @@ import kotlin.reflect.KClass
 class QuizPointsFragment :
     QuizBaseFragment<QuizFragmentPointsBinding, QuizPointsViewModel>() {
 
-    val userSubjectsAdapter by lazy { QuizUserSubjectsAdapter() }
+    private val userSubjectsAdapter by lazy { QuizUserSubjectsAdapter() }
+    private val logOutDialog by lazy { QuizDialogPromptView(requireContext()) }
     override val vmc: KClass<QuizPointsViewModel>
         get() = QuizPointsViewModel::class
 
@@ -42,6 +45,9 @@ class QuizPointsFragment :
         requireActivity().onBackPressedDispatcher.addCallback {
             navigate(QuizFragmentDirections.HOME)
         }
+        binding.logOutFloatingButton.setOnClickListener {
+            showDialog()
+        }
     }
 
     override fun observe() {
@@ -50,13 +56,30 @@ class QuizPointsFragment :
                 setEmptyMessage()
             } else {
                 userSubjectsAdapter.submitList(it.toList())
-                binding.creditSubjectsRecyclerView.visible()
+                with(binding) {
+                    creditSubjectsRecyclerView.visible()
+                    notEarnedTextView.gone()
+                }
             }
         }
     }
 
     private fun setEmptyMessage() {
-        binding.notEarnedTextView.text = getString(S.not_earned_warning)
-        binding.notEarnedTextView.visible()
+        with(binding) {
+            notEarnedTextView.text = getString(S.not_earned_warning)
+            creditSubjectsRecyclerView.gone()
+            notEarnedTextView.visible()
+        }
+    }
+
+    private fun showDialog() {
+        logOutDialog
+            .setContent(getString(S.exit_prompt))
+            .onPositiveButtonListener {
+                vm.logOut()
+                logOutDialog.dismiss()
+            }.onNegativeButtonListener {
+                logOutDialog.dismiss()
+            }.show()
     }
 }
