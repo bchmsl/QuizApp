@@ -45,7 +45,7 @@ class QuizQuestionFragment :
     override fun onBind() {
         super.onBind()
         withBinding {
-            navigationView.setContent(subject, true, false)
+            navigationView.setContent(subject, true, false, false)
             AnswerOptionsRecyclerView.adapter = answersAdapter
             nextButton.text = getString(S.next)
         }

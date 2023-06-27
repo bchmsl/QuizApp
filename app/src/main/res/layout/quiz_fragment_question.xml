@@ -10,7 +10,7 @@
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16_dp"
+        android:layout_margin="@dimen/dimen_10_dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.space.quizapp.presentation.ui.ui_question.view.QuizProgressView

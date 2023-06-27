@@ -17,13 +17,15 @@
         style="@style/Space.QuizApp.TextView.BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_58_dp"
-        android:text="@string/my_first_quiz"
+        android:gravity="center"
+        android:text="@string/quiz_title"
+        android:textSize="@dimen/dimen_32_sp"
         android:textColor="?colorOnPrimary"
-        android:textSize="@dimen/dimen_20_sp"
+        android:translationY="@dimen/dimen_20_dp"
         app:layout_constraintBottom_toTopOf="@+id/appCompatImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView"

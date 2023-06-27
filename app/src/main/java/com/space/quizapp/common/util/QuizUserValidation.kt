@@ -19,7 +19,7 @@ enum class QuizUserValidation(@StringRes val message: Int) {
             }
         }
 
-        private const val MINIMUM_LENGTH = 2
-        private const val MAXIMUM_LENGTH = 20
+        const val MINIMUM_LENGTH = 2
+        const val MAXIMUM_LENGTH = 20
     }
 }

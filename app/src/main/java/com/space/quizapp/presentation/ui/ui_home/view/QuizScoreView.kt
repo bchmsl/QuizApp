@@ -21,7 +21,7 @@ class QuizScoreView(
     }
 
     fun setOnClickListener(block: () -> Unit) {
-        binding.gpaDetailsTextView.setOnClickListener {
+        binding.root.setOnClickListener {
             block.invoke()
         }
     }

@@ -32,7 +32,7 @@ class QuizPointsFragment :
     override fun onBind() {
         super.onBind()
         withBinding {
-            navigationView.setContent(getString(S.points_earned), false, true)
+            navigationView.setContent(getString(S.points_earned), false, true, true)
             creditSubjectsRecyclerView.adapter = userSubjectsAdapter
         }
 

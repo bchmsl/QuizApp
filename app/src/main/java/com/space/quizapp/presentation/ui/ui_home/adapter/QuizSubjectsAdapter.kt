@@ -2,13 +2,22 @@ package com.space.quizapp.presentation.ui.ui_home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.space.quizapp.databinding.QuizItemSubjectBinding
-import com.space.quizapp.presentation.base.adapter.BaseAdapter
+import com.space.quizapp.presentation.base.adapter.QuizBaseItemCallback
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 
-class QuizSubjectsAdapter : BaseAdapter<QuizSubjectUiModel>() {
+class QuizSubjectsAdapter :
+    ListAdapter<QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(QuizBaseItemCallback<QuizSubjectUiModel>()) {
 
-    override fun createVH(parent: ViewGroup, viewType: Int): BaseViewHolder<QuizSubjectUiModel> {
+
+    private var itemClickListener: ((QuizSubjectUiModel) -> Unit)? = null
+    fun onItemClickListener(itemClickListener: ((QuizSubjectUiModel) -> Unit)?) {
+        this.itemClickListener = itemClickListener
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectsViewHolder {
         return SubjectsViewHolder(
             QuizItemSubjectBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -18,14 +27,22 @@ class QuizSubjectsAdapter : BaseAdapter<QuizSubjectUiModel>() {
         )
     }
 
+    override fun onBindViewHolder(holder: SubjectsViewHolder, position: Int) {
+        holder.onBind(getItem(position), itemClickListener)
+    }
+
     class SubjectsViewHolder(private val binding: QuizItemSubjectBinding) :
-        BaseViewHolder<QuizSubjectUiModel>(binding) {
-        override fun onBind(
+        ViewHolder(binding.root) {
+        fun onBind(
             item: QuizSubjectUiModel,
+            itemClickListener: ((QuizSubjectUiModel) -> Unit)?,
         ) {
             with(binding.root) {
                 setContent(item.quizTitle, item.quizDescription, item.quizIcon)
                 setPointsCount()
+                setCustomClickListener {
+                    itemClickListener?.invoke(item)
+                }
             }
         }
     }

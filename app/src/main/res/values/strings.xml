@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Quiz</string>
-    <string name="my_first_quiz">ჩემი პირველი ქვიზი</string>
+    <string name="quiz_title">SPACE\nInternational</string>
+    <string name="quiz_title_2">© SPACE International, 2023</string>
     <string name="enter_name">შეიყვანე სახელი</string>
     <string name="start_quiz">ქვიზის დაწყება</string>
-    <string name="gpa">GPA -</string>
+    <string name="gpa">GPA - </string>
     <string name="details">დეტალურად</string>
     <string name="choose_subject">აირჩიე საგანი</string>
     <string name="next">შემდეგი</string>
@@ -21,8 +22,8 @@
     <string name="emoji_congrats">🎉</string>
 
     <string name="message_valid">ოპერაცია წარმატებით დასრულდა!</string>
-    <string name="message_error_length_long">სახელის ზომა უნდა არ უნდა აღემატებოდეს 20 სიმბოლოს</string>
-    <string name="message_error_length_short">სახელის ზომა უნდა არ უნდა იყოს 3 სიმბოლოზე ნაკლები</string>
+    <string name="message_error_length_long">სახელის ზომა უნდა არ უნდა აღემატებოდეს %d სიმბოლოს</string>
+    <string name="message_error_length_short">სახელის ზომა უნდა არ უნდა იყოს %d სიმბოლოზე ნაკლები</string>
     <string name="message_error_containing_symbol">სახელი უნდა შედგებოდეს მხოლოდ ქართული ასოებისგან</string>
 
     <string name="current_score">მიმდინარე ქულა: %d  </string>
