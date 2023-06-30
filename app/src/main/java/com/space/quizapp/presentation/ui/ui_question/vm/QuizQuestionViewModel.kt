@@ -43,7 +43,6 @@ class QuizQuestionViewModel(
                 questionState.post(null)
                 isFinished.post(true)
                 pointsState.value?.let { saveUserSubject(subjectTitle, it) }
-                pointsState.post(0)
                 return@executeAsync
             }
             this@QuizQuestionViewModel.question = questionMapper.toUi(question)
@@ -85,7 +84,7 @@ class QuizQuestionViewModel(
         question?.points?.let { pointsState.post(pointsState.value?.plus(it) ?: 0) }
     }
 
-    fun saveUserSubject(subjectTitle: String, points: Int) {
+    private fun saveUserSubject(subjectTitle: String, points: Int) {
         executeAsync(IO) {
             saveUserPointsUC(SaveUserPointsRequest(subjectTitle, points))
             updateGpaUC()
@@ -94,6 +93,7 @@ class QuizQuestionViewModel(
 
     fun getQuestionCount(subjectTitle: String) {
         executeAsync {
+            pointsState.post(0)
             questionCount.post(questionsCountUC(subjectTitle))
         }
     }

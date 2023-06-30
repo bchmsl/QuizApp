@@ -11,8 +11,9 @@ import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_INT
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_STRING
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogAlertView
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogPromptView
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizAlertDialogView
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogFactory
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizPromptDialogView
 import com.space.quizapp.presentation.ui.ui_question.adapter.AnswersAdapter
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import kotlin.reflect.KClass
@@ -21,8 +22,18 @@ class QuizQuestionFragment :
     QuizBaseFragment<QuizFragmentQuestionBinding, QuizQuestionViewModel>() {
 
     private val answersAdapter by lazy { AnswersAdapter() }
-    private val promptDialog by lazy { QuizDialogPromptView(requireContext()) }
-    private val alertDialog by lazy { QuizDialogAlertView(requireContext()) }
+    private val promptDialog by lazy {
+        QuizDialogFactory.createDialog(
+            QuizDialogFactory.Dialog.DIALOG_PROMPT,
+            requireContext()
+        ) as QuizPromptDialogView.Builder
+    }
+    private val alertDialog by lazy {
+        QuizDialogFactory.createDialog(
+            QuizDialogFactory.Dialog.DIALOG_ALERT,
+            requireContext()
+        ) as QuizAlertDialogView.Builder
+    }
 
     private lateinit var subject: String
     private var subjectId: Int = -1
@@ -99,27 +110,26 @@ class QuizQuestionFragment :
 
     private fun showPromptDialog() {
         promptDialog
-            .setContent(getString(S.stop_quiz_prompt))
-            .onPositiveButtonListener {
+            .setMessage(getString(S.stop_quiz_prompt))
+            .setPositiveButton(getString(S.yes)) {
                 vm.navigate(QuizFragmentDirections.HOME)
-                promptDialog.dismiss()
-            }.onNegativeButtonListener {
-                promptDialog.dismiss()
-            }.show()
+                it.dismiss()
+            }.setNegativeButton(getString(S.no)) {
+                it.dismiss()
+            }.build()
+            .show()
     }
 
     private fun showAlertDialog(score: Int) {
         alertDialog
-            .setContent(
-                getString(S.emoji_congrats),
-                getString(S.congrats),
-                String.format(getString(S.you_earned_points), score)
-            )
-            .onButtonClick {
+            .setTitle(getString(S.emoji_congrats))
+            .setMessage(getString(S.congrats))
+            .setDescription(String.format(getString(S.you_earned_points), score))
+            .setButton(getString(S.close)) {
                 vm.navigate(QuizFragmentDirections.HOME)
-                alertDialog.dismiss()
+                it.dismiss()
                 binding.progressView.clear()
-                this.points = 0
-            }.show()
+            }.build()
+            .show()
     }
 }

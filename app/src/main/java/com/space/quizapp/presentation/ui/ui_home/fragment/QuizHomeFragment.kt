@@ -10,7 +10,8 @@ import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentHomeBinding
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogPromptView
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogFactory
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizPromptDialogView
 import com.space.quizapp.presentation.ui.ui_home.adapter.QuizSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import kotlin.reflect.KClass
@@ -18,7 +19,12 @@ import kotlin.reflect.KClass
 class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel>() {
 
     private val subjectsAdapter by lazy { QuizSubjectsAdapter() }
-    private val dialog by lazy { QuizDialogPromptView(requireContext()) }
+    private val dialog by lazy {
+        QuizDialogFactory.createDialog(
+            QuizDialogFactory.Dialog.DIALOG_PROMPT,
+            requireContext()
+        ) as QuizPromptDialogView.Builder
+    }
 
     override val vmc: KClass<QuizHomeViewModel>
         get() = QuizHomeViewModel::class
@@ -70,12 +76,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
 
     private fun showDialog() {
         dialog
-            .setContent(getString(S.exit_prompt))
-            .onPositiveButtonListener {
-                vm.logOut()
-                dialog.dismiss()
-            }.onNegativeButtonListener {
-                dialog.dismiss()
-            }.show()
+            .setMessage(getString(S.exit_prompt))
+            .setPositiveButton(getString(S.yes)) {
+                vm.navigate(QuizFragmentDirections.START)
+                it.dismiss()
+            }.setNegativeButton(getString(S.no)) {
+                it.dismiss()
+            }.build()
+            .show()
     }
 }
