@@ -1,8 +1,8 @@
 package com.space.quizapp.presentation.ui.ui_points.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
@@ -27,9 +27,8 @@ class QuizPointsViewModel(
 
     fun logOut() {
         executeAsync(IO) {
-            saveUserTokenUC(QuizUserDataStoreManager.EMPTY_STRING)
+            saveUserTokenUC(EMPTY_STRING)
             navigate(QuizFragmentDirections.START)
         }
     }
-
 }

@@ -12,6 +12,7 @@ val viewModelModule = module {
         QuizStartViewModel(
             saveUserDataUC = get(),
             readUserTokenUC = get(),
+            validateUserUC = get(),
             userMapper = get()
         )
     }

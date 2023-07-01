@@ -9,16 +9,6 @@ enum class QuizUserValidation(@StringRes val message: Int) {
     INVALID_CONTAINING(S.message_error_containing_symbol);
 
     companion object {
-        fun validateUser(username: String): QuizUserValidation {
-            return when {
-                username == "admin" -> VALID
-                username.length < MINIMUM_LENGTH -> INVALID_LENGTH_SHORT
-                username.length > MAXIMUM_LENGTH -> INVALID_LENGTH_LONG
-                !username.contains(Regex(QuizRegex.USERNAME_PATTERN)) -> INVALID_CONTAINING
-                else -> VALID
-            }
-        }
-
         const val MINIMUM_LENGTH = 2
         const val MAXIMUM_LENGTH = 20
     }

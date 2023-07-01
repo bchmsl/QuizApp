@@ -1,10 +1,9 @@
-package com.space.quizapp.domain.usecase.user.read_user_data
+package com.space.quizapp.domain.usecase.user
 
-import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
-import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 
 class QuizReadUserDataUseCase(
     private val readUserTokenUC: QuizReadUserTokenUseCase,

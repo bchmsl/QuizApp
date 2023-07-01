@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -26,7 +27,6 @@ class QuizUserDataStoreManager(private val context: Context) :
     }
 
     companion object {
-        const val EMPTY_STRING = ""
         private const val KEY = "user_token"
     }
 }

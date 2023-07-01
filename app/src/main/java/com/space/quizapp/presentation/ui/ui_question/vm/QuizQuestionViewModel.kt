@@ -95,6 +95,7 @@ class QuizQuestionViewModel(
         executeAsync {
             pointsState.post(0)
             questionCount.post(questionsCountUC(subjectTitle))
+            getNextQuestion(subjectTitle)
         }
     }
 }

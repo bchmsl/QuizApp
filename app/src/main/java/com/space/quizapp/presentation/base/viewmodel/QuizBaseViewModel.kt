@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.base.viewmodel
 
-import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizCustomThrowable
@@ -25,8 +24,6 @@ abstract class QuizBaseViewModel : ViewModel() {
             arguments.forEach { argument ->
                 when (argument) {
                     is String -> directions.addArgument(argument)
-                    is Parcelable -> directions.addArgument(argument)
-                    is Int -> directions.addArgument(argument)
                 }
             }
             _navigationState.emit(directions)

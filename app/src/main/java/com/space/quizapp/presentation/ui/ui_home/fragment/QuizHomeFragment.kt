@@ -10,8 +10,6 @@ import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentHomeBinding
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogFactory
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizPromptDialogView
 import com.space.quizapp.presentation.ui.ui_home.adapter.QuizSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import kotlin.reflect.KClass
@@ -19,12 +17,6 @@ import kotlin.reflect.KClass
 class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel>() {
 
     private val subjectsAdapter by lazy { QuizSubjectsAdapter() }
-    private val dialog by lazy {
-        QuizDialogFactory.createDialog(
-            QuizDialogFactory.Dialog.DIALOG_PROMPT,
-            requireContext()
-        ) as QuizPromptDialogView.Builder
-    }
 
     override val vmc: KClass<QuizHomeViewModel>
         get() = QuizHomeViewModel::class
@@ -45,45 +37,37 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
         observeLiveDataNonNull(vm.userState) { user ->
             withBinding {
                 greetingTextView.text = String.format(getString(S.greeting), user.userName)
-                scoreView.setContent(user.gpa)
+                scoreView.setGpa(user.gpa)
             }
         }
+
         observeLiveDataNonNull(vm.subjectsState) { questions ->
             subjectsAdapter.submitList(questions.toList())
         }
-        observeLiveData(vm.loadingState) {
-            binding.progressBar.isVisible = it
-        }
 
+        observeLiveData(vm.loadingState) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
     }
 
     override fun setListeners() {
         withBinding {
             logOutFloatingButton.setOnClickListener {
-                showDialog()
+                showPromptDialog(S.exit_prompt, onPositiveButton = {
+                    vm.logOut()
+                })
             }
             scoreView.setOnClickListener {
                 navigate(QuizFragmentDirections.POINTS)
             }
         }
         subjectsAdapter.onItemClickListener {
-            vm.navigate(QuizFragmentDirections.QUESTION, it.id, it.quizTitle)
+            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
         }
         requireActivity().onBackPressedDispatcher.addCallback {
-            showDialog()
-        }
-    }
-
-    private fun showDialog() {
-        val dialog = dialog
-            .setMessage(getString(S.exit_prompt))
-            .setPositiveButton(getString(S.yes)) {
+            showPromptDialog(S.exit_prompt, onPositiveButton = {
                 vm.logOut()
-                vm.navigate(QuizFragmentDirections.START)
-                it.dismiss()
-            }.setNegativeButton(getString(S.no)) {
-                it.dismiss()
-            }.build() as QuizPromptDialogView
-        dialog.show()
+            })
+        }
     }
 }

@@ -26,7 +26,6 @@ class QuizNavigationView(
         closeButtonCallback = block
     }
 
-
     fun setContent(
         title: String,
         closeAvailable: Boolean,
@@ -66,5 +65,4 @@ class QuizNavigationView(
             }
         }
     }
-
 }

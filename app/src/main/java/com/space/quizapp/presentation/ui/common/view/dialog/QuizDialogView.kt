@@ -27,6 +27,7 @@ abstract class QuizDialogView(context: Context) :
 
     open fun show() {
         with(alertDialog) {
+            removeAllViews()
             setView(binding.root)
             show()
         }

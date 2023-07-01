@@ -3,7 +3,6 @@ package com.space.quizapp.domain.usecase.user
 import com.space.quizapp.domain.repository.quiz.QuizSubjectsRepository
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
-import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 
 class QuizUpdateGpaUseCase(

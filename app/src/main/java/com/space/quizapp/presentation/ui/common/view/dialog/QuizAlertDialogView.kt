@@ -45,7 +45,15 @@ class QuizAlertDialogView constructor(context: Context) : QuizDialogView(context
         }
 
         override fun build(): QuizDialogView {
-            return QuizAlertDialogView(context)
+            val dialog = QuizAlertDialogView(context)
+            with(dialog) {
+                title = this@Builder.title
+                message = this@Builder.message
+                description = this@Builder.description
+                buttonText = this@Builder.buttonText
+                buttonListener = this@Builder.buttonListener
+            }
+            return dialog
         }
     }
 
