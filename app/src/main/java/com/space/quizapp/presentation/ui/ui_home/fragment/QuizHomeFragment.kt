@@ -75,14 +75,15 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
     }
 
     private fun showDialog() {
-        dialog
+        val dialog = dialog
             .setMessage(getString(S.exit_prompt))
             .setPositiveButton(getString(S.yes)) {
+                vm.logOut()
                 vm.navigate(QuizFragmentDirections.START)
                 it.dismiss()
             }.setNegativeButton(getString(S.no)) {
                 it.dismiss()
-            }.build()
-            .show()
+            }.build() as QuizPromptDialogView
+        dialog.show()
     }
 }

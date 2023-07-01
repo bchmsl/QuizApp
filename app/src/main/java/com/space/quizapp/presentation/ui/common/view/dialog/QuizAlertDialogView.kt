@@ -14,6 +14,9 @@ class QuizAlertDialogView constructor(context: Context) : QuizDialogView(context
     private var buttonText = ""
     private var buttonListener: ((QuizAlertDialogView) -> Unit)? = null
 
+    init {
+    }
+
     class Builder(private val context: Context) : QuizDialogView.Builder() {
         private var title = ""
         private var message = ""
@@ -47,6 +50,7 @@ class QuizAlertDialogView constructor(context: Context) : QuizDialogView(context
     }
 
     override fun show() {
+        super.show()
         with(binding) {
             titleTextView.text = title
             messageTextView.text = message
@@ -56,6 +60,5 @@ class QuizAlertDialogView constructor(context: Context) : QuizDialogView(context
                 setOnClickListener { buttonListener?.invoke(this@QuizAlertDialogView) }
             }
         }
-        super.show()
     }
 }

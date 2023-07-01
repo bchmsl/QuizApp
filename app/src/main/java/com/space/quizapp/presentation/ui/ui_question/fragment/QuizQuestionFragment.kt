@@ -109,19 +109,19 @@ class QuizQuestionFragment :
     }
 
     private fun showPromptDialog() {
-        promptDialog
+        val dialog = promptDialog
             .setMessage(getString(S.stop_quiz_prompt))
             .setPositiveButton(getString(S.yes)) {
                 vm.navigate(QuizFragmentDirections.HOME)
                 it.dismiss()
             }.setNegativeButton(getString(S.no)) {
                 it.dismiss()
-            }.build()
-            .show()
+            }.build() as QuizPromptDialogView
+        dialog.show()
     }
 
     private fun showAlertDialog(score: Int) {
-        alertDialog
+        val dialog = alertDialog
             .setTitle(getString(S.emoji_congrats))
             .setMessage(getString(S.congrats))
             .setDescription(String.format(getString(S.you_earned_points), score))
@@ -129,7 +129,7 @@ class QuizQuestionFragment :
                 vm.navigate(QuizFragmentDirections.HOME)
                 it.dismiss()
                 binding.progressView.clear()
-            }.build()
-            .show()
+            }.build() as QuizAlertDialogView
+        dialog.show()
     }
 }

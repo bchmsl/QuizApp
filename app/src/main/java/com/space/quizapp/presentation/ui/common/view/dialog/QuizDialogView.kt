@@ -21,12 +21,15 @@ abstract class QuizDialogView(context: Context) :
         alertDialog.setCancelable(false)
     }
 
-    open fun show() {
-        alertDialog.show()
-    }
-
     fun dismiss() {
         alertDialog.dismiss()
+    }
+
+    open fun show() {
+        with(alertDialog) {
+            setView(binding.root)
+            show()
+        }
     }
 }
 

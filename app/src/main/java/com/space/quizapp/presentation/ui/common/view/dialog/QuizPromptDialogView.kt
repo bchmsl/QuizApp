@@ -8,10 +8,6 @@ class QuizPromptDialogView constructor(context: Context) : QuizDialogView(contex
     override val binding = QuizLayoutDialogPromptBinding
         .inflate(LayoutInflater.from(context), this, false)
 
-    init {
-
-    }
-
     private var message = ""
     private var positiveButtonText = ""
     private var positiveButtonListener: ((QuizPromptDialogView) -> Unit)? = null
@@ -41,16 +37,25 @@ class QuizPromptDialogView constructor(context: Context) : QuizDialogView(contex
             negativeButtonText: String,
             negativeButtonListener: (QuizPromptDialogView) -> Unit
         ) = apply {
-            this.negativeButtonText = positiveButtonText
+            this.negativeButtonText = negativeButtonText
             this.negativeButtonListener = negativeButtonListener
         }
 
         override fun build(): QuizDialogView {
-            return QuizPromptDialogView(context)
+            val dialog = QuizPromptDialogView(context)
+            with(dialog) {
+                message = this@Builder.message
+                positiveButtonText = this@Builder.positiveButtonText
+                positiveButtonListener = this@Builder.positiveButtonListener
+                negativeButtonText = this@Builder.negativeButtonText
+                negativeButtonListener = this@Builder.negativeButtonListener
+            }
+            return dialog
         }
     }
 
     override fun show() {
+        super.show()
         with(binding) {
             promptTextView.text = message
             with(positiveButton) {
@@ -62,8 +67,5 @@ class QuizPromptDialogView constructor(context: Context) : QuizDialogView(contex
                 setOnClickListener { negativeButtonListener?.invoke(this@QuizPromptDialogView) }
             }
         }
-        alertDialog.setView(binding.root)
-        alertDialog.setContentView(binding.root)
-        super.show()
     }
 }
