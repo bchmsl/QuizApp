@@ -1,10 +1,13 @@
 package com.space.quizapp.presentation.ui.ui_start.fragment
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import com.space.quizapp.common.extensions.coroutines.observeLiveData
 import com.space.quizapp.common.extensions.utils.enable
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.common.util.QuizCustomThrowable
 import com.space.quizapp.common.util.QuizUserValidation
 import com.space.quizapp.common.util.S
@@ -27,29 +30,39 @@ class QuizStartFragment : QuizBaseFragment<QuizFragmentStartBinding, QuizStartVi
     override fun observe() {
         observeLiveData(vm.userValidState) { isValid ->
             binding.startButton.enable(isValid)
+            if (isValid) {
+                setError(EMPTY_STRING)
+            }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun setListeners() {
         withBinding {
             startButton.setOnClickListener {
                 vm.saveUser(usernameEditText.text.toString())
             }
             usernameEditText.addTextChangedListener {
-                vm.validateUser(it.toString())
+                if (it.isNullOrBlank()) {
+                    setError(EMPTY_STRING)
+                } else {
+                    vm.validateUser(it.toString())
+                }
             }
         }
     }
 
     override fun setError(error: QuizCustomThrowable) {
-        binding.usernameTextInputLayout.error = ""
-        error.errorResource?.let {
-            val errorString = when (it) {
-                S.message_error_length_long -> getString(it, QuizUserValidation.MAXIMUM_LENGTH)
-                S.message_error_length_short -> getString(it, QuizUserValidation.MINIMUM_LENGTH)
-                else -> getString(it)
-            }
-            binding.usernameTextInputLayout.error = errorString
+        val errorString = when (val errorRes = error.errorResource) {
+            S.message_error_length_long -> getString(errorRes, QuizUserValidation.MAXIMUM_LENGTH)
+            S.message_error_length_short -> getString(errorRes, QuizUserValidation.MINIMUM_LENGTH)
+            else -> errorRes?.let { getString(it) }
         }
+        errorString?.let { setError(it) }
+
+    }
+
+    private fun setError(error: String) {
+        binding.usernameTextInputLayout.error = error
     }
 }

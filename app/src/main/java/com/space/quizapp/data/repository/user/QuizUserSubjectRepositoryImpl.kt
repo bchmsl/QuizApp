@@ -1,5 +1,6 @@
 package com.space.quizapp.data.repository.user
 
+import android.util.Log
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
 import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 import com.space.quizapp.data.local.database.model.user.mapper.QuizUserSubjectEntityMapper
@@ -30,8 +31,9 @@ class QuizUserSubjectRepositoryImpl(
             userSubjectEntity.username,
             userSubjectEntity.quizTitle
         )
+        Log.d("TAG_REPO", savedSubject.toString())
         savedSubject?.let {
-            userSubjectsDao.updateUserSubject(it)
+            userSubjectsDao.updateUserSubject(it.copy(score = userSubjectEntity.score))
             return
         }
         userSubjectsDao.insertUserSubject(userSubjectEntity)

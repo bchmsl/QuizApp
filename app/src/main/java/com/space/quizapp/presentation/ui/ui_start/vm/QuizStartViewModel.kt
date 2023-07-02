@@ -29,7 +29,6 @@ class QuizStartViewModel(
                     userValidState.post(true)
                     null
                 }
-
                 else -> {
                     userValidState.post(false)
                     validateUser.message
