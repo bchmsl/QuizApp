@@ -11,13 +11,14 @@ class QuizUserSubjectsAdapter : BaseAdapter<QuizUserSubjectUiModel>() {
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder<QuizUserSubjectUiModel> {
-        return QuizUserSubjectsViewHolder(
+        val vh = QuizUserSubjectsViewHolder(
             QuizItemSubjectBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
+        return vh
     }
 
     class QuizUserSubjectsViewHolder(private val binding: QuizItemSubjectBinding) :

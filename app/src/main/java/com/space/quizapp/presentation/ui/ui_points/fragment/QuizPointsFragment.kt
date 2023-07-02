@@ -54,6 +54,9 @@ class QuizPointsFragment :
                 vm.logOut()
             })
         }
+        userSubjectsAdapter.onItemClickListener {
+            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+        }
     }
 
     override fun observe() {
