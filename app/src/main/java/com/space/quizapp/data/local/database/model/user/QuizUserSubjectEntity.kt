@@ -9,5 +9,6 @@ data class QuizUserSubjectEntity(
     val id: Int = 0,
     val username: String,
     val quizTitle: String,
-    val score: Int
+    val score: Int,
+    val questionsCount: Int
 )

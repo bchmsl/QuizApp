@@ -55,7 +55,9 @@ class QuizPointsFragment :
             })
         }
         userSubjectsAdapter.onItemClickListener {
-            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+            if (it.score != it.questionsCount) {
+                vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+            }
         }
     }
 

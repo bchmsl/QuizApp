@@ -11,7 +11,8 @@ class QuizUserSubjectUiMapper : QuizUiMapper<QuizUserSubjectUiModel, QuizUserSub
                 quizTitle = quizTitle,
                 score = score,
                 quizDescription = quizDescription,
-                quizIcon = quizIcon
+                quizIcon = quizIcon,
+                questionsCount = questionsCount
             )
         }
     }
@@ -22,7 +23,8 @@ class QuizUserSubjectUiMapper : QuizUiMapper<QuizUserSubjectUiModel, QuizUserSub
                 quizTitle = quizTitle,
                 score = score,
                 quizIcon = quizIcon,
-                quizDescription = quizDescription
+                quizDescription = quizDescription,
+                questionsCount = questionsCount
             )
         }
     }

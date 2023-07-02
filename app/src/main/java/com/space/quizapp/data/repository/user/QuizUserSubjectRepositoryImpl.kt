@@ -1,6 +1,7 @@
 package com.space.quizapp.data.repository.user
 
 import android.util.Log
+import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
 import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 import com.space.quizapp.data.local.database.model.user.mapper.QuizUserSubjectEntityMapper
@@ -9,6 +10,7 @@ import com.space.quizapp.domain.repository.user.QuizUserSubjectRepository
 
 class QuizUserSubjectRepositoryImpl(
     private val userSubjectsDao: QuizUserSubjectsDao,
+    private val subjectsDao: QuizSubjectsDao,
     private val userSubjectEntityMapper: QuizUserSubjectEntityMapper
 ) : QuizUserSubjectRepository() {
 
@@ -47,11 +49,13 @@ class QuizUserSubjectRepositoryImpl(
             updateOrInsertUserSubject(userSubject!!)
             return
         }
+        val subject = subjectsDao.getSubjectByTitle(quizTitle)
         updateOrInsertUserSubject(
             QuizUserSubjectEntity(
                 username = username,
                 quizTitle = quizTitle,
-                score = points
+                score = points,
+                questionsCount = subject.questionsCount
             )
         )
     }
