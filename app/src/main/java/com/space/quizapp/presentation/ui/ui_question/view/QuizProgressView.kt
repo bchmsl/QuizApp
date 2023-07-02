@@ -31,7 +31,7 @@ class QuizProgressView(
     }
 
     fun setPoints(pointsValue: Int) {
-        this.correctAnswersValue = pointsValue
+        correctAnswersValue = pointsValue
         setContent()
     }
 

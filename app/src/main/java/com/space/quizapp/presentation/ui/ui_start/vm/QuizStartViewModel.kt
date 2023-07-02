@@ -41,8 +41,8 @@ class QuizStartViewModel(
     fun saveUser(username: String) {
         executeAsync(IO) {
             saveUserDataUC(userMapper.toDomain(QuizUserUiModel(userName = username)))
+            navigate(QuizFragmentDirections.HOME)
         }
-        navigate(QuizFragmentDirections.HOME)
     }
 
     fun checkUserToken() {

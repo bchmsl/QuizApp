@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_start.fragment
 
 import android.os.Build
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import com.space.quizapp.common.extensions.coroutines.observeLiveData
@@ -46,9 +47,12 @@ class QuizStartFragment : QuizBaseFragment<QuizFragmentStartBinding, QuizStartVi
                 if (it.isNullOrBlank()) {
                     setError(EMPTY_STRING)
                 } else {
-                    vm.validateUser(it.toString())
+                    vm.validateUser(it.toString().replace(" ", "").replace("\n", ""))
                 }
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            requireActivity().finish()
         }
     }
 
