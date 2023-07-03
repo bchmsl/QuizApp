@@ -115,7 +115,7 @@ class QuizQuestionFragment :
     }
 
     private fun showQuitDialog() {
-        showPromptDialog(S.exit_prompt, onPositiveButton = {
+        showPromptDialog(S.stop_quiz_prompt, onPositiveButton = {
             vm.navigate(QuizFragmentDirections.HOME)
         })
     }
