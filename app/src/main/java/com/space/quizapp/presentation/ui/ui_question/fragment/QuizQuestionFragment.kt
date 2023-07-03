@@ -70,7 +70,7 @@ class QuizQuestionFragment :
         }
 
         observeLiveData(vm.isFinished) { isFinished ->
-            if (isFinished) showCongratsAlert(points)
+            if (isFinished) showCongratsAlert(points, vm.questionCount.value)
         }
 
         observeLiveData(vm.questionCount) { questionsCount ->
@@ -88,6 +88,7 @@ class QuizQuestionFragment :
         with(binding) {
             questionTextView.text = question.questionTitle
             answersAdapter.submitList(question.answers.toList())
+            answersAdapter.point = { question.points }
             nextButton.text = getString(if (question.isLastQuestion) S.finish else S.next)
             nextButton.setOnClickListener(null)
             nextButton.enable(false)
@@ -119,16 +120,46 @@ class QuizQuestionFragment :
         })
     }
 
-    private fun showCongratsAlert(score: Int) {
+    private fun showCongratsAlert(score: Int, maxQuestions: Int?) {
         val dialog = alertDialog
-            .setTitle(getString(S.emoji_congrats))
-            .setMessage(getString(S.congrats))
+        maxQuestions?.let {
+            val userPercent = score.toFloat() / maxQuestions
+            val emoji = when (userPercent) {
+                1f -> {
+                    dialog.setMessage(getString(S.congrats))
+                    "\uD83E\uDD29"
+                }
+
+                in 0f..0.2f -> {
+                    dialog.setMessage("")
+                    "\uD83E\uDD72"
+                }
+
+                in 0.2f..0.4f -> {
+                    dialog.setMessage("")
+                    "\uD83E\uDD78"
+                }
+
+                in 0.4f..0.6f -> {
+                    dialog.setMessage(getString(S.congrats))
+                    "\uD83E\uDDD0"
+                }
+
+                else -> {
+                    dialog.setMessage(getString(S.congrats))
+                    "\uD83E\uDD79"
+                }
+            }
+            dialog.setTitle(emoji)
+        }
+
+        (dialog
             .setDescription(String.format(getString(S.you_earned_points), score))
             .setButton(getString(S.close)) {
                 vm.navigate(QuizFragmentDirections.HOME)
                 it.dismiss()
                 binding.progressView.clear()
-            }.build() as QuizAlertDialogView
-        dialog.show()
+            }.build() as QuizAlertDialogView).show()
+
     }
 }

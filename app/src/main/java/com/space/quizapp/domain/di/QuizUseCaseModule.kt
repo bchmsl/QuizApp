@@ -73,7 +73,8 @@ val useCaseModule = module {
             readUserSubjectsUC = get(),
             subjectsRepository = get(),
             userDataRepository = get(),
-            readUserDataUC = get()
+            readUserDataUC = get(),
+            questionsRepository = get()
         )
     }
 

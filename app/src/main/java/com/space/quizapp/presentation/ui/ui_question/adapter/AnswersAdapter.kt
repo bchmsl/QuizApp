@@ -6,8 +6,8 @@ import com.space.quizapp.databinding.QuizItemAnswerOptionBinding
 import com.space.quizapp.presentation.base.adapter.BaseAdapter
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
-class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
-
+class AnswersAdapter(var point: (() -> Int)? = null) :
+    BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
     override fun createVH(
         parent: ViewGroup,
         viewType: Int
@@ -17,18 +17,21 @@ class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), point
         )
     }
 
-    class AnswerViewHolder(private val binding: QuizItemAnswerOptionBinding) :
+    class AnswerViewHolder(
+        private val binding: QuizItemAnswerOptionBinding,
+        private val point: (() -> Int)?
+    ) :
         BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel>(binding) {
         override fun onBind(
             item: QuizQuestionUiModel.QuizAnswerUiModel,
         ) {
             with(binding.root) {
                 setContent(item.answerOption)
-                setSelection(item.answerSelectedState)
+                setSelection(item.answerSelectedState, point?.invoke())
             }
         }
     }

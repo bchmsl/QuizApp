@@ -13,7 +13,8 @@ class QuizSubjectDtoMapper : QuizDtoMapper<QuizSubjectDto, QuizSubjectDomainMode
                 quizDescription = quizDescription,
                 quizIcon = quizIcon,
                 questionsCount = questionsCount,
-            )
+
+                )
         }
     }
 }

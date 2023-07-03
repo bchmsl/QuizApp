@@ -5,5 +5,6 @@ data class QuizUserSubjectUiModel(
     val quizDescription: String = "",
     val quizIcon: String = "",
     val score: Int,
-    val questionsCount: Int
+    val questionsCount: Int,
+    val maxScore: Int
 )

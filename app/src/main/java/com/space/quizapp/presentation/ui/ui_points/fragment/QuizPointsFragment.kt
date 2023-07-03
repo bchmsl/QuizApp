@@ -55,7 +55,7 @@ class QuizPointsFragment :
             })
         }
         userSubjectsAdapter.onItemClickListener {
-            if (it.score != it.questionsCount) {
+            if (it.score != it.maxScore) {
                 vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
             }
         }

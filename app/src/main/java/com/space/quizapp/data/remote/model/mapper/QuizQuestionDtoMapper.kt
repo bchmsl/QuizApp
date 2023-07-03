@@ -1,6 +1,7 @@
 package com.space.quizapp.data.remote.model.mapper
 
 import com.space.quizapp.common.mapper.QuizDtoMapper
+import com.space.quizapp.common.util.QuizConstants.QUESTION_SCORE
 import com.space.quizapp.data.remote.model.QuizSubjectDto
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 
@@ -25,7 +26,7 @@ class QuizQuestionDtoMapper :
                 isLastQuestion = isLastQuestion?.invoke(this) ?: false,
                 isAnswered = false,
                 subjectTitle = subjectTitle?.invoke(this) ?: "",
-                points = 1
+                points = QUESTION_SCORE
             )
         }
     }

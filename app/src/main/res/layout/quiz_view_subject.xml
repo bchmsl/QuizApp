@@ -52,7 +52,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startButton"
-            android:layout_width="@dimen/dimen_45_dp"
+            android:layout_width="@dimen/dimen_48_dp"
             android:layout_height="@dimen/dimen_0_dp"
             android:background="@drawable/quiz_shape_oval"
             android:letterSpacing="0"
@@ -62,9 +62,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?colorOnPrimary"
-            tools:icon="@drawable/quiz_ic_next"
             tools:ignore="ContentDescription"
-            tools:text="0" />
+            tools:text="00" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

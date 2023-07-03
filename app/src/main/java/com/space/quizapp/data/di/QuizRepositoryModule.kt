@@ -40,7 +40,8 @@ val repositoryModule = module {
         QuizUserSubjectRepositoryImpl(
             userSubjectsDao = get(),
             userSubjectEntityMapper = get(),
-            subjectsDao = get()
+            subjectsDao = get(),
+            questionsDao = get()
         )
     }
     single<QuizQuestionsRepository> {

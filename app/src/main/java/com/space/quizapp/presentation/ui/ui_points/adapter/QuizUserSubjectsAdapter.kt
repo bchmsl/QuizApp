@@ -29,7 +29,7 @@ class QuizUserSubjectsAdapter : BaseAdapter<QuizUserSubjectUiModel>() {
             with(binding.root) {
                 setContent(item.quizTitle, item.quizDescription, item.quizIcon)
                 setPointsCount(item.score)
-                if (item.score == item.questionsCount) {
+                if (item.score == item.maxScore) {
                     setColor(C.success_lighter)
                 } else {
                     setColor(C.neutral_03_light_grey)

@@ -28,17 +28,17 @@ class QuizAnswerOptionView(
         binding.optionTitleTextView.text = title
     }
 
-    fun setSelection(selectState: QuizAnswerSelectedState) {
+    fun setSelection(selectState: QuizAnswerSelectedState, pointAmount: Int? = null) {
         when (selectState) {
             QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE -> selectedCorrect()
             QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE -> selectedIncorrect()
             QuizAnswerSelectedState.ANSWER_NEUTRAL -> unselected()
-            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrectPoints(1)
+            QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT -> selectedCorrectPoints(pointAmount)
         }
 
     }
 
-    private fun selectedCorrectPoints(pointAmount: Int) {
+    private fun selectedCorrectPoints(pointAmount: Int?) {
         selectedCorrect()
         with(binding.starsTextView) {
             visible()

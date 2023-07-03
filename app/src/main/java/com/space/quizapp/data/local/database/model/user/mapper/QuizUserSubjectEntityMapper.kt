@@ -12,7 +12,8 @@ class QuizUserSubjectEntityMapper :
                 username = username,
                 quizTitle = quizTitle,
                 score = score,
-                questionsCount = questionsCount
+                questionsCount = questionsCount,
+                maxScore = maxScore
             )
         }
     }
@@ -24,7 +25,8 @@ class QuizUserSubjectEntityMapper :
                 username = username,
                 quizTitle = quizTitle,
                 score = score,
-                questionsCount = questionsCount
+                questionsCount = questionsCount,
+                maxScore = maxScore
             )
         }
     }

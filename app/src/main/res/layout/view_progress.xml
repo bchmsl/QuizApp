@@ -21,9 +21,10 @@
         android:drawableEnd="@drawable/quiz_ic_star"
         android:drawableTint="@color/yellow_primary"
         android:textColor="@color/yellow_primary"
+        android:drawablePadding="@dimen/dimen_5_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="მიმდინარე ქულა 1 " />
+        tools:text="მიმდინარე ქულა 1" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
