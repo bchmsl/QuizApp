@@ -6,12 +6,13 @@ data class QuizSubjectDto(
     val quizDescription: String = "",
     val quizIcon: String = "",
     val questionsCount: Int = 0,
-    val questions: List<Question> = emptyList()
+    val questions: List<QuizQuestionDto> = emptyList()
 ) {
-    data class Question(
+    data class QuizQuestionDto(
         val questionTitle: String = "",
         val answers: List<String> = emptyList(),
         val correctAnswer: String = "",
-        val questionIndex: Int = 0
+        val subjectId: Int,
+        val questionIndex: Int = -1
     )
 }

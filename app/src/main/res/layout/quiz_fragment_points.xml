@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/dimen_16_dp"
-    tools:context=".presentation.ui.points.fragment.QuizPointsFragment">
+    tools:context=".presentation.ui.ui_points.fragment.QuizPointsFragment">
 
     <com.space.quizapp.presentation.ui.common.view.QuizNavigationView
         android:id="@+id/navigationView"
@@ -17,7 +18,9 @@
         android:id="@+id/creditSubjectsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:itemCount="3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/quiz_view_subject"
         tools:visibility="gone" />
 
@@ -28,6 +31,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/dimen_80_dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/not_earned_warning"
         android:textSize="@dimen/dimen_18_sp"
         tools:visibility="visible" />

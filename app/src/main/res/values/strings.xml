@@ -14,11 +14,17 @@
     <string name="close">დახურვა</string>
     <string name="exit_prompt">ნამდვილად გსურს გასვლა?</string>
     <string name="stop_quiz_prompt">ნამდვილად გსურს ქვიზის შეწყვეტა?</string>
+    <string name="greeting">გამარჯობა, %s!</string>
+    <string name="points_earned">დაგროვილი ქულები</string>
+    <string name="congrats">გილოცავ!</string>
+    <string name="you_earned_points">შენ დააგროვე %d ქულა!</string>
+    <string name="emoji_congrats">🎉</string>
 
     <string name="message_valid">ოპერაცია წარმატებით დასრულდა!</string>
     <string name="message_error_length_long">სახელის ზომა უნდა არ უნდა აღემატებოდეს 20 სიმბოლოს</string>
     <string name="message_error_length_short">სახელის ზომა უნდა არ უნდა იყოს 3 სიმბოლოზე ნაკლები</string>
     <string name="message_error_containing_symbol">სახელი უნდა შედგებოდეს მხოლოდ ქართული ასოებისგან</string>
 
-    <string name="greeting">გამარჯობა, </string>
+    <string name="error_bad_request">არასწორი მოთხოვნა! სცადეთ ხელახლა!</string>
+
 </resources>

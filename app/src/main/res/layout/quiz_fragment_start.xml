@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.start.fragment.QuizStartFragment">
+    tools:context=".presentation.ui.ui_start.fragment.QuizStartFragment">
 
-    <com.space.quizapp.presentation.ui.start.view.QuizCustomBlueVector
+    <com.space.quizapp.presentation.ui.ui_start.view.QuizCustomBlueVector
         android:id="@+id/customBlueVector"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -52,8 +50,9 @@
             android:id="@+id/usernameEditText"
             style="@style/Space.QuizApp.TextInputEditText.NormalEditText"
             android:layout_width="match_parent"
+            android:hint="@string/enter_name"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_name" />
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

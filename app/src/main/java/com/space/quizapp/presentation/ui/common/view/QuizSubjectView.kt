@@ -3,9 +3,9 @@ package com.space.quizapp.presentation.ui.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
-import androidx.appcompat.content.res.AppCompatResources
-import com.space.quizapp.common.extensions.setImage
+import com.space.quizapp.common.extensions.utils.setImage
 import com.space.quizapp.common.util.D
 import com.space.quizapp.databinding.QuizViewSubjectBinding
 
@@ -16,18 +16,13 @@ class QuizSubjectView(
     private val binding = QuizViewSubjectBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setPointsCount(points: Int? = null) {
-        with(binding) {
+        with(binding.startButton) {
             points?.let { points ->
-                startButton.setCompoundDrawables(null, null, null, null)
-                startButton.text = points.toString()
+                setCompoundDrawables(null, null, null, null)
+                text = points.toString()
                 return
             }
-            startButton.setCompoundDrawables(
-                null,
-                null,
-                AppCompatResources.getDrawable(context, D.quiz_ic_next),
-                null
-            )
+            setIconResource(D.quiz_ic_next)
         }
     }
 
@@ -36,6 +31,17 @@ class QuizSubjectView(
             subjectTitleTextView.text = title
             subjectDescriptionTextView.text = description
             iconSubjectImageView.setImage(drawable)
+        }
+    }
+
+    fun setCustomClickListener(block: (View) -> Unit) {
+        with(binding) {
+            root.setOnClickListener {
+                block(it)
+            }
+            startButton.setOnClickListener {
+                block(it)
+            }
         }
     }
 }
