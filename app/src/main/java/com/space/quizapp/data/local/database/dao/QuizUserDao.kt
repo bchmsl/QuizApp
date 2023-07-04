@@ -10,9 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface QuizUserDao {
 
     @Insert
-    fun saveUser(userEntity: QuizUserEntity)
+    suspend fun saveUser(userEntity: QuizUserEntity)
 
     @Query("SELECT * FROM users WHERE token=:token")
     fun retrieveUserInfo(token: String): Flow<List<QuizUserEntity>>
 
+    @Query("SELECT token FROM users WHERE username=:username")
+    suspend fun checkUser(username: String): String?
 }

@@ -9,5 +9,5 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { QuizStartViewModel(get(), get(), QuizUserUiDomainMapper()) }
-    viewModel { QuizHomeViewModel(get(), QuizUserDomainUiMapper()) }
+    viewModel { QuizHomeViewModel(get(), get(), QuizUserDomainUiMapper()) }
 }

@@ -60,6 +60,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Fragment
         executeAsync {
             collectAsync(vm.navigationState) {
                 it?.let {
+                    findNavController().popBackStack()
                     findNavController().navigate(it.directions)
                 }
             }

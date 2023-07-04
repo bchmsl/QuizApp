@@ -22,6 +22,15 @@ class QuizHomeFragment : BaseFragment<QuizFragmentHomeBinding, QuizHomeViewModel
 
     override fun onBind() {
         setObservers()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        withBinding {
+            logOutFloatingButton.setOnClickListener {
+                vm.logOut()
+            }
+        }
     }
 
     private fun setObservers() {
