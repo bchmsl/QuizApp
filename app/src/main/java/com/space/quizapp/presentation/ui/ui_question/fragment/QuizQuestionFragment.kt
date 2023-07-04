@@ -1,7 +1,7 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
 import androidx.activity.addCallback
-import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
@@ -35,11 +35,12 @@ class QuizQuestionFragment :
     override fun onFragmentCreate() {
         subject = arguments?.getString(TAG_STRING).toString()
         subjectId = arguments?.getInt(TAG_INT) ?: -1
-        vm.retrieveQuestions(subjectId)
+        vm.getNextQuestion(subject)
     }
 
     override fun onBind() {
         super.onBind()
+        vm.resetUserPoints()
         withBinding {
             navigationView.setContent(subject, true, false)
             AnswerOptionsRecyclerView.adapter = answersAdapter
@@ -48,35 +49,28 @@ class QuizQuestionFragment :
     }
 
     override fun observe() {
-        collectAsync(vm.questionState) { question ->
-            question?.let {
-                with(binding) {
-                    questionTextView.text = it.questionModel.questionTitle
-                    answersAdapter.submitList(it.questionModel.answers.toList())
-                    nextButton.text =
-                        getString(if (it.isLastQuestion) S.finish else S.next)
-                    nextButton.setOnClickListener(null)
-                }
+        observeLiveDataNonNull(vm.questionState) {
+            with(binding) {
+                questionTextView.text = it.questionTitle
+                answersAdapter.submitList(it.answers.toList())
+                nextButton.text =
+                    getString(if (it.isLastQuestion) S.finish else S.next)
+                nextButton.setOnClickListener(null)
             }
             answersAdapter.onItemClickListener {
-                vm.checkAnswer(it)
+                vm.checkAnswer(it, subject)
                 answersAdapter.onItemClickListener(null)
             }
         }
-
-        collectAsync(vm.checkedAnswersState) {
-            it?.let {
-                answersAdapter.submitList(it.toList())
-            }
+        observeLiveDataNonNull(vm.answersListState) { checkedList ->
+            answersAdapter.submitList(checkedList.toList())
             binding.nextButton.setOnClickListener {
-                vm.getNextQuestion()
+                vm.getNextQuestion(subject)
             }
         }
-        collectAsync(vm.pointsState) {
-            it?.let {
-                showAlertDialog(it)
-                vm.saveUserSubject(subject, it)
-            }
+        observeLiveDataNonNull(vm.pointsState) {
+            showAlertDialog(it)
+            vm.saveUserSubject(subject, it)
         }
     }
 

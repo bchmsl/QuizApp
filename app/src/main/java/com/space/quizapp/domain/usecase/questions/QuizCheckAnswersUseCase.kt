@@ -1,14 +1,27 @@
 package com.space.quizapp.domain.usecase.questions
 
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
+import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
-import com.space.quizapp.presentation.ui.ui_question.manager.QuizManager
 
 class QuizCheckAnswersUseCase(
-    private val manager: QuizManager
-) : QuizBaseUseCase<QuizQuestionDomainModel.QuizAnswerDomainModel, List<QuizQuestionDomainModel.QuizAnswerDomainModel>>() {
+    private val addPointsToSubjectUC: AddPointsToSubjectUseCase,
+    private val questionsRepository: QuizQuestionsRepository
+) : QuizBaseUseCase<CheckAnswerParams, Boolean>() {
 
-    override suspend fun invoke(answer: QuizQuestionDomainModel.QuizAnswerDomainModel?): List<QuizQuestionDomainModel.QuizAnswerDomainModel> {
-        return manager.checkAnswer(answer!!)
+    override suspend fun invoke(params: CheckAnswerParams?): Boolean {
+        val question = questionsRepository.getNextQuestion(params!!.subjectTitle)
+        questionsRepository.updateQuestion(question!!.copy(isAnswered = true))
+
+        val isCorrect = params.answerModel.isCorrect
+        if (isCorrect) addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 1))
+        else addPointsToSubjectUC(AddPointsParams(question.subjectTitle, 0))
+
+        return params.answerModel.isCorrect
     }
 }
+
+data class CheckAnswerParams(
+    val answerModel: QuizQuestionDomainModel.QuizAnswerDomainModel,
+    val subjectTitle: String
+)

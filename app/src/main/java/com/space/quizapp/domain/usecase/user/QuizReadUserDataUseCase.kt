@@ -4,16 +4,17 @@ import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion
 import com.space.quizapp.domain.model.user.QuizUserDomainModel
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 
 class QuizReadUserDataUseCase(
-    private val readUserToken: QuizBaseUseCase<Unit, String>,
-    private val repository: QuizUserDataRepository
+    private val readUserTokenUC: QuizReadUserTokenUseCase,
+    private val userDataRepository: QuizUserDataRepository
 ) : QuizBaseUseCase<Unit, QuizUserDomainModel>() {
 
     override suspend fun invoke(params: Unit?): QuizUserDomainModel {
-        val userToken = readUserToken()
+        val userToken = readUserTokenUC()
         return when {
-            userToken != EMPTY_STRING -> repository.retrieveUser(userToken)
+            userToken != EMPTY_STRING -> userDataRepository.retrieveUserByToken(userToken)
             else -> throw RuntimeException("User Token Not Found")
         }
     }

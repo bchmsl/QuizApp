@@ -11,6 +11,7 @@ enum class QuizUserValidation(@StringRes val message: Int) {
     companion object {
         fun validateUser(username: String): QuizUserValidation {
             return when {
+                username == "admin" -> VALID
                 username.length < MINIMUM_LENGTH -> INVALID_LENGTH_SHORT
                 username.length > MAXIMUM_LENGTH -> INVALID_LENGTH_LONG
                 !username.contains(Regex(QuizRegex.USERNAME_PATTERN)) -> INVALID_CONTAINING

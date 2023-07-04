@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.space.quizapp.common.extensions.coroutines.collectAsync
 import com.space.quizapp.common.extensions.coroutines.executeAsync
+import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.makeSnackbar
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
@@ -72,18 +73,18 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
         executeAsync {
             collectAsync(vm.navigationState) {
                 it?.let {
-                    findNavController().popBackStack()
-                    findNavController().navigate(it.directions)
+                    with(findNavController()) {
+                        popBackStack()
+                        navigate(it.directions)
+                    }
                 }
             }
         }
     }
 
     private fun observeError() {
-        collectAsync(vm.errorState) {
-            it?.let {
-                setError(it)
-            }
+        observeLiveDataNonNull(vm.errorState) {
+            setError(it)
         }
     }
 

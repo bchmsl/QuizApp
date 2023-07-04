@@ -4,17 +4,18 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizCustomThrowable
+import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.quizapp.common.util.postValue
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 abstract class QuizBaseViewModel : ViewModel() {
 
-    private val _errorState: MutableStateFlow<QuizCustomThrowable?> = MutableStateFlow(null)
-    val errorState get() = _errorState.asStateFlow()
+    val errorState by QuizLiveDataDelegate<QuizCustomThrowable?>(null)
 
-    suspend fun emitError(throwable: QuizCustomThrowable? = null) {
-        _errorState.emit(throwable)
+    fun postError(throwable: QuizCustomThrowable? = null) {
+        postValue(errorState) { throwable }
     }
 
     private val _navigationState = MutableStateFlow<QuizFragmentDirections?>(null)

@@ -2,7 +2,8 @@ package com.space.quizapp.presentation.ui.ui_home.fragment
 
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
-import com.space.quizapp.common.extensions.coroutines.collectAsync
+import com.space.quizapp.common.extensions.coroutines.observeLiveData
+import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
@@ -35,20 +36,19 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
     }
 
     override fun observe() {
-        collectAsync(vm.userState) { user ->
+        observeLiveDataNonNull(vm.userState) { user ->
             withBinding {
                 greetingTextView.text = String.format(getString(S.greeting), user.userName)
                 scoreView.setContent(user.gpa)
             }
         }
-        collectAsync(vm.subjectsState) { questions ->
-            questions?.let {
-                subjectsAdapter.submitList(it.toList())
-            }
+        observeLiveDataNonNull(vm.subjectsState) { questions ->
+            subjectsAdapter.submitList(questions.toList())
         }
-        collectAsync(vm.loadingState) {
+        observeLiveData(vm.loadingState) {
             binding.progressBar.isVisible = it
         }
+
     }
 
     override fun setListeners() {
@@ -59,11 +59,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
             scoreView.setOnClickListener {
                 navigate(QuizFragmentDirections.POINTS)
             }
-            subjectsSwipeRefreshLayout.setProgressViewEndTarget(false, -100)
-            subjectsSwipeRefreshLayout.setOnRefreshListener {
-                vm.retrieveUserInfo()
-                vm.retrieveSubjects()
-                subjectsSwipeRefreshLayout.isRefreshing = false
+            with(subjectsSwipeRefreshLayout) {
+                setProgressViewEndTarget(false, -100)
+                setOnRefreshListener {
+                    vm.retrieveUserInfo()
+                    vm.retrieveSubjects()
+                    isRefreshing = false
+                }
             }
         }
         subjectsAdapter.onItemClickListener {

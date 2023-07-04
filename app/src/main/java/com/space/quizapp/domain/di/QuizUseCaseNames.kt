@@ -1,6 +1,6 @@
 package com.space.quizapp.domain.di
 
-import org.koin.core.qualifier.named
+/*
 
 object QuizUseCaseNames {
     val GET_NEXT_QUESTION = named("getNextQuestion")
@@ -16,3 +16,4 @@ object QuizUseCaseNames {
     val READ_USER_SUBJECTS = named("readUserSubjects")
     val UPDATE_GPA = named("updateGpa")
 }
+*/

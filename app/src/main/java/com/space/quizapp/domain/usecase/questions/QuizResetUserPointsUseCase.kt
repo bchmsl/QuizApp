@@ -3,11 +3,10 @@ package com.space.quizapp.domain.usecase.questions
 import com.space.quizapp.domain.repository.user.QuizUserSubjectRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
-class QuizGetPointsUseCase(
+class QuizResetUserPointsUseCase(
     private val userSubjectRepository: QuizUserSubjectRepository
-) : QuizBaseUseCase<Unit, Int>() {
-
-    override suspend fun invoke(params: Unit?): Int {
-        return userSubjectRepository.getUserPoints()!!
+) : QuizBaseUseCase<Unit, Unit>() {
+    override suspend fun invoke(params: Unit?) {
+        userSubjectRepository.resetUserPoints()
     }
 }

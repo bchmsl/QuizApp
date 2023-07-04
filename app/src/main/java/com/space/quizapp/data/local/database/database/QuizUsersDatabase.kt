@@ -2,6 +2,7 @@ package com.space.quizapp.data.local.database.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.space.quizapp.data.local.database.dao.QuizQuestionsDao
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.dao.QuizUserDao
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
@@ -17,6 +18,7 @@ import com.space.quizapp.data.local.database.model.user.QuizUserSubjectEntity
 abstract class QuizUsersDatabase : RoomDatabase() {
     abstract fun userDao(): QuizUserDao
     abstract fun subjectsDao(): QuizSubjectsDao
+    abstract fun questionsDao(): QuizQuestionsDao
     abstract fun userSubjectsDao(): QuizUserSubjectsDao
 
     companion object {

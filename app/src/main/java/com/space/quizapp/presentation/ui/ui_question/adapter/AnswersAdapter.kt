@@ -28,7 +28,7 @@ class AnswersAdapter : BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
         ) {
             with(binding.root) {
                 setContent(item.answerOption)
-                setSelection(item.selectedState)
+                setSelection(item.answerSelectedState)
             }
         }
     }

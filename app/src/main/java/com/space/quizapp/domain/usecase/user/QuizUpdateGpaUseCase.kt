@@ -1,18 +1,19 @@
 package com.space.quizapp.domain.usecase.user
 
-import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.repository.quiz.QuizRepository
+import com.space.quizapp.domain.repository.quiz.QuizSubjectsRepository
 import com.space.quizapp.domain.repository.user.QuizUserDataRepository
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
+import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
+import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 
 class QuizUpdateGpaUseCase(
-    private val getUserTokenUseCase: QuizBaseUseCase<Unit, String>,
-    private val readUserSubjectsUseCase: QuizBaseUseCase<Unit, List<QuizUserSubjectDomainModel>>,
-    private val subjectsRepository: QuizRepository,
+    private val readUserDataUC: QuizReadUserDataUseCase,
+    private val readUserSubjectsUC: QuizReadUserSubjectsUseCase,
+    private val subjectsRepository: QuizSubjectsRepository,
     private val userDataRepository: QuizUserDataRepository
 ) : QuizBaseUseCase<Unit, Unit>() {
     override suspend fun invoke(params: Unit?) {
-        val userSubjects = readUserSubjectsUseCase()
+        val userSubjects = readUserSubjectsUC()
         val scorePercentages = mutableListOf<Float>()
         userSubjects.forEach { userSubject ->
             val subject = subjectsRepository.retrieveLocalSubjectByTitle(userSubject.quizTitle)
@@ -20,6 +21,6 @@ class QuizUpdateGpaUseCase(
             scorePercentages.add(userScorePercent)
         }
         val gpa = scorePercentages.average() * 4.0f
-        userDataRepository.updateGPA(getUserTokenUseCase(), gpa)
+        userDataRepository.updateGPA(readUserDataUC().username, gpa)
     }
 }

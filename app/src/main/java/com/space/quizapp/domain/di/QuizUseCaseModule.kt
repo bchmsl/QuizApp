@@ -1,16 +1,7 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.common.util.QuizUserValidation
-import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
-import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
-import com.space.quizapp.domain.model.user.QuizUserDomainModel
-import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
-import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
-import com.space.quizapp.domain.usecase.questions.QuizGetPointsUseCase
-import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionResponse
+import com.space.quizapp.domain.usecase.questions.*
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
-import com.space.quizapp.domain.usecase.quiz.QuizRetrieveQuestionsUseCase
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
@@ -19,116 +10,100 @@ import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
-import com.space.quizapp.presentation.ui.ui_question.manager.QuizManager
-import com.space.quizapp.presentation.ui.ui_question.manager.QuizManagerImpl
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single<QuizBaseUseCase<QuizUserDomainModel, QuizUserValidation>>(
-        QuizUseCaseNames.SAVE_USER_DATA
-    ) {
+    single {
         QuizSaveUserDataUseCase(
-            saveUserToken = get(QuizUseCaseNames.SAVE_USER_TOKEN),
-            repository = get()
+            saveUserTokenUC = get(),
+            userDataRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, QuizUserDomainModel>>(
-        QuizUseCaseNames.READ_USER_DATA
-    ) {
+    single {
         QuizReadUserDataUseCase(
-            readUserToken = get(QuizUseCaseNames.READ_USER_TOKEN),
-            repository = get()
+            readUserTokenUC = get(),
+            userDataRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<String, Unit>>(
-        QuizUseCaseNames.SAVE_USER_TOKEN
-    ) {
+    single {
         QuizSaveUserTokenUseCase(
-            repository = get()
+            userTokenRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, String>>(
-        QuizUseCaseNames.READ_USER_TOKEN
-    ) {
+    single {
         QuizReadUserTokenUseCase(
-            repository = get()
+            userTokenRepository = get()
         )
     }
 
 
-    single<QuizBaseUseCase<QuizQuestionDomainModel.QuizAnswerDomainModel, List<QuizQuestionDomainModel.QuizAnswerDomainModel>>>(
-        QuizUseCaseNames.CHECK_ANSWERS
-    ) {
+    single {
         QuizCheckAnswersUseCase(
-            manager = get()
+            questionsRepository = get(),
+            addPointsToSubjectUC = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel?>>>(
-        QuizUseCaseNames.GET_NEXT_QUESTION
-    ) {
+    single {
         QuizGetNextQuestionUseCase(
-            manager = get()
+            questionsRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<Int, Unit>>(
-        QuizUseCaseNames.RETRIEVE_QUESTIONS
-    ) {
-        QuizRetrieveQuestionsUseCase(
-            repository = get(),
-            manager = get()
-        )
-    }
-
-    single<QuizBaseUseCase<Unit, List<QuizSubjectDomainModel>>>(
-        QuizUseCaseNames.RETRIEVE_SUBJECTS
-    ) {
+    single {
         QuizRetrieveSubjectsUseCase(
-            repository = get()
+            subjectsRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, Int>>(
-        QuizUseCaseNames.GET_POINTS
-    ) {
+    single {
         QuizGetPointsUseCase(
-            manager = get()
+            userSubjectRepository = get()
+        )
+    }
+    single {
+        AddPointsToSubjectUseCase(
+            userSubjectRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, List<QuizUserSubjectDomainModel>>>(
-        QuizUseCaseNames.READ_USER_SUBJECTS
-    ) {
+    single {
         QuizReadUserSubjectsUseCase(
-            readUserDataUC = get(QuizUseCaseNames.READ_USER_DATA),
+            readUserDataUC = get(),
             userSubjectRepository = get(),
             subjectRepository = get()
         )
     }
 
-    single<QuizBaseUseCase<QuizUserSubjectDomainModel, Unit>>(
-        QuizUseCaseNames.SAVE_USER_SUBJECT
-    ) {
+    single {
         QuizSaveUserSubjectUseCase(
-            repository = get(),
-            readUserData = get(QuizUseCaseNames.READ_USER_DATA)
+            userSubjectRepository = get(),
+            readUserDataUC = get()
         )
     }
 
-    single<QuizBaseUseCase<Unit, Unit>>(
-        QuizUseCaseNames.UPDATE_GPA
-    ) {
+    single {
         QuizUpdateGpaUseCase(
-            getUserTokenUseCase = get(QuizUseCaseNames.READ_USER_TOKEN),
-            readUserSubjectsUseCase = get(QuizUseCaseNames.READ_USER_SUBJECTS),
+            readUserSubjectsUC = get(),
             subjectsRepository = get(),
-            userDataRepository = get()
+            userDataRepository = get(),
+            readUserDataUC = get()
         )
     }
 
-    single<QuizManager> { QuizManagerImpl() }
+    single {
+        QuizSaveUserPointsUseCase(
+            readUserDataUC = get(),
+            userSubjectRepository = get()
+        )
+    }
+
+    single {
+        QuizResetUserPointsUseCase(
+            userSubjectRepository = get()
+        )
+    }
 }

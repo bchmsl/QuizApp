@@ -7,11 +7,15 @@ data class QuizQuestionDomainModel(
     val answers: MutableList<QuizAnswerDomainModel>,
     val correctAnswer: QuizAnswerDomainModel,
     val subjectId: Int,
-    val questionIndex: Int
+    val questionIndex: Int,
+    val isAnswered: Boolean,
+    val isLastQuestion: Boolean,
+    val subjectTitle: String
 ) {
     data class QuizAnswerDomainModel(
         val answerOption: String,
-        val selectedState: QuizAnswerSelectedState
-        = QuizAnswerSelectedState.ANSWER_UNSELECTED
+        val isCorrect: Boolean,
+        val answerSelectedState: QuizAnswerSelectedState
+        = QuizAnswerSelectedState.ANSWER_NEUTRAL
     )
 }

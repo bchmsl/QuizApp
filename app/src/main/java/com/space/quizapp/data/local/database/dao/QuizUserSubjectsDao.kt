@@ -16,8 +16,12 @@ interface QuizUserSubjectsDao {
     suspend fun getUserSubjects(username: String): List<QuizUserSubjectEntity>
 
     @Query("SELECT * FROM user_subject WHERE username=:username AND quizTitle=:quizTitle")
-    suspend fun getUserSubjectByIdIfExists(
+    suspend fun getUserSubjectByTitleIfExists(
         username: String,
         quizTitle: String
     ): QuizUserSubjectEntity?
+
+    @Update
+    suspend fun updateUserSubject(userSubject: QuizUserSubjectEntity)
+
 }

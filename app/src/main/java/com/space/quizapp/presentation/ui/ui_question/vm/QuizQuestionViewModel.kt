@@ -1,70 +1,93 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
+import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.quizapp.common.util.postValue
+import com.space.quizapp.common.util.postValueAsync
+import com.space.quizapp.common.util.postValueNonNull
 import com.space.quizapp.domain.model.user.QuizUserSubjectDomainModel
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
-import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionResponse
+import com.space.quizapp.domain.usecase.questions.*
+import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
+import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
+import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionUiMapper
+import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class QuizQuestionViewModel(
-    private val getNextQuestionUC: QuizBaseUseCase<Unit, QuizGetNextQuestionResponse<QuizQuestionDomainModel?>>,
-    private val checkAnswersUC: QuizBaseUseCase<QuizQuestionDomainModel.QuizAnswerDomainModel, List<QuizQuestionDomainModel.QuizAnswerDomainModel>>,
-    private val retrieveQuestionsUC: QuizBaseUseCase<Int, Unit>,
-    private val getPointsUC: QuizBaseUseCase<Unit, Int>,
-    private val saveUserSubjectUC: QuizBaseUseCase<QuizUserSubjectDomainModel, Unit>,
-    private val updateGpaUC: QuizBaseUseCase<Unit, Unit>,
+    private val getNextQuestionUC: QuizGetNextQuestionUseCase,
+    private val checkAnswersUC: QuizCheckAnswersUseCase,
+    private val getPointsUC: QuizGetPointsUseCase,
+    private val resetUserPointsUC: QuizResetUserPointsUseCase,
+    private val saveUserSubjectUC: QuizSaveUserSubjectUseCase,
+    private val saveUserPointsUC: QuizSaveUserPointsUseCase,
+    private val updateGpaUC: QuizUpdateGpaUseCase,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
 
-    private val _questionState =
-        MutableStateFlow<QuizGetNextQuestionResponse<QuizQuestionUiModel>?>(null)
-    val questionState get() = _questionState.asStateFlow()
+    private val answers = mutableListOf<QuizQuestionUiModel.QuizAnswerUiModel>()
 
-    private val _checkedAnswersState =
-        MutableStateFlow<List<QuizQuestionUiModel.QuizAnswerUiModel>?>(null)
-    val checkedAnswersState get() = _checkedAnswersState.asStateFlow()
+    val questionState by QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
+    val answersListState by QuizLiveDataDelegate<
+            List<QuizQuestionUiModel.QuizAnswerUiModel>?
+            >(emptyList())
+    val pointsState by QuizLiveDataDelegate<Int?>(null)
 
-    private val _pointsState = MutableStateFlow<Int?>(null)
-    val pointsState get() = _pointsState.asStateFlow()
-
-    fun getNextQuestion() {
+    fun resetUserPoints() {
         executeAsync(IO) {
-            val question = getNextQuestionUC()
-            if (question.questionModel == null) {
-                val points = getPointsUC()
-                _pointsState.emit(points)
-                return@executeAsync
+            resetUserPointsUC()
+        }
+    }
+
+    fun getNextQuestion(subjectTitle: String) {
+        executeAsync(IO) {
+            postValueAsync(questionState) {
+                val question = getNextQuestionUC(subjectTitle)
+                if (question == null) {
+                    saveUserPointsUC(subjectTitle)
+                    postValueAsync(pointsState) { getPointsUC() }
+                    return@postValueAsync null
+                }
+                answers.clear()
+                answers.addAll(answerMapper.toUiList(question.answers))
+                submitAnswers()
+                questionMapper.toUi(question)
             }
-            val questionUi = QuizGetNextQuestionResponse(
-                questionMapper.toUi(question.questionModel),
-                question.isLastQuestion
-            )
-            _questionState.emit(questionUi)
+        }
+    }
+
+    private fun submitAnswers() {
+        postValueNonNull(answersListState) {
+            answers
         }
     }
 
     fun checkAnswer(
-        submittedAnswer: QuizQuestionUiModel.QuizAnswerUiModel
+        submittedAnswer: QuizQuestionUiModel.QuizAnswerUiModel,
+        subjectTitle: String
     ) {
-        executeAsync(Main) {
-            val answersList = checkAnswersUC(answerMapper.toDomain(submittedAnswer))
-            _checkedAnswersState.emit(answerMapper.toUiList(answersList))
-        }
-    }
-
-    fun retrieveQuestions(subjectId: Int) {
         executeAsync(IO) {
-            retrieveQuestionsUC(subjectId)
-            getNextQuestion()
+            val isCorrect = checkAnswersUC(
+                CheckAnswerParams(
+                    answerMapper.toDomain(submittedAnswer),
+                    subjectTitle
+                )
+            )
+            val checkedAnswersList = answers
+            if (isCorrect) {
+                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT
+            } else {
+                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE
+                checkedAnswersList.find { it == submittedAnswer }?.answerSelectedState =
+                    QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE
+            }
+            postValue(answersListState) { checkedAnswersList }
         }
     }
 

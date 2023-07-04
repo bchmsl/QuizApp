@@ -2,6 +2,7 @@ package com.space.quizapp.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.space.quizapp.data.local.database.dao.QuizQuestionsDao
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.dao.QuizUserDao
 import com.space.quizapp.data.local.database.dao.QuizUserSubjectsDao
@@ -21,9 +22,13 @@ private fun provideUserSubjectsDao(database: QuizUsersDatabase): QuizUserSubject
 private fun provideSubjectsDao(database: QuizUsersDatabase): QuizSubjectsDao =
     database.subjectsDao()
 
+private fun provideQuestionsDao(database: QuizUsersDatabase): QuizQuestionsDao =
+    database.questionsDao()
+
 val dbModule = module {
     single { provideUserDao(database = get()) }
     single { provideUserSubjectsDao(database = get()) }
     single { provideSubjectsDao(database = get()) }
+    single { provideQuestionsDao(database = get()) }
     single { provideUsersDatabase(context = get()) }
 }

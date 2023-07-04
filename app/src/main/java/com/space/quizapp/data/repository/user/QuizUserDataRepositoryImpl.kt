@@ -14,15 +14,19 @@ class QuizUserDataRepositoryImpl(
         userDao.saveUser(userMapper.toEntity(userDomainModel))
     }
 
-    override suspend fun retrieveUser(token: String): QuizUserDomainModel {
-        return userMapper.toDomain(userDao.getUser(token))
+    override suspend fun retrieveUser(username: String): QuizUserDomainModel {
+        return userMapper.toDomain(userDao.getUser(username))
+    }
+
+    override suspend fun retrieveUserByToken(userToken: String): QuizUserDomainModel {
+        return userMapper.toDomain(userDao.getUserByToken(userToken))
     }
 
     override suspend fun getUserTokenOrNull(username: String): String? {
         return userDao.getUserTokenOrNull(username)
     }
 
-    override suspend fun updateGPA(token: String, gpa: Double) {
-        userDao.saveUser(userDao.getUser(token).copy(gpa = gpa.toFloat()))
+    override suspend fun updateGPA(username: String, gpa: Double) {
+        userDao.saveUser(userDao.getUser(username).copy(gpa = gpa.toFloat()))
     }
 }

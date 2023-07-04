@@ -10,12 +10,15 @@ data class QuizQuestionUiModel(
     val answers: List<QuizAnswerUiModel>,
     val correctAnswer: QuizAnswerUiModel,
     val subjectId: Int,
-    val questionIndex: Int
+    val questionIndex: Int,
+    val isLastQuestion: Boolean,
+    val isAnswered: Boolean,
+    val subjectTitle: String
 ) : Parcelable {
     @Parcelize
     data class QuizAnswerUiModel(
         val answerOption: String,
-        val selectedState: QuizAnswerSelectedState
-        = QuizAnswerSelectedState.ANSWER_UNSELECTED
+        val isCorrect: Boolean,
+        var answerSelectedState: QuizAnswerSelectedState
     ) : Parcelable
 }
