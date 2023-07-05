@@ -32,11 +32,12 @@ class QuizNavigationView(
         backAvailable: Boolean,
         starAvailable: Boolean = true
     ) {
-        binding.navTitleTextView.text = title
+        with(binding.navTitleTextView) {
+            text = title
+            if (!starAvailable) setCompoundDrawables(null, null, null, null)
+        }
         setCloseAvailable(closeAvailable)
         setBackAvailable(backAvailable)
-        binding.navTitleTextView
-        if (!starAvailable) binding.navTitleTextView.setCompoundDrawables(null, null, null, null)
     }
 
     private fun setCloseAvailable(closeAvailable: Boolean) {

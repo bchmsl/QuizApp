@@ -16,7 +16,7 @@ data class QuizQuestionDomainModel(
     data class QuizAnswerDomainModel(
         val answerOption: String,
         val isCorrect: Boolean,
-        val answerSelectedState: QuizAnswerSelectedState
+        var answerSelectedState: QuizAnswerSelectedState
         = QuizAnswerSelectedState.ANSWER_NEUTRAL
     )
 }

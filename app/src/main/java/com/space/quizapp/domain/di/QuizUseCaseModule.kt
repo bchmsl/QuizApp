@@ -1,5 +1,6 @@
 package com.space.quizapp.domain.di
 
+import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
@@ -92,5 +93,8 @@ val useCaseModule = module {
     }
     single {
         ValidateUserUseCase()
+    }
+    single {
+        FinishAlertUseCase()
     }
 }

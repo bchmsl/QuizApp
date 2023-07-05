@@ -6,8 +6,10 @@ import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.quizapp.common.extensions.utils.enable
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
+import com.space.quizapp.domain.usecase.questions.FinishAlertResponse
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
@@ -69,8 +71,8 @@ class QuizQuestionFragment :
             binding.progressView.setPoints(this.points)
         }
 
-        observeLiveData(vm.isFinished) { isFinished ->
-            if (isFinished) showCongratsAlert(points, vm.questionCount.value)
+        observeLiveDataNonNull(vm.finishAlertState) { finishAlertResponse ->
+            showCongratsAlert(finishAlertResponse, this.points)
         }
 
         observeLiveData(vm.questionCount) { questionsCount ->
@@ -120,39 +122,10 @@ class QuizQuestionFragment :
         })
     }
 
-    private fun showCongratsAlert(score: Int, maxQuestions: Int?) {
+    private fun showCongratsAlert(response: FinishAlertResponse, score: Int) {
         val dialog = alertDialog
-        maxQuestions?.let {
-            val userPercent = score.toFloat() / maxQuestions
-            val emoji = when (userPercent) {
-                1f -> {
-                    dialog.setMessage(getString(S.congrats))
-                    "\uD83E\uDD29"
-                }
-
-                in 0f..0.2f -> {
-                    dialog.setMessage("")
-                    "\uD83E\uDD72"
-                }
-
-                in 0.2f..0.4f -> {
-                    dialog.setMessage("")
-                    "\uD83E\uDD78"
-                }
-
-                in 0.4f..0.6f -> {
-                    dialog.setMessage(getString(S.congrats))
-                    "\uD83E\uDDD0"
-                }
-
-                else -> {
-                    dialog.setMessage(getString(S.congrats))
-                    "\uD83E\uDD79"
-                }
-            }
-            dialog.setTitle(emoji)
-        }
-
+        dialog.setMessage(if (response.isCongratsVisible) getString(S.congrats) else EMPTY_STRING)
+        dialog.setTitle(response.emoji)
         (dialog
             .setDescription(String.format(getString(S.you_earned_points), score))
             .setButton(getString(S.close)) {

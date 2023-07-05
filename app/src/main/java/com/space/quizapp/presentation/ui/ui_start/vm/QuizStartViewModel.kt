@@ -23,12 +23,14 @@ class QuizStartViewModel(
     val userValidState by QuizLiveDataDelegate(false)
     fun validateUser(username: String) {
         executeAsync {
-            val error = when (val validateUser =
-                validateUserUC(username)) {
+            val error = when (val validateUser = validateUserUC(
+                username.replace(" ", EMPTY_STRING).replace("\n", EMPTY_STRING)
+            )) {
                 QuizUserValidation.VALID -> {
                     userValidState.post(true)
                     null
                 }
+
                 else -> {
                     userValidState.post(false)
                     validateUser.message

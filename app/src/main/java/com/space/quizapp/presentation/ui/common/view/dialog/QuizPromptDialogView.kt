@@ -42,15 +42,13 @@ class QuizPromptDialogView constructor(context: Context) : QuizDialogView(contex
         }
 
         override fun build(): QuizDialogView {
-            val dialog = QuizPromptDialogView(context)
-            with(dialog) {
-                message = this@Builder.message
-                positiveButtonText = this@Builder.positiveButtonText
-                positiveButtonListener = this@Builder.positiveButtonListener
-                negativeButtonText = this@Builder.negativeButtonText
-                negativeButtonListener = this@Builder.negativeButtonListener
+            return QuizPromptDialogView(context).also {
+                it.message = message
+                it.positiveButtonText = positiveButtonText
+                it.positiveButtonListener = positiveButtonListener
+                it.negativeButtonText = negativeButtonText
+                it.negativeButtonListener = negativeButtonListener
             }
-            return dialog
         }
     }
 

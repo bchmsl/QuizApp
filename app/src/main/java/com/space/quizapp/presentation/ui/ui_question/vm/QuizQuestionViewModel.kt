@@ -3,6 +3,9 @@ package com.space.quizapp.presentation.ui.ui_question.vm
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
 import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
+import com.space.quizapp.domain.usecase.questions.FinishAlertRequest
+import com.space.quizapp.domain.usecase.questions.FinishAlertResponse
+import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
@@ -13,7 +16,6 @@ import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionUiMapper
-import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizQuestionViewModel(
@@ -22,6 +24,7 @@ class QuizQuestionViewModel(
     private val saveUserPointsUC: QuizSaveUserPointsUseCase,
     private val questionsCountUC: GetQuestionsCountUseCase,
     private val updateGpaUC: QuizUpdateGpaUseCase,
+    private val finishAlertUC: FinishAlertUseCase,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
 ) : QuizBaseViewModel() {
@@ -34,14 +37,21 @@ class QuizQuestionViewModel(
             >(emptyList())
     val pointsState by QuizLiveDataDelegate(0)
     val questionCount by QuizLiveDataDelegate(0)
-    val isFinished by QuizLiveDataDelegate(false)
+    val finishAlertState by QuizLiveDataDelegate<FinishAlertResponse?>(null)
 
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {
             val question = getNextQuestionUC(subjectTitle)
             if (question == null) {
                 questionState.post(null)
-                isFinished.post(true)
+                finishAlertState.post(
+                    finishAlertUC(
+                        FinishAlertRequest(
+                            pointsState.value,
+                            questionCount.value
+                        )
+                    )
+                )
                 pointsState.value?.let { saveUserSubject(subjectTitle, it) }
                 return@executeAsync
             }
@@ -59,24 +69,23 @@ class QuizQuestionViewModel(
         subjectTitle: String
     ) {
         executeAsync(IO) {
-            val isCorrect = checkAnswersUC(
+            val checkAnswersResponse = checkAnswersUC(
                 CheckAnswerParams(
                     answerMapper.toDomain(submittedAnswer),
+                    answersListState.value?.map { answerMapper.toDomain(it) } ?: emptyList(),
                     subjectTitle
                 )
             )
-            val checkedAnswersList = answers
-            if (isCorrect) {
-                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
-                    QuizAnswerSelectedState.ANSWER_SELECTED_CORRECT
-                addPoints()
-            } else {
-                checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
-                    QuizAnswerSelectedState.ANSWER_SELECTED_POSITIVE
-                checkedAnswersList.find { it == submittedAnswer }?.answerSelectedState =
-                    QuizAnswerSelectedState.ANSWER_SELECTED_NEGATIVE
-            }
-            answersListState.post(checkedAnswersList)
+            answersListState.post(checkAnswersResponse.answersList.map { answerMapper.toUi(it) })
+            if (checkAnswersResponse.isCorrect) addPoints()
+        }
+    }
+
+    fun getQuestionCount(subjectTitle: String) {
+        executeAsync {
+            pointsState.post(0)
+            questionCount.post(questionsCountUC(subjectTitle))
+            getNextQuestion(subjectTitle)
         }
     }
 
@@ -88,14 +97,6 @@ class QuizQuestionViewModel(
         executeAsync(IO) {
             saveUserPointsUC(SaveUserPointsRequest(subjectTitle, points))
             updateGpaUC()
-        }
-    }
-
-    fun getQuestionCount(subjectTitle: String) {
-        executeAsync {
-            pointsState.post(0)
-            questionCount.post(questionsCountUC(subjectTitle))
-            getNextQuestion(subjectTitle)
         }
     }
 }

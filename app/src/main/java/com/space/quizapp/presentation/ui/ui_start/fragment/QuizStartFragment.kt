@@ -32,7 +32,7 @@ class QuizStartFragment : QuizBaseFragment<QuizFragmentStartBinding, QuizStartVi
         observeLiveData(vm.userValidState) { isValid ->
             binding.startButton.enable(isValid)
             if (isValid) {
-                setError(EMPTY_STRING)
+                binding.usernameTextInputLayout.error = EMPTY_STRING
             }
         }
     }
@@ -45,9 +45,9 @@ class QuizStartFragment : QuizBaseFragment<QuizFragmentStartBinding, QuizStartVi
             }
             usernameEditText.addTextChangedListener {
                 if (it.isNullOrBlank()) {
-                    setError(EMPTY_STRING)
+                    binding.usernameTextInputLayout.error = EMPTY_STRING
                 } else {
-                    vm.validateUser(it.toString().replace(" ", "").replace("\n", ""))
+                    vm.validateUser(it.toString())
                 }
             }
         }
@@ -62,11 +62,7 @@ class QuizStartFragment : QuizBaseFragment<QuizFragmentStartBinding, QuizStartVi
             S.message_error_length_short -> getString(errorRes, QuizUserValidation.MINIMUM_LENGTH)
             else -> errorRes?.let { getString(it) }
         }
-        errorString?.let { setError(it) }
+        errorString?.let { binding.usernameTextInputLayout.error = it }
 
-    }
-
-    private fun setError(error: String) {
-        binding.usernameTextInputLayout.error = error
     }
 }
