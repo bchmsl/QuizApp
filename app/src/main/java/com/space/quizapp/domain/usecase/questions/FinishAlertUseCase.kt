@@ -2,8 +2,9 @@ package com.space.quizapp.domain.usecase.questions
 
 import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
-class FinishAlertUseCase : QuizBaseUseCase<FinishAlertRequest, FinishAlertResponse?>() {
-    override suspend fun invoke(params: FinishAlertRequest?): FinishAlertResponse? {
+class FinishAlertUseCase :
+    QuizBaseUseCase<FinishAlertUseCase.FinishAlertParams, FinishAlertUseCase.FinishAlertResponse?>() {
+    override suspend fun invoke(params: FinishAlertParams?): FinishAlertResponse? {
         return params!!.finalScore?.let { finalScore ->
             params.maxScore?.let { maxScore ->
                 when (finalScore.toFloat() / maxScore) {
@@ -16,7 +17,7 @@ class FinishAlertUseCase : QuizBaseUseCase<FinishAlertRequest, FinishAlertRespon
             }
         }
     }
-}
 
-data class FinishAlertRequest(val finalScore: Int?, val maxScore: Int?)
-data class FinishAlertResponse(val emoji: String, val isCongratsVisible: Boolean)
+    data class FinishAlertParams(val finalScore: Int?, val maxScore: Int?)
+    data class FinishAlertResponse(val emoji: String, val isCongratsVisible: Boolean)
+}

@@ -7,7 +7,7 @@ import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedStat
 
 class QuizCheckAnswersUseCase(
     private val questionsRepository: QuizQuestionsRepository
-) : QuizBaseUseCase<CheckAnswerParams, CheckAnswersResponse>() {
+) : QuizBaseUseCase<QuizCheckAnswersUseCase.CheckAnswerParams, QuizCheckAnswersUseCase.CheckAnswersResponse>() {
 
     override suspend fun invoke(params: CheckAnswerParams?): CheckAnswersResponse {
         val question = questionsRepository.getNextQuestion(params!!.subjectTitle)
@@ -24,14 +24,17 @@ class QuizCheckAnswersUseCase(
         }
         return CheckAnswersResponse(params.answerModel.isCorrect, checkedAnswersList)
     }
-}
-data class CheckAnswerParams(
-    val answerModel: QuizQuestionDomainModel.QuizAnswerDomainModel,
-    val answersList: List<QuizQuestionDomainModel.QuizAnswerDomainModel>,
-    val subjectTitle: String
-)
 
-data class CheckAnswersResponse(
-    val isCorrect: Boolean,
-    val answersList: List<QuizQuestionDomainModel.QuizAnswerDomainModel>
-)
+    data class CheckAnswerParams(
+        val answerModel: QuizQuestionDomainModel.QuizAnswerDomainModel,
+        val answersList: List<QuizQuestionDomainModel.QuizAnswerDomainModel>,
+        val subjectTitle: String
+    )
+
+    data class CheckAnswersResponse(
+        val isCorrect: Boolean,
+        val answersList: List<QuizQuestionDomainModel.QuizAnswerDomainModel>
+    )
+}
+
+

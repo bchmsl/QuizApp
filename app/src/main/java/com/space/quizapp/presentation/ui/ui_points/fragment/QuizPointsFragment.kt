@@ -9,7 +9,6 @@ import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentPointsBinding
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
-import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.ui_points.adapter.QuizUserSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_points.vm.QuizPointsViewModel
 import kotlin.reflect.KClass
@@ -44,10 +43,10 @@ class QuizPointsFragment :
 
     override fun setListeners() {
         binding.navigationView.onBackButtonPressed {
-            navigate(QuizFragmentDirections.HOME)
+            vm.navigateToHome()
         }
         requireActivity().onBackPressedDispatcher.addCallback {
-            navigate(QuizFragmentDirections.HOME)
+            vm.navigateToHome()
         }
         binding.logOutFloatingButton.setOnClickListener {
             showPromptDialog(S.exit_prompt, onPositiveButton = {
@@ -56,7 +55,7 @@ class QuizPointsFragment :
         }
         userSubjectsAdapter.onItemClickListener {
             if (it.score != it.maxScore) {
-                vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+                vm.navigateToQuestion(it.quizTitle)
             }
         }
     }

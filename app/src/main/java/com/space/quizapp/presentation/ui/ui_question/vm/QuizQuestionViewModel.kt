@@ -2,20 +2,17 @@ package com.space.quizapp.presentation.ui.ui_question.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.domain.usecase.questions.CheckAnswerParams
-import com.space.quizapp.domain.usecase.questions.FinishAlertRequest
-import com.space.quizapp.domain.usecase.questions.FinishAlertResponse
 import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
-import com.space.quizapp.domain.usecase.questions.SaveUserPointsRequest
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionUiMapper
+import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizQuestionViewModel(
@@ -37,7 +34,7 @@ class QuizQuestionViewModel(
             >(emptyList())
     val pointsState by QuizLiveDataDelegate(0)
     val questionCount by QuizLiveDataDelegate(0)
-    val finishAlertState by QuizLiveDataDelegate<FinishAlertResponse?>(null)
+    val finishAlertState by QuizLiveDataDelegate<FinishAlertUseCase.FinishAlertResponse?>(null)
 
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {
@@ -46,7 +43,7 @@ class QuizQuestionViewModel(
                 questionState.post(null)
                 finishAlertState.post(
                     finishAlertUC(
-                        FinishAlertRequest(
+                        FinishAlertUseCase.FinishAlertParams(
                             pointsState.value,
                             questionCount.value
                         )
@@ -70,7 +67,7 @@ class QuizQuestionViewModel(
     ) {
         executeAsync(IO) {
             val checkAnswersResponse = checkAnswersUC(
-                CheckAnswerParams(
+                QuizCheckAnswersUseCase.CheckAnswerParams(
                     answerMapper.toDomain(submittedAnswer),
                     answersListState.value?.map { answerMapper.toDomain(it) } ?: emptyList(),
                     subjectTitle
@@ -95,8 +92,12 @@ class QuizQuestionViewModel(
 
     private fun saveUserSubject(subjectTitle: String, points: Int) {
         executeAsync(IO) {
-            saveUserPointsUC(SaveUserPointsRequest(subjectTitle, points))
+            saveUserPointsUC(QuizSaveUserPointsUseCase.SaveUserPointsParams(subjectTitle, points))
             updateGpaUC()
         }
+    }
+
+    fun navigateToHome() {
+        navigate(QuizFragmentDirections.HOME)
     }
 }

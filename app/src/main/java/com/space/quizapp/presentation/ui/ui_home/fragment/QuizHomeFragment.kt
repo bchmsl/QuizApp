@@ -9,7 +9,6 @@ import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentHomeBinding
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
-import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.ui_home.adapter.QuizSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import kotlin.reflect.KClass
@@ -58,11 +57,11 @@ class QuizHomeFragment : QuizBaseFragment<QuizFragmentHomeBinding, QuizHomeViewM
                 })
             }
             scoreView.setOnClickListener {
-                navigate(QuizFragmentDirections.POINTS)
+                vm.navigateToPoints()
             }
         }
         subjectsAdapter.onItemClickListener {
-            vm.navigate(QuizFragmentDirections.QUESTION, it.quizTitle)
+            vm.navigateToQuestion(it.quizTitle)
         }
         requireActivity().onBackPressedDispatcher.addCallback {
             showPromptDialog(S.exit_prompt, onPositiveButton = {

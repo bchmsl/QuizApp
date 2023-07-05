@@ -9,10 +9,9 @@ import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.common.util.S
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
-import com.space.quizapp.domain.usecase.questions.FinishAlertResponse
+import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
 import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
-import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_STRING
 import com.space.quizapp.presentation.ui.common.view.dialog.QuizAlertDialogView
 import com.space.quizapp.presentation.ui.ui_question.adapter.AnswersAdapter
@@ -118,18 +117,18 @@ class QuizQuestionFragment :
 
     private fun showQuitDialog() {
         showPromptDialog(S.stop_quiz_prompt, onPositiveButton = {
-            vm.navigate(QuizFragmentDirections.HOME)
+            vm.navigateToHome()
         })
     }
 
-    private fun showCongratsAlert(response: FinishAlertResponse, score: Int) {
+    private fun showCongratsAlert(response: FinishAlertUseCase.FinishAlertResponse, score: Int) {
         val dialog = alertDialog
         dialog.setMessage(if (response.isCongratsVisible) getString(S.congrats) else EMPTY_STRING)
         dialog.setTitle(response.emoji)
         (dialog
             .setDescription(String.format(getString(S.you_earned_points), score))
             .setButton(getString(S.close)) {
-                vm.navigate(QuizFragmentDirections.HOME)
+                vm.navigateToHome()
                 it.dismiss()
                 binding.progressView.clear()
             }.build() as QuizAlertDialogView).show()

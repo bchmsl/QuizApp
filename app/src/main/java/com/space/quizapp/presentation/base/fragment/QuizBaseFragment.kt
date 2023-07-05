@@ -11,7 +11,7 @@ import androidx.viewbinding.ViewBinding
 import com.space.quizapp.common.extensions.coroutines.collectAsync
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
-import com.space.quizapp.common.extensions.utils.makeSnackbar
+import com.space.quizapp.common.extensions.utils.makeSnackBar
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.QuizCustomThrowable
@@ -83,7 +83,7 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
         _binding = null
     }
 
-    fun navigate(directions: QuizFragmentDirections) {
+    private fun navigate(directions: QuizFragmentDirections) {
         vm.navigate(directions)
     }
 
@@ -109,10 +109,10 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
     open fun setError(error: QuizCustomThrowable) {
         withBinding {
             error.errorResource?.let {
-                root.makeSnackbar(getString(it))
+                root.makeSnackBar(getString(it))
             }
             error.errorString?.let {
-                root.makeSnackbar(it)
+                root.makeSnackBar(it)
             }
         }
     }

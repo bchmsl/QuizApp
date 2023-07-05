@@ -1,14 +1,16 @@
 package com.space.quizapp.common.extensions.coroutines
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.space.quizapp.common.util.QuizLiveDataDelegate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
-
 
 fun <T : Any?> Fragment.collectAsync(
     flow: Flow<T>,
@@ -31,15 +33,6 @@ fun Fragment.executeAsync(
         repeatOnLifecycle(lifecycleState) {
             this.block()
         }
-    }
-}
-
-fun ViewModel.executeAsync(
-    coroutineContext: CoroutineContext = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
-) {
-    viewModelScope.launch(coroutineContext) {
-        block()
     }
 }
 

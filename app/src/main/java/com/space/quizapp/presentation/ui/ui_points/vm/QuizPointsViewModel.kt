@@ -31,4 +31,12 @@ class QuizPointsViewModel(
             navigate(QuizFragmentDirections.START)
         }
     }
+
+    fun navigateToHome() {
+        navigate(QuizFragmentDirections.HOME)
+    }
+
+    fun navigateToQuestion(questionTitle: String) {
+        navigate(QuizFragmentDirections.QUESTION, questionTitle)
+    }
 }

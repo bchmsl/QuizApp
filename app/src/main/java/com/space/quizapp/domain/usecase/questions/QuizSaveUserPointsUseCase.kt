@@ -7,14 +7,12 @@ import com.space.quizapp.domain.usecase.user.QuizReadUserDataUseCase
 class QuizSaveUserPointsUseCase(
     private val readUserDataUC: QuizReadUserDataUseCase,
     private val userSubjectRepository: QuizUserSubjectRepository
-) : QuizBaseUseCase<SaveUserPointsRequest, Unit>() {
-    override suspend fun invoke(params: SaveUserPointsRequest?) {
+) : QuizBaseUseCase<QuizSaveUserPointsUseCase.SaveUserPointsParams, Unit>() {
+    override suspend fun invoke(params: SaveUserPointsParams?) {
         userSubjectRepository.saveUserPoints(
-            readUserDataUC().username,
-            params!!.subjectTitle,
-            params.points
+            readUserDataUC().username, params!!.subjectTitle, params.points
         )
     }
-}
 
-data class SaveUserPointsRequest(val subjectTitle: String, val points: Int)
+    data class SaveUserPointsParams(val subjectTitle: String, val points: Int)
+}

@@ -55,4 +55,12 @@ class QuizHomeViewModel(
             navigate(QuizFragmentDirections.START)
         }
     }
+
+    fun navigateToQuestion(subjectTitle: String) {
+        navigate(QuizFragmentDirections.QUESTION, subjectTitle)
+    }
+
+    fun navigateToPoints() {
+        navigate(QuizFragmentDirections.POINTS)
+    }
 }
