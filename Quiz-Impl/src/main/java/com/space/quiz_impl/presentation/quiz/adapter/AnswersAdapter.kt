@@ -3,7 +3,7 @@ package com.space.quiz_impl.presentation.quiz.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.space.common.base.adapter.BaseAdapter
-import com.space.quiz_impl.presentation.quiz.model.QuizQuestionUiModel
+import com.space.common.model.question.model.QuizQuestionUiModel
 import com.space.quizimpl.databinding.QuizItemAnswerOptionBinding
 
 class AnswersAdapter(var point: (() -> Int)? = null) :

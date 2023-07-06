@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -46,8 +47,29 @@ dependencies {
     implementation libs.material
     implementation libs.constraintlayout
 
+    // Navigation
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
+    // Datastore
+    implementation libs.datastore.preferences
+
+    // Room
+    implementation libs.room.ktx
+    implementation libs.room.runtime
+    kapt libs.room.compiler
+
     // Koin
     implementation libs.koin.android
+
+    // Lifecycle
+    implementation libs.lifecycle.extensions
+    implementation libs.lifecycle.viewmodel.ktx
+
+    // Network
+    implementation libs.glide
+    implementation libs.retrofit
+    implementation libs.converter.gson
 
     implementation project(":Main-Api")
     implementation project(":Quiz-Api")

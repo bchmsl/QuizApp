@@ -1,6 +1,9 @@
 package com.space.quiz_impl.presentation.quiz.viewmodel
 
 import com.space.common.extensions.coroutines.executeAsync
+import com.space.common.model.question.model.QuizAnswerUiMapper
+import com.space.common.model.question.model.QuizQuestionUiMapper
+import com.space.common.model.question.model.QuizQuestionUiModel
 import com.space.common.util.QuizLiveDataDelegate
 import com.space.navigation_api.AppNavigator
 import com.space.quiz_impl.domain.usecase.FinishAlertUseCase
@@ -9,9 +12,6 @@ import com.space.quiz_impl.domain.usecase.QuizCheckAnswersUseCase
 import com.space.quiz_impl.domain.usecase.QuizGetNextQuestionUseCase
 import com.space.quiz_impl.domain.usecase.QuizSaveUserPointsUseCase
 import com.space.quiz_impl.domain.usecase.QuizUpdateGpaUseCase
-import com.space.quiz_impl.presentation.quiz.model.QuizAnswerUiMapper
-import com.space.quiz_impl.presentation.quiz.model.QuizQuestionUiMapper
-import com.space.quiz_impl.presentation.quiz.model.QuizQuestionUiModel
 import kotlinx.coroutines.Dispatchers.IO
 
 class QuizQuestionViewModel(

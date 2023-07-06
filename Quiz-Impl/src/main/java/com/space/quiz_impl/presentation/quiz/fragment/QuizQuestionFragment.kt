@@ -6,10 +6,10 @@ import com.space.common.extensions.coroutines.observeLiveData
 import com.space.common.extensions.coroutines.observeLiveDataNonNull
 import com.space.common.extensions.utils.enable
 import com.space.common.extensions.utils.withBinding
+import com.space.common.model.question.model.QuizQuestionUiModel
 import com.space.common.util.QuizConstants.EMPTY_STRING
 import com.space.quiz_impl.domain.usecase.FinishAlertUseCase
 import com.space.quiz_impl.presentation.quiz.adapter.AnswersAdapter
-import com.space.quiz_impl.presentation.quiz.model.QuizQuestionUiModel
 import com.space.quiz_impl.presentation.quiz.viewmodel.QuizQuestionViewModel
 import com.space.quizimpl.databinding.QuizFragmentQuestionBinding
 import kotlin.reflect.KClass

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dimen_10_dp"
+    app:cardBackgroundColor="@color/neutral_03_light_grey"
+    app:cardCornerRadius="@dimen/dimen_26_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/dimen_29_dp"
+        android:paddingVertical="@dimen/dimen_22_dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iconSubjectImageView"
+            android:layout_width="@dimen/dimen_64_dp"
+            android:layout_height="@dimen/dimen_64_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subjectTitleTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_18_dp"
+            app:layout_constraintBottom_toTopOf="@id/subjectDescriptionTextView"
+            app:layout_constraintEnd_toStartOf="@+id/startButton"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectImageView"
+            app:layout_constraintTop_toTopOf="@id/iconSubjectImageView"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subjectDescriptionTextView"
+            style="@style/Space.QuizApp.TextView.NormalText"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_18_dp"
+            android:textColor="@color/neutral_01_dark_grey"
+            android:textSize="@dimen/dimen_12_sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconSubjectImageView"
+            app:layout_constraintEnd_toStartOf="@+id/startButton"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectImageView"
+            app:layout_constraintTop_toBottomOf="@id/subjectTitleTextView"
+            tools:text="@tools:sample/lorem" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/startButton"
+            android:layout_width="@dimen/dimen_48_dp"
+            android:layout_height="@dimen/dimen_0_dp"
+            android:background="@drawable/quiz_shape_oval"
+            android:letterSpacing="0"
+            app:backgroundTint="?colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?colorOnPrimary"
+            tools:ignore="ContentDescription"
+            tools:text="00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

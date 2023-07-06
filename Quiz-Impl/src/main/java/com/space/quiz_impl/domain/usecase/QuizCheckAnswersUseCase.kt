@@ -1,17 +1,19 @@
 package com.space.quiz_impl.domain.usecase
 
 import com.space.common.base.usecase.QuizBaseUseCase
-import com.space.quiz_impl.domain.model.QuizQuestionDomainModel
-import com.space.quiz_impl.domain.repository.QuizRepository
-import com.space.quiz_impl.presentation.quiz.model.QuizAnswerSelectedState
+import com.space.common.model.question.domain.QuizQuestionDomainModel
+import com.space.common.model.question.model.QuizAnswerSelectedState
+import com.space.quiz_api.GetNextQuestion
+import com.space.quiz_api.UpdateQuestion
 
 class QuizCheckAnswersUseCase(
-    private val quizRepository: QuizRepository
+    private val getNextQuestion: GetNextQuestion,
+    private val updateQuestion: UpdateQuestion
 ) : QuizBaseUseCase<QuizCheckAnswersUseCase.CheckAnswerParams, QuizCheckAnswersUseCase.CheckAnswersResponse>() {
 
     override suspend fun invoke(params: CheckAnswerParams?): CheckAnswersResponse {
-        val question = quizRepository.getNextQuestion(params!!.subjectTitle)
-        quizRepository.updateQuestion(question!!.copy(isAnswered = true))
+        val question = getNextQuestion(params!!.subjectTitle)
+        updateQuestion(question!!.copy(isAnswered = true))
         val checkedAnswersList = params.answersList
         if (params.answerModel.isCorrect) {
             checkedAnswersList.find { it.isCorrect }?.answerSelectedState =
