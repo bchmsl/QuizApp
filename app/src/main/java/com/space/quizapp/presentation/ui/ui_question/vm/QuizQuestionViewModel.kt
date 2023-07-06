@@ -1,14 +1,14 @@
 package com.space.quizapp.presentation.ui.ui_question.vm
 
-import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.common.base.viewmodel.QuizBaseViewModel
+import com.space.common.extensions.coroutines.executeAsync
+import com.space.common.util.QuizLiveDataDelegate
 import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
 import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
 import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
-import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizAnswerUiMapper
 import com.space.quizapp.presentation.model.quiz.mapper.QuizQuestionUiMapper
@@ -24,17 +24,19 @@ class QuizQuestionViewModel(
     private val finishAlertUC: FinishAlertUseCase,
     private val questionMapper: QuizQuestionUiMapper,
     private val answerMapper: QuizAnswerUiMapper
-) : QuizBaseViewModel() {
+) : com.space.common.base.viewmodel.QuizBaseViewModel() {
 
     private var answers = listOf<QuizQuestionUiModel.QuizAnswerUiModel>()
     private var question: QuizQuestionUiModel? = null
-    val questionState by QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
-    val answersListState by QuizLiveDataDelegate<
+    val questionState by com.space.common.util.QuizLiveDataDelegate<QuizQuestionUiModel?>(null)
+    val answersListState by com.space.common.util.QuizLiveDataDelegate<
             List<QuizQuestionUiModel.QuizAnswerUiModel>?
             >(emptyList())
-    val pointsState by QuizLiveDataDelegate(0)
-    val questionCount by QuizLiveDataDelegate(0)
-    val finishAlertState by QuizLiveDataDelegate<FinishAlertUseCase.FinishAlertResponse?>(null)
+    val pointsState by com.space.common.util.QuizLiveDataDelegate(0)
+    val questionCount by com.space.common.util.QuizLiveDataDelegate(0)
+    val finishAlertState by com.space.common.util.QuizLiveDataDelegate<FinishAlertUseCase.FinishAlertResponse?>(
+        null
+    )
 
     fun getNextQuestion(subjectTitle: String) {
         executeAsync(IO) {

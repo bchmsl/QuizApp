@@ -5,11 +5,11 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import com.space.common.base.view.QuizBaseCustomView
 import com.space.quizapp.R
-import com.space.quizapp.presentation.base.view.QuizBaseCustomView
 
 class QuizCustomGreyVector(context: Context, attributeSet: AttributeSet) :
-    QuizBaseCustomView(context, attributeSet) {
+    com.space.common.base.view.QuizBaseCustomView(context, attributeSet) {
 
     override fun startDrawing(canvas: Canvas) {
         paint.style = Paint.Style.FILL

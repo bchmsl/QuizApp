@@ -28,6 +28,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -43,6 +46,14 @@ dependencies {
     implementation libs.material
     implementation libs.constraintlayout
 
+    // Koin
+    implementation libs.koin.android
+
+    // Navigation
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
+    implementation project(":Navigation-Api")
     implementation project(":Main-Impl")
     implementation project(":Quiz-Impl")
 }

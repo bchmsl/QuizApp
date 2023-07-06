@@ -5,10 +5,10 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.space.quizapp.common.extensions.utils.gone
-import com.space.quizapp.common.extensions.utils.setColorStateList
-import com.space.quizapp.common.extensions.utils.visible
-import com.space.quizapp.common.util.C
+import com.space.common.extensions.utils.gone
+import com.space.common.extensions.utils.setColorStateList
+import com.space.common.extensions.utils.visible
+import com.space.common.util.C
 import com.space.quizapp.databinding.QuizViewAnswerOptionBinding
 import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
 
@@ -48,24 +48,24 @@ class QuizAnswerOptionView(
 
     private fun selectedCorrect() {
         with(binding) {
-            root.setColorStateList(C.success)
-            optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
+            root.setColorStateList(com.space.common.util.C.success)
+            optionTitleTextView.setTextColor(context.getColor(com.space.common.util.C.neutral_05_white))
             starsTextView.gone()
         }
     }
 
     private fun selectedIncorrect() {
         with(binding) {
-            root.setColorStateList(C.wrong)
-            optionTitleTextView.setTextColor(context.getColor(C.neutral_05_white))
+            root.setColorStateList(com.space.common.util.C.wrong)
+            optionTitleTextView.setTextColor(context.getColor(com.space.common.util.C.neutral_05_white))
             starsTextView.gone()
         }
     }
 
     private fun unselected() {
         with(binding) {
-            root.setColorStateList(C.neutral_03_light_grey)
-            optionTitleTextView.setTextColor(context.getColor(C.black))
+            root.setColorStateList(com.space.common.util.C.neutral_03_light_grey)
+            optionTitleTextView.setTextColor(context.getColor(com.space.common.util.C.black))
             starsTextView.gone()
         }
     }

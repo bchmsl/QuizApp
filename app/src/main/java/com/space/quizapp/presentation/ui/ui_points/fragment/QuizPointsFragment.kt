@@ -1,27 +1,28 @@
 package com.space.quizapp.presentation.ui.ui_points.fragment
 
 import androidx.activity.addCallback
-import com.space.quizapp.common.extensions.coroutines.observeLiveData
-import com.space.quizapp.common.extensions.utils.gone
-import com.space.quizapp.common.extensions.utils.visible
-import com.space.quizapp.common.extensions.utils.withBinding
-import com.space.quizapp.common.util.Inflater
-import com.space.quizapp.common.util.S
+import com.space.common.base.fragment.QuizBaseFragment
+import com.space.common.extensions.coroutines.observeLiveData
+import com.space.common.extensions.utils.gone
+import com.space.common.extensions.utils.visible
+import com.space.common.extensions.utils.withBinding
+import com.space.common.util.Inflater
+import com.space.common.util.S
 import com.space.quizapp.databinding.QuizFragmentPointsBinding
-import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.ui_points.adapter.QuizUserSubjectsAdapter
 import com.space.quizapp.presentation.ui.ui_points.vm.QuizPointsViewModel
 import kotlin.reflect.KClass
 
 class QuizPointsFragment :
-    QuizBaseFragment<QuizFragmentPointsBinding, QuizPointsViewModel>() {
+    com.space.common.base.fragment.QuizBaseFragment<QuizFragmentPointsBinding, QuizPointsViewModel>() {
 
     private val userSubjectsAdapter by lazy { QuizUserSubjectsAdapter() }
 
     override val vmc: KClass<QuizPointsViewModel>
         get() = QuizPointsViewModel::class
 
-    override fun inflate(): Inflater<QuizFragmentPointsBinding> = QuizFragmentPointsBinding::inflate
+    override fun inflate(): com.space.common.util.Inflater<QuizFragmentPointsBinding> =
+        QuizFragmentPointsBinding::inflate
 
     override fun onFragmentCreate() {
         vm.getUserSubjects()
@@ -31,7 +32,7 @@ class QuizPointsFragment :
         super.onBind()
         withBinding {
             navigationView.setContent(
-                getString(S.points_earned),
+                getString(com.space.common.util.S.points_earned),
                 closeAvailable = false,
                 backAvailable = true,
                 starAvailable = true
@@ -49,7 +50,7 @@ class QuizPointsFragment :
             vm.navigateToHome()
         }
         binding.logOutFloatingButton.setOnClickListener {
-            showPromptDialog(S.exit_prompt, onPositiveButton = {
+            showPromptDialog(com.space.common.util.S.exit_prompt, onPositiveButton = {
                 vm.logOut()
             })
         }
@@ -76,7 +77,7 @@ class QuizPointsFragment :
 
     private fun setEmptyMessage() {
         with(binding) {
-            notEarnedTextView.text = getString(S.not_earned_warning)
+            notEarnedTextView.text = getString(com.space.common.util.S.not_earned_warning)
             userSubjectsRecyclerView.gone()
             notEarnedTextView.visible()
         }

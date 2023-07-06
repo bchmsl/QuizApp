@@ -1,25 +1,25 @@
 package com.space.quizapp.presentation.ui.ui_question.fragment
 
 import androidx.activity.addCallback
-import com.space.quizapp.common.extensions.coroutines.observeLiveData
-import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
-import com.space.quizapp.common.extensions.utils.enable
-import com.space.quizapp.common.extensions.utils.withBinding
-import com.space.quizapp.common.util.Inflater
-import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
-import com.space.quizapp.common.util.S
+import com.space.common.base.fragment.QuizBaseFragment
+import com.space.common.dialog.QuizAlertDialogView
+import com.space.common.extensions.coroutines.observeLiveData
+import com.space.common.extensions.coroutines.observeLiveDataNonNull
+import com.space.common.extensions.utils.enable
+import com.space.common.extensions.utils.withBinding
+import com.space.common.util.Inflater
+import com.space.common.util.QuizConstants.EMPTY_STRING
+import com.space.common.util.S
 import com.space.quizapp.databinding.QuizFragmentQuestionBinding
 import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
-import com.space.quizapp.presentation.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections.Companion.TAG_STRING
-import com.space.quizapp.presentation.ui.common.view.dialog.QuizAlertDialogView
 import com.space.quizapp.presentation.ui.ui_question.adapter.AnswersAdapter
 import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import kotlin.reflect.KClass
 
 class QuizQuestionFragment :
-    QuizBaseFragment<QuizFragmentQuestionBinding, QuizQuestionViewModel>() {
+    com.space.common.base.fragment.QuizBaseFragment<QuizFragmentQuestionBinding, QuizQuestionViewModel>() {
 
     private val answersAdapter by lazy { AnswersAdapter() }
 
@@ -29,7 +29,7 @@ class QuizQuestionFragment :
     override val vmc: KClass<QuizQuestionViewModel>
         get() = QuizQuestionViewModel::class
 
-    override fun inflate(): Inflater<QuizFragmentQuestionBinding> =
+    override fun inflate(): com.space.common.util.Inflater<QuizFragmentQuestionBinding> =
         QuizFragmentQuestionBinding::inflate
 
     override fun onFragmentCreate() {
@@ -47,7 +47,7 @@ class QuizQuestionFragment :
                 starAvailable = false
             )
             AnswerOptionsRecyclerView.adapter = answersAdapter
-            nextButton.text = getString(S.next)
+            nextButton.text = getString(com.space.common.util.S.next)
             nextButton.enable(false)
         }
     }
@@ -90,7 +90,8 @@ class QuizQuestionFragment :
             questionTextView.text = question.questionTitle
             answersAdapter.submitList(question.answers.toList())
             answersAdapter.point = { question.points }
-            nextButton.text = getString(if (question.isLastQuestion) S.finish else S.next)
+            nextButton.text =
+                getString(if (question.isLastQuestion) com.space.common.util.S.finish else com.space.common.util.S.next)
             nextButton.setOnClickListener(null)
             nextButton.enable(false)
             progressView.setProgress(question.questionIndex + 1)
@@ -116,22 +117,27 @@ class QuizQuestionFragment :
     }
 
     private fun showQuitDialog() {
-        showPromptDialog(S.stop_quiz_prompt, onPositiveButton = {
+        showPromptDialog(com.space.common.util.S.stop_quiz_prompt, onPositiveButton = {
             vm.navigateToHome()
         })
     }
 
     private fun showCongratsAlert(response: FinishAlertUseCase.FinishAlertResponse, score: Int) {
         val dialog = alertDialog
-        dialog.setMessage(if (response.isCongratsVisible) getString(S.congrats) else EMPTY_STRING)
+        dialog.setMessage(if (response.isCongratsVisible) getString(com.space.common.util.S.congrats) else EMPTY_STRING)
         dialog.setTitle(response.emoji)
         (dialog
-            .setDescription(String.format(getString(S.you_earned_points), score))
-            .setButton(getString(S.close)) {
+            .setDescription(
+                String.format(
+                    getString(com.space.common.util.S.you_earned_points),
+                    score
+                )
+            )
+            .setButton(getString(com.space.common.util.S.close)) {
                 vm.navigateToHome()
                 it.dismiss()
                 binding.progressView.clear()
-            }.build() as QuizAlertDialogView).show()
+            }.build() as com.space.common.dialog.QuizAlertDialogView).show()
 
     }
 }

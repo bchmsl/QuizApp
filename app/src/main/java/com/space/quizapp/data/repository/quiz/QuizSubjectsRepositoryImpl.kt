@@ -1,7 +1,7 @@
 package com.space.quizapp.data.repository.quiz
 
-import com.space.quizapp.common.extensions.utils.onSuccess
-import com.space.quizapp.common.util.QuizApiHelper
+import com.space.common.extensions.utils.onSuccess
+import com.space.common.util.QuizApiHelper
 import com.space.quizapp.data.local.database.dao.QuizQuestionsDao
 import com.space.quizapp.data.local.database.dao.QuizSubjectsDao
 import com.space.quizapp.data.local.database.model.quiz.mapper.QuizQuestionEntityMapper
@@ -21,7 +21,7 @@ class QuizSubjectsRepositoryImpl(
     private val questionDtoMapper: QuizQuestionDtoMapper,
     private val subjectEntityMapper: QuizSubjectEntityMapper,
     private val questionEntityMapper: QuizQuestionEntityMapper
-) : QuizSubjectsRepository(), QuizApiHelper {
+) : QuizSubjectsRepository(), com.space.common.util.QuizApiHelper {
 
     override suspend fun retrieveSubjects(): List<QuizSubjectDomainModel> {
         retrofitCall { questionsApi.retrieveQuestions() }

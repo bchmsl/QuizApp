@@ -2,12 +2,12 @@ package com.space.quizapp.presentation.ui.ui_question.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.space.common.base.adapter.BaseAdapter
 import com.space.quizapp.databinding.QuizItemAnswerOptionBinding
-import com.space.quizapp.presentation.base.adapter.BaseAdapter
 import com.space.quizapp.presentation.model.quiz.QuizQuestionUiModel
 
 class AnswersAdapter(var point: (() -> Int)? = null) :
-    BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
+    com.space.common.base.adapter.BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
     override fun createVH(
         parent: ViewGroup,
         viewType: Int

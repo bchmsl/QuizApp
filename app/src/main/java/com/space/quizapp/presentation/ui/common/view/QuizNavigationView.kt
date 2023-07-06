@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.space.quizapp.common.extensions.utils.invisible
-import com.space.quizapp.common.extensions.utils.visible
+import com.space.common.extensions.utils.invisible
+import com.space.common.extensions.utils.visible
 import com.space.quizapp.databinding.QuizViewNavigationBinding
 
 class QuizNavigationView(

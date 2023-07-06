@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.space.common.base.adapter.QuizBaseItemCallback
 import com.space.quizapp.databinding.QuizItemSubjectBinding
-import com.space.quizapp.presentation.base.adapter.QuizBaseItemCallback
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 
 class QuizSubjectsAdapter :
-    ListAdapter<QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(QuizBaseItemCallback<QuizSubjectUiModel>()) {
+    ListAdapter<QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(com.space.common.base.adapter.QuizBaseItemCallback<QuizSubjectUiModel>()) {
 
 
     private var itemClickListener: ((QuizSubjectUiModel) -> Unit)? = null

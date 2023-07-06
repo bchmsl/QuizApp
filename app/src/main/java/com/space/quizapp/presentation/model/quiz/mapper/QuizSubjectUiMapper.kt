@@ -1,10 +1,11 @@
 package com.space.quizapp.presentation.model.quiz.mapper
 
-import com.space.quizapp.common.mapper.QuizUiMapper
+import com.space.common.mapper.QuizUiMapper
 import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 
-class QuizSubjectUiMapper : QuizUiMapper<QuizSubjectUiModel, QuizSubjectDomainModel> {
+class QuizSubjectUiMapper :
+    com.space.common.mapper.QuizUiMapper<QuizSubjectUiModel, QuizSubjectDomainModel> {
     override fun toDomain(model: QuizSubjectUiModel): QuizSubjectDomainModel {
         return with(model) {
             QuizSubjectDomainModel(

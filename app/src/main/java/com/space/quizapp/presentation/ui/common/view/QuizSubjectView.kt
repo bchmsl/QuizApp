@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorRes
-import com.space.quizapp.common.extensions.utils.setImage
-import com.space.quizapp.common.util.D
+import com.space.common.extensions.utils.setImage
+import com.space.common.util.D
 import com.space.quizapp.databinding.QuizViewSubjectBinding
 
 class QuizSubjectView(
@@ -23,7 +23,7 @@ class QuizSubjectView(
                 text = points.toString()
                 return
             }
-            setIconResource(D.quiz_ic_next)
+            setIconResource(com.space.common.util.D.quiz_ic_next)
         }
     }
 

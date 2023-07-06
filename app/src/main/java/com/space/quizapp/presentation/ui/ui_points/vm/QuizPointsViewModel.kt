@@ -1,11 +1,11 @@
 package com.space.quizapp.presentation.ui.ui_points.vm
 
-import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
-import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.common.base.viewmodel.QuizBaseViewModel
+import com.space.common.extensions.coroutines.executeAsync
+import com.space.common.util.QuizConstants.EMPTY_STRING
+import com.space.common.util.QuizLiveDataDelegate
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
-import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserSubjectUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.QuizUserSubjectUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
@@ -15,9 +15,11 @@ class QuizPointsViewModel(
     private val readUserSubjectsUC: QuizReadUserSubjectsUseCase,
     private val userSubjectsMapper: QuizUserSubjectUiMapper,
     private val saveUserTokenUC: QuizSaveUserTokenUseCase
-) : QuizBaseViewModel() {
+) : com.space.common.base.viewmodel.QuizBaseViewModel() {
 
-    val userSubjects by QuizLiveDataDelegate<List<QuizUserSubjectUiModel>?>(null)
+    val userSubjects by com.space.common.util.QuizLiveDataDelegate<List<QuizUserSubjectUiModel>?>(
+        null
+    )
 
     fun getUserSubjects() {
         executeAsync(IO) {

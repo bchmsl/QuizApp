@@ -1,14 +1,14 @@
 package com.space.quizapp.presentation.ui.ui_start.vm
 
-import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
-import com.space.quizapp.common.util.QuizCustomThrowable
-import com.space.quizapp.common.util.QuizLiveDataDelegate
-import com.space.quizapp.common.util.QuizUserValidation
+import com.space.common.base.viewmodel.QuizBaseViewModel
+import com.space.common.extensions.coroutines.executeAsync
+import com.space.common.util.QuizConstants.EMPTY_STRING
+import com.space.common.util.QuizCustomThrowable
+import com.space.common.util.QuizLiveDataDelegate
+import com.space.common.util.QuizUserValidation
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.ValidateUserUseCase
-import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
@@ -19,14 +19,14 @@ class QuizStartViewModel(
     private val readUserTokenUC: QuizReadUserTokenUseCase,
     private val validateUserUC: ValidateUserUseCase,
     private val userMapper: QuizUserUiMapper
-) : QuizBaseViewModel() {
-    val userValidState by QuizLiveDataDelegate(false)
+) : com.space.common.base.viewmodel.QuizBaseViewModel() {
+    val userValidState by com.space.common.util.QuizLiveDataDelegate(false)
     fun validateUser(username: String) {
         executeAsync {
             val error = when (val validateUser = validateUserUC(
                 username.replace(" ", EMPTY_STRING).replace("\n", EMPTY_STRING)
             )) {
-                QuizUserValidation.VALID -> {
+                com.space.common.util.QuizUserValidation.VALID -> {
                     userValidState.post(true)
                     null
                 }
@@ -36,7 +36,7 @@ class QuizStartViewModel(
                     validateUser.message
                 }
             }
-            postError(error?.let { QuizCustomThrowable(it) })
+            postError(error?.let { com.space.common.util.QuizCustomThrowable(it) })
         }
     }
 

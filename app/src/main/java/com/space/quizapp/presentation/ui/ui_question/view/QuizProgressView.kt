@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.space.quizapp.common.util.S
+import com.space.common.util.S
 import com.space.quizapp.databinding.ViewProgressBinding
 
 class QuizProgressView(
@@ -39,7 +39,8 @@ class QuizProgressView(
         with(binding) {
             val progress = "$currentValue/$maxValue"
             progressTextView.text = progress
-            currentScoreTextView.text = context.getString(S.current_score, correctAnswersValue)
+            currentScoreTextView.text =
+                context.getString(com.space.common.util.S.current_score, correctAnswersValue)
             binding.progressIndicator.setProgress(currentValue, true)
         }
     }

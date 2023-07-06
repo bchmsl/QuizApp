@@ -1,12 +1,12 @@
 package com.space.quizapp.data.remote.model.mapper
 
-import com.space.quizapp.common.mapper.QuizDtoMapper
-import com.space.quizapp.common.util.QuizConstants.QUESTION_SCORE
+import com.space.common.mapper.QuizDtoMapper
+import com.space.common.util.QuizConstants.QUESTION_SCORE
 import com.space.quizapp.data.remote.model.QuizSubjectDto
 import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 
 class QuizQuestionDtoMapper :
-    QuizDtoMapper<QuizSubjectDto.QuizQuestionDto, QuizQuestionDomainModel> {
+    com.space.common.mapper.QuizDtoMapper<QuizSubjectDto.QuizQuestionDto, QuizQuestionDomainModel> {
     var isLastQuestion: ((QuizSubjectDto.QuizQuestionDto) -> Boolean)? = null
     var subjectTitle: ((QuizSubjectDto.QuizQuestionDto) -> String)? = null
     override fun toDomain(model: QuizSubjectDto.QuizQuestionDto): QuizQuestionDomainModel {

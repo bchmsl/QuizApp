@@ -1,6 +1,6 @@
 package com.space.quizapp.data.di
 
-import com.space.quizapp.common.util.QuizConstants.BASE_URL
+import com.space.common.util.QuizConstants.BASE_URL
 import com.space.quizapp.data.remote.service.QuizQuestionsApiService
 import org.koin.dsl.module
 import retrofit2.Retrofit
