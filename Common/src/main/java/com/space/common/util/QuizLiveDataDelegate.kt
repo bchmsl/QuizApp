@@ -11,7 +11,7 @@ class QuizLiveDataDelegate<T>(initialValue: T) : LiveData<T>(initialValue) {
         return this
     }
 
-    internal fun post(value: T) {
+    fun post(value: T) {
         postValue(value)
     }
 }

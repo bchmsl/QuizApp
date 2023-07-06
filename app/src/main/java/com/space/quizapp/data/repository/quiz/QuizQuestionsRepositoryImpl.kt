@@ -1,20 +1,20 @@
 package com.space.quizapp.data.repository.quiz
 
+import com.space.common.model.question.data.QuizQuestionEntityMapper
+import com.space.common.model.question.domain.QuizQuestionDomainModel
 import com.space.quizapp.data.local.database.dao.QuizQuestionsDao
-import com.space.quizapp.data.local.database.model.quiz.mapper.QuizQuestionEntityMapper
-import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 import com.space.quizapp.domain.repository.quiz.QuizQuestionsRepository
 
 class QuizQuestionsRepositoryImpl(
     private val questionsDao: QuizQuestionsDao,
-    private val questionEntityMapper: QuizQuestionEntityMapper
+    private val questionEntityMapper: com.space.common.model.question.data.QuizQuestionEntityMapper
 ) : QuizQuestionsRepository() {
-    override suspend fun getNextQuestion(subjectTitle: String): QuizQuestionDomainModel? {
+    override suspend fun getNextQuestion(subjectTitle: String): com.space.common.model.question.domain.QuizQuestionDomainModel? {
         return questionsDao.getNextQuestionBySubjectTitle(subjectTitle)
             ?.let { questionEntityMapper.toDomain(it) }
     }
 
-    override suspend fun updateQuestion(question: QuizQuestionDomainModel) {
+    override suspend fun updateQuestion(question: com.space.common.model.question.domain.QuizQuestionDomainModel) {
         questionsDao.updateQuestion(questionEntityMapper.toEntity(question))
     }
 
@@ -28,7 +28,7 @@ class QuizQuestionsRepositoryImpl(
         return questionsDao.countQuestions(subjectTitle)
     }
 
-    override suspend fun getQuestionsBySubjectTitle(subjectTitle: String): List<QuizQuestionDomainModel> {
+    override suspend fun getQuestionsBySubjectTitle(subjectTitle: String): List<com.space.common.model.question.domain.QuizQuestionDomainModel> {
         return questionsDao.getAllQuestions(subjectTitle).map { questionEntityMapper.toDomain(it) }
     }
 }

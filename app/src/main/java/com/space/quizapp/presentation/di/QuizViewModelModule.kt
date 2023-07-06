@@ -1,8 +1,8 @@
 package com.space.quizapp.presentation.di
 
+import com.space.quiz_impl.presentation.quiz.viewmodel.QuizQuestionViewModel
 import com.space.quizapp.presentation.ui.ui_home.vm.QuizHomeViewModel
 import com.space.quizapp.presentation.ui.ui_points.vm.QuizPointsViewModel
-import com.space.quizapp.presentation.ui.ui_question.vm.QuizQuestionViewModel
 import com.space.quizapp.presentation.ui.ui_start.vm.QuizStartViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

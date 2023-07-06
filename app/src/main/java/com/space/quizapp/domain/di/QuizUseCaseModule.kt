@@ -1,16 +1,16 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
-import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
-import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
+import com.space.quiz_impl.domain.usecase.FinishAlertUseCase
+import com.space.quiz_impl.domain.usecase.GetQuestionsCountUseCase
+import com.space.quiz_impl.domain.usecase.QuizCheckAnswersUseCase
+import com.space.quiz_impl.domain.usecase.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
-import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
+import com.space.quizapp.domain.usecase.questions.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
-import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
 import com.space.quizapp.domain.usecase.user.ValidateUserUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
 import org.koin.dsl.module
@@ -45,13 +45,13 @@ val useCaseModule = module {
 
     single {
         QuizCheckAnswersUseCase(
-            questionsRepository = get(),
+            quizRepository = get(),
         )
     }
 
     single {
         QuizGetNextQuestionUseCase(
-            questionsRepository = get()
+            quizRepository = get()
         )
     }
 
@@ -88,7 +88,7 @@ val useCaseModule = module {
 
     single {
         GetQuestionsCountUseCase(
-            questionsRepository = get()
+            quizRepository = get()
         )
     }
     single {

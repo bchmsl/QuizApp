@@ -17,7 +17,7 @@
         tools:layout="@layout/quiz_fragment_start" />
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.space.quizapp.presentation.ui.ui_question.fragment.QuizQuestionFragment"
+        android:name="com.space.quiz_impl.presentation.quiz.fragment.QuizQuestionFragment"
         android:label="fragment_question"
         tools:layout="@layout/quiz_fragment_question" />
     <fragment

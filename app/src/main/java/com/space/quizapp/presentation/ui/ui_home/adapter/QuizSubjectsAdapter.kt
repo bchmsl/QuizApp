@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.space.common.base.adapter.QuizBaseItemCallback
+import com.space.common.model.subject.presentation.QuizSubjectUiModel
 import com.space.quizapp.databinding.QuizItemSubjectBinding
-import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 
 class QuizSubjectsAdapter :
-    ListAdapter<QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(com.space.common.base.adapter.QuizBaseItemCallback<QuizSubjectUiModel>()) {
+    ListAdapter<com.space.common.model.subject.presentation.QuizSubjectUiModel, QuizSubjectsAdapter.SubjectsViewHolder>(com.space.common.base.adapter.QuizBaseItemCallback<com.space.common.model.subject.presentation.QuizSubjectUiModel>()) {
 
 
-    private var itemClickListener: ((QuizSubjectUiModel) -> Unit)? = null
-    fun onItemClickListener(itemClickListener: ((QuizSubjectUiModel) -> Unit)?) {
+    private var itemClickListener: ((com.space.common.model.subject.presentation.QuizSubjectUiModel) -> Unit)? = null
+    fun onItemClickListener(itemClickListener: ((com.space.common.model.subject.presentation.QuizSubjectUiModel) -> Unit)?) {
         this.itemClickListener = itemClickListener
     }
 
@@ -34,8 +34,8 @@ class QuizSubjectsAdapter :
     class SubjectsViewHolder(private val binding: QuizItemSubjectBinding) :
         ViewHolder(binding.root) {
         fun onBind(
-            item: QuizSubjectUiModel,
-            itemClickListener: ((QuizSubjectUiModel) -> Unit)?,
+            item: com.space.common.model.subject.presentation.QuizSubjectUiModel,
+            itemClickListener: ((com.space.common.model.subject.presentation.QuizSubjectUiModel) -> Unit)?,
         ) {
             with(binding.root) {
                 setContent(item.quizTitle, item.quizDescription, item.quizIcon)

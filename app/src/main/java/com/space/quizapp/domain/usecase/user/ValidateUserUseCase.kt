@@ -1,10 +1,10 @@
 package com.space.quizapp.domain.usecase.user
 
+import com.space.common.base.usecase.QuizBaseUseCase
 import com.space.common.util.QuizRegex
 import com.space.common.util.QuizUserValidation
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
-class ValidateUserUseCase : QuizBaseUseCase<String, com.space.common.util.QuizUserValidation>() {
+class ValidateUserUseCase : com.space.common.base.usecase.QuizBaseUseCase<String, com.space.common.util.QuizUserValidation>() {
     override suspend fun invoke(params: String?): com.space.common.util.QuizUserValidation {
         return when {
             params!! == "admin" -> com.space.common.util.QuizUserValidation.VALID

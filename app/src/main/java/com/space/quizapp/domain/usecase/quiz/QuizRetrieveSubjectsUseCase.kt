@@ -1,14 +1,14 @@
 package com.space.quizapp.domain.usecase.quiz
 
-import com.space.quizapp.domain.model.quiz.QuizSubjectDomainModel
+import com.space.common.base.usecase.QuizBaseUseCase
+import com.space.common.model.subject.domain.QuizSubjectDomainModel
 import com.space.quizapp.domain.repository.quiz.QuizSubjectsRepository
-import com.space.quizapp.domain.usecase.base.QuizBaseUseCase
 
 class QuizRetrieveSubjectsUseCase(
     private val subjectsRepository: QuizSubjectsRepository
-) : QuizBaseUseCase<Unit, List<QuizSubjectDomainModel>>() {
+) : com.space.common.base.usecase.QuizBaseUseCase<Unit, List<com.space.common.model.subject.domain.QuizSubjectDomainModel>>() {
 
-    override suspend fun invoke(params: Unit?): List<QuizSubjectDomainModel> {
+    override suspend fun invoke(params: Unit?): List<com.space.common.model.subject.domain.QuizSubjectDomainModel> {
         return subjectsRepository.retrieveSubjects()
     }
 }

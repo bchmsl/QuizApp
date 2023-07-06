@@ -2,6 +2,8 @@ package com.space.quizapp.presentation.ui.ui_home.vm
 
 import com.space.common.base.viewmodel.QuizBaseViewModel
 import com.space.common.extensions.coroutines.executeAsync
+import com.space.common.model.subject.presentation.QuizSubjectUiMapper
+import com.space.common.model.subject.presentation.QuizSubjectUiModel
 import com.space.common.util.QuizConstants.EMPTY_STRING
 import com.space.common.util.QuizCustomThrowable
 import com.space.common.util.QuizLiveDataDelegate
@@ -9,8 +11,6 @@ import com.space.common.util.S
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
-import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
-import com.space.quizapp.presentation.model.quiz.mapper.QuizSubjectUiMapper
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiMapper
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
@@ -21,11 +21,11 @@ class QuizHomeViewModel(
     private val saveUserTokenUC: QuizSaveUserTokenUseCase,
     private val retrieveSubjectsUC: QuizRetrieveSubjectsUseCase,
     private val userMapper: QuizUserUiMapper,
-    private val subjectMapper: QuizSubjectUiMapper,
+    private val subjectMapper: com.space.common.model.subject.presentation.QuizSubjectUiMapper,
 ) : com.space.common.base.viewmodel.QuizBaseViewModel() {
 
     val userState by com.space.common.util.QuizLiveDataDelegate<QuizUserUiModel?>(null)
-    val subjectsState by com.space.common.util.QuizLiveDataDelegate<List<QuizSubjectUiModel>?>(null)
+    val subjectsState by com.space.common.util.QuizLiveDataDelegate<List<com.space.common.model.subject.presentation.QuizSubjectUiModel>?>(null)
     val loadingState by com.space.common.util.QuizLiveDataDelegate(true)
 
     fun retrieveUserInfo() {

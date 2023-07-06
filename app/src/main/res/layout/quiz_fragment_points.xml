@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".presentation.ui.ui_points.fragment.QuizPointsFragment">
 
-    <com.space.quizapp.presentation.ui.common.view.QuizNavigationView
+    <com.space.common.view.QuizNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/dimen_10_dp"

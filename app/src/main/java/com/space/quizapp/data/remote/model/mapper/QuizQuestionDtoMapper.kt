@@ -1,26 +1,29 @@
 package com.space.quizapp.data.remote.model.mapper
 
 import com.space.common.mapper.QuizDtoMapper
+import com.space.common.model.question.domain.QuizQuestionDomainModel
 import com.space.common.util.QuizConstants.QUESTION_SCORE
 import com.space.quizapp.data.remote.model.QuizSubjectDto
-import com.space.quizapp.domain.model.quiz.QuizQuestionDomainModel
 
 class QuizQuestionDtoMapper :
-    com.space.common.mapper.QuizDtoMapper<QuizSubjectDto.QuizQuestionDto, QuizQuestionDomainModel> {
+    com.space.common.mapper.QuizDtoMapper<QuizSubjectDto.QuizQuestionDto, com.space.common.model.question.domain.QuizQuestionDomainModel> {
     var isLastQuestion: ((QuizSubjectDto.QuizQuestionDto) -> Boolean)? = null
     var subjectTitle: ((QuizSubjectDto.QuizQuestionDto) -> String)? = null
-    override fun toDomain(model: QuizSubjectDto.QuizQuestionDto): QuizQuestionDomainModel {
+    override fun toDomain(model: QuizSubjectDto.QuizQuestionDto): com.space.common.model.question.domain.QuizQuestionDomainModel {
         return with(model) {
-            QuizQuestionDomainModel(
+            com.space.common.model.question.domain.QuizQuestionDomainModel(
                 questionTitle = questionTitle,
                 answers = answers.map {
-                    QuizQuestionDomainModel.QuizAnswerDomainModel(
+                    com.space.common.model.question.domain.QuizQuestionDomainModel.QuizAnswerDomainModel(
                         it,
                         correctAnswer == it
                     )
                 }
                     .toMutableList(),
-                correctAnswer = QuizQuestionDomainModel.QuizAnswerDomainModel(correctAnswer, true),
+                correctAnswer = com.space.common.model.question.domain.QuizQuestionDomainModel.QuizAnswerDomainModel(
+                    correctAnswer,
+                    true
+                ),
                 subjectId = subjectId,
                 questionIndex = questionIndex,
                 isLastQuestion = isLastQuestion?.invoke(this) ?: false,
