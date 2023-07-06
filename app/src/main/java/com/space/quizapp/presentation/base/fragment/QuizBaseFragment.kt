@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.space.quizapp.common.extensions.coroutines.collectAsync
 import com.space.quizapp.common.extensions.coroutines.executeAsync
 import com.space.quizapp.common.extensions.coroutines.observeLiveDataNonNull
-import com.space.quizapp.common.extensions.utils.makeSnackbar
+import com.space.quizapp.common.extensions.utils.makeSnackBar
 import com.space.quizapp.common.extensions.utils.withBinding
 import com.space.quizapp.common.util.Inflater
 import com.space.quizapp.common.util.QuizCustomThrowable
+import com.space.quizapp.common.util.S
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.ui.common.navigation.QuizFragmentDirections
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizAlertDialogView
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizDialogFactory
+import com.space.quizapp.presentation.ui.common.view.dialog.QuizPromptDialogView
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 
@@ -29,12 +34,25 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
     abstract val vmc: KClass<VM>
     protected val vm: VM by viewModelForClass(clazz = vmc)
 
+    private val promptDialog by lazy {
+        QuizDialogFactory.createDialog(
+            QuizDialogFactory.Dialog.DIALOG_PROMPT,
+            requireContext()
+        ) as QuizPromptDialogView.Builder
+    }
+    protected val alertDialog by lazy {
+        QuizDialogFactory.createDialog(
+            QuizDialogFactory.Dialog.DIALOG_ALERT,
+            requireContext()
+        ) as QuizAlertDialogView.Builder
+    }
+
     protected abstract fun inflate(): Inflater<VB>
     open fun onBind() {
         observe()
     }
 
-    open fun observe() {}
+    abstract fun observe()
     abstract fun onFragmentCreate()
     protected abstract fun setListeners()
 
@@ -65,7 +83,7 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
         _binding = null
     }
 
-    fun navigate(directions: QuizFragmentDirections) {
+    private fun navigate(directions: QuizFragmentDirections) {
         vm.navigate(directions)
     }
 
@@ -91,11 +109,28 @@ abstract class QuizBaseFragment<VB : ViewBinding, VM : QuizBaseViewModel> : Frag
     open fun setError(error: QuizCustomThrowable) {
         withBinding {
             error.errorResource?.let {
-                root.makeSnackbar(getString(it))
+                root.makeSnackBar(getString(it))
             }
             error.errorString?.let {
-                root.makeSnackbar(it)
+                root.makeSnackBar(it)
             }
         }
+    }
+
+    protected fun showPromptDialog(
+        @StringRes message: Int,
+        onPositiveButton: (() -> Unit)? = null,
+        onNegativeButton: (() -> Unit)? = null
+    ) {
+        val dialog = promptDialog
+            .setMessage(getString(message))
+            .setPositiveButton(getString(S.yes)) {
+                onPositiveButton?.invoke()
+                it.dismiss()
+            }.setNegativeButton(getString(S.no)) {
+                onNegativeButton?.invoke()
+                it.dismiss()
+            }.build() as QuizPromptDialogView
+        dialog.show()
     }
 }

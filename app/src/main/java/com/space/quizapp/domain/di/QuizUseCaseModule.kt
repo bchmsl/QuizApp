@@ -1,15 +1,18 @@
 package com.space.quizapp.domain.di
 
-import com.space.quizapp.domain.usecase.questions.*
+import com.space.quizapp.domain.usecase.questions.FinishAlertUseCase
+import com.space.quizapp.domain.usecase.questions.GetQuestionsCountUseCase
+import com.space.quizapp.domain.usecase.questions.QuizCheckAnswersUseCase
+import com.space.quizapp.domain.usecase.questions.QuizSaveUserPointsUseCase
 import com.space.quizapp.domain.usecase.questions.next_question.QuizGetNextQuestionUseCase
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
+import com.space.quizapp.domain.usecase.user.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizUpdateGpaUseCase
-import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
+import com.space.quizapp.domain.usecase.user.ValidateUserUseCase
 import com.space.quizapp.domain.usecase.user.subject.QuizReadUserSubjectsUseCase
-import com.space.quizapp.domain.usecase.user.subject.QuizSaveUserSubjectUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -43,7 +46,6 @@ val useCaseModule = module {
     single {
         QuizCheckAnswersUseCase(
             questionsRepository = get(),
-            addPointsToSubjectUC = get()
         )
     }
 
@@ -60,17 +62,6 @@ val useCaseModule = module {
     }
 
     single {
-        QuizGetPointsUseCase(
-            userSubjectRepository = get()
-        )
-    }
-    single {
-        AddPointsToSubjectUseCase(
-            userSubjectRepository = get()
-        )
-    }
-
-    single {
         QuizReadUserSubjectsUseCase(
             readUserDataUC = get(),
             userSubjectRepository = get(),
@@ -79,18 +70,12 @@ val useCaseModule = module {
     }
 
     single {
-        QuizSaveUserSubjectUseCase(
-            userSubjectRepository = get(),
-            readUserDataUC = get()
-        )
-    }
-
-    single {
         QuizUpdateGpaUseCase(
             readUserSubjectsUC = get(),
             subjectsRepository = get(),
             userDataRepository = get(),
-            readUserDataUC = get()
+            readUserDataUC = get(),
+            questionsRepository = get()
         )
     }
 
@@ -102,8 +87,14 @@ val useCaseModule = module {
     }
 
     single {
-        QuizResetUserPointsUseCase(
-            userSubjectRepository = get()
+        GetQuestionsCountUseCase(
+            questionsRepository = get()
         )
+    }
+    single {
+        ValidateUserUseCase()
+    }
+    single {
+        FinishAlertUseCase()
     }
 }

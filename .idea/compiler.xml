@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="QuizApp.QCoreCommon" target="17" />
+      <module name="QuizApp.QHome" target="17" />
+      <module name="QuizApp.QQuestion" target="17" />
+      <module name="QuizApp.QStart" target="17" />
+      <module name="QuizApp.QUserSubjects" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

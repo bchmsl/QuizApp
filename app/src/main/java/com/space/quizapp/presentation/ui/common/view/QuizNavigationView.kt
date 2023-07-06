@@ -26,9 +26,16 @@ class QuizNavigationView(
         closeButtonCallback = block
     }
 
-
-    fun setContent(title: String, closeAvailable: Boolean, backAvailable: Boolean) {
-        binding.navTitleTextView.text = title
+    fun setContent(
+        title: String,
+        closeAvailable: Boolean,
+        backAvailable: Boolean,
+        starAvailable: Boolean = true
+    ) {
+        with(binding.navTitleTextView) {
+            text = title
+            if (!starAvailable) setCompoundDrawables(null, null, null, null)
+        }
         setCloseAvailable(closeAvailable)
         setBackAvailable(backAvailable)
     }
@@ -59,5 +66,4 @@ class QuizNavigationView(
             }
         }
     }
-
 }

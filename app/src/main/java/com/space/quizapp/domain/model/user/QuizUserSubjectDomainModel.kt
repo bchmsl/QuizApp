@@ -5,5 +5,7 @@ data class QuizUserSubjectDomainModel(
     var quizDescription: String = "",
     var quizIcon: String = "",
     val username: String = "",
-    val score: Int
+    val score: Int,
+    val questionsCount: Int,
+    val maxScore: Int
 )

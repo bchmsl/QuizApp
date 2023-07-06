@@ -12,6 +12,7 @@ val viewModelModule = module {
         QuizStartViewModel(
             saveUserDataUC = get(),
             readUserTokenUC = get(),
+            validateUserUC = get(),
             userMapper = get()
         )
     }
@@ -28,19 +29,19 @@ val viewModelModule = module {
         QuizQuestionViewModel(
             getNextQuestionUC = get(),
             checkAnswersUC = get(),
-            getPointsUC = get(),
-            resetUserPointsUC = get(),
-            questionMapper = get(),
-            answerMapper = get(),
-            saveUserSubjectUC = get(),
+            saveUserPointsUC = get(),
+            questionsCountUC = get(),
             updateGpaUC = get(),
-            saveUserPointsUC = get()
+            finishAlertUC = get(),
+            questionMapper = get(),
+            answerMapper = get()
         )
     }
     viewModel {
         QuizPointsViewModel(
             readUserSubjectsUC = get(),
-            userSubjectsMapper = get()
+            userSubjectsMapper = get(),
+            saveUserTokenUC = get()
         )
     }
 }

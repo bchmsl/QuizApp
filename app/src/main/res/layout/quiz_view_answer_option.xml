@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/quiz_ic_star"
-            android:drawablePadding="@dimen/dimen_2_dp"
+            android:drawablePadding="@dimen/dimen_5_dp"
             android:fontFamily="sans-serif"
             android:letterSpacing="0"
             android:textAlignment="viewEnd"

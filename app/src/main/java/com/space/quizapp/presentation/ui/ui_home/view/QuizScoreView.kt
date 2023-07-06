@@ -14,14 +14,12 @@ class QuizScoreView(
     private val binding =
         QuizViewScoreSectionBinding.inflate(LayoutInflater.from(context), this, true)
 
-    fun setContent(gpa: Float) {
-        with(binding) {
-            gpaTextView.text = gpa.roundToSingleDecimal().toString()
-        }
+    fun setGpa(gpa: Float) {
+        binding.gpaTextView.text = gpa.roundToSingleDecimal().toString()
     }
 
     fun setOnClickListener(block: () -> Unit) {
-        binding.gpaDetailsTextView.setOnClickListener {
+        binding.root.setOnClickListener {
             block.invoke()
         }
     }

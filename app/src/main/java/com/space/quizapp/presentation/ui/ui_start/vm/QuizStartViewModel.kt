@@ -1,11 +1,13 @@
 package com.space.quizapp.presentation.ui.ui_start.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
 import com.space.quizapp.common.util.QuizCustomThrowable
+import com.space.quizapp.common.util.QuizLiveDataDelegate
 import com.space.quizapp.common.util.QuizUserValidation
-import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager
 import com.space.quizapp.domain.usecase.user.QuizReadUserTokenUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserDataUseCase
+import com.space.quizapp.domain.usecase.user.ValidateUserUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.user.QuizUserUiModel
 import com.space.quizapp.presentation.model.user.mapper.user.QuizUserUiMapper
@@ -15,27 +17,40 @@ import kotlinx.coroutines.Dispatchers.IO
 class QuizStartViewModel(
     private val saveUserDataUC: QuizSaveUserDataUseCase,
     private val readUserTokenUC: QuizReadUserTokenUseCase,
+    private val validateUserUC: ValidateUserUseCase,
     private val userMapper: QuizUserUiMapper
 ) : QuizBaseViewModel() {
+    val userValidState by QuizLiveDataDelegate(false)
+    fun validateUser(username: String) {
+        executeAsync {
+            val error = when (val validateUser = validateUserUC(
+                username.replace(" ", EMPTY_STRING).replace("\n", EMPTY_STRING)
+            )) {
+                QuizUserValidation.VALID -> {
+                    userValidState.post(true)
+                    null
+                }
+
+                else -> {
+                    userValidState.post(false)
+                    validateUser.message
+                }
+            }
+            postError(error?.let { QuizCustomThrowable(it) })
+        }
+    }
 
     fun saveUser(username: String) {
         executeAsync(IO) {
-            val error = when (val validateUser =
-                saveUserDataUC(userMapper.toDomain(QuizUserUiModel(username)))) {
-                QuizUserValidation.VALID -> {
-                    navigate(QuizFragmentDirections.HOME)
-                    null
-                }
-                else -> validateUser.message
-            }
-            postError(error?.let { QuizCustomThrowable(it) })
+            saveUserDataUC(userMapper.toDomain(QuizUserUiModel(userName = username)))
+            navigate(QuizFragmentDirections.HOME)
         }
     }
 
     fun checkUserToken() {
         executeAsync(IO) {
             val token = readUserTokenUC()
-            if (token != QuizUserDataStoreManager.EMPTY_STRING) {
+            if (token != EMPTY_STRING) {
                 navigate(QuizFragmentDirections.HOME)
             }
         }

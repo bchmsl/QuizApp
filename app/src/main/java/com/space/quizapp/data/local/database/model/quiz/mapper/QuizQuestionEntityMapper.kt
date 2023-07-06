@@ -21,7 +21,8 @@ class QuizQuestionEntityMapper : QuizEntityMapper<QuizQuestionEntity, QuizQuesti
                 questionIndex = questionIndex,
                 isAnswered = isAnswered,
                 isLastQuestion = isLastQuestion,
-                subjectTitle = subjectTitle
+                subjectTitle = subjectTitle,
+                points = points
             )
         }
     }
@@ -36,7 +37,8 @@ class QuizQuestionEntityMapper : QuizEntityMapper<QuizQuestionEntity, QuizQuesti
                 questionIndex = questionIndex,
                 isAnswered = isAnswered,
                 isLastQuestion = isLastQuestion,
-                subjectTitle = subjectTitle
+                subjectTitle = subjectTitle,
+                points = points
             )
         }
     }

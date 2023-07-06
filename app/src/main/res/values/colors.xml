@@ -15,5 +15,6 @@
     <color name="neutral_05_white">#FFFFFF</color>
 
     <color name="success">#4BB543</color>
+    <color name="success_lighter">#D5EDD2</color>
     <color name="wrong">#DB1D2A</color>
 </resources>

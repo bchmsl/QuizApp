@@ -1,11 +1,13 @@
 package com.space.quizapp.presentation.ui.ui_home.vm
 
 import com.space.quizapp.common.extensions.coroutines.executeAsync
-import com.space.quizapp.common.util.*
-import com.space.quizapp.data.local.datastore.QuizUserDataStoreManager.Companion.EMPTY_STRING
+import com.space.quizapp.common.util.QuizConstants.EMPTY_STRING
+import com.space.quizapp.common.util.QuizCustomThrowable
+import com.space.quizapp.common.util.QuizLiveDataDelegate
+import com.space.quizapp.common.util.S
 import com.space.quizapp.domain.usecase.quiz.QuizRetrieveSubjectsUseCase
+import com.space.quizapp.domain.usecase.user.QuizReadUserDataUseCase
 import com.space.quizapp.domain.usecase.user.QuizSaveUserTokenUseCase
-import com.space.quizapp.domain.usecase.user.read_user_data.QuizReadUserDataUseCase
 import com.space.quizapp.presentation.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.presentation.model.quiz.QuizSubjectUiModel
 import com.space.quizapp.presentation.model.quiz.mapper.QuizSubjectUiMapper
@@ -24,15 +26,12 @@ class QuizHomeViewModel(
 
     val userState by QuizLiveDataDelegate<QuizUserUiModel?>(null)
     val subjectsState by QuizLiveDataDelegate<List<QuizSubjectUiModel>?>(null)
-    val loadingState by QuizLiveDataDelegate<Boolean>(true)
+    val loadingState by QuizLiveDataDelegate(true)
 
     fun retrieveUserInfo() {
         executeAsync(IO) {
             try {
-                postValueAsync(userState) {
-                    val userDomainModel = readUserDataUC()
-                    userMapper.toUi(userDomainModel)
-                }
+                userState.post(userMapper.toUi(readUserDataUC()))
             } catch (e: Throwable) {
                 postError(QuizCustomThrowable(e.message))
             }
@@ -45,8 +44,8 @@ class QuizHomeViewModel(
             if (data.isEmpty()) {
                 postError(QuizCustomThrowable(S.error_bad_request))
             }
-            postValue(subjectsState) { subjectMapper.toUiList(data) }
-            postValueNonNull(loadingState) { false }
+            subjectsState.post(subjectMapper.toUiList(data))
+            loadingState.post(false)
         }
     }
 
@@ -55,5 +54,13 @@ class QuizHomeViewModel(
             saveUserTokenUC(EMPTY_STRING)
             navigate(QuizFragmentDirections.START)
         }
+    }
+
+    fun navigateToQuestion(subjectTitle: String) {
+        navigate(QuizFragmentDirections.QUESTION, subjectTitle)
+    }
+
+    fun navigateToPoints() {
+        navigate(QuizFragmentDirections.POINTS)
     }
 }

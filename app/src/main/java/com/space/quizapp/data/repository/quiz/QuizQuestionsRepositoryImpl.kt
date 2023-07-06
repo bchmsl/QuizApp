@@ -23,4 +23,12 @@ class QuizQuestionsRepositoryImpl(
             questionsDao.updateQuestion(it.copy(isAnswered = false))
         }
     }
+
+    override suspend fun getQuestionsCount(subjectTitle: String): Int {
+        return questionsDao.countQuestions(subjectTitle)
+    }
+
+    override suspend fun getQuestionsBySubjectTitle(subjectTitle: String): List<QuizQuestionDomainModel> {
+        return questionsDao.getAllQuestions(subjectTitle).map { questionEntityMapper.toDomain(it) }
+    }
 }

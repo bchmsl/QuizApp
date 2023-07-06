@@ -11,7 +11,9 @@ class QuizUserSubjectEntityMapper :
             QuizUserSubjectDomainModel(
                 username = username,
                 quizTitle = quizTitle,
-                score = score
+                score = score,
+                questionsCount = questionsCount,
+                maxScore = maxScore
             )
         }
     }
@@ -22,7 +24,9 @@ class QuizUserSubjectEntityMapper :
                 id = 0,
                 username = username,
                 quizTitle = quizTitle,
-                score = score
+                score = score,
+                questionsCount = questionsCount,
+                maxScore = maxScore
             )
         }
     }

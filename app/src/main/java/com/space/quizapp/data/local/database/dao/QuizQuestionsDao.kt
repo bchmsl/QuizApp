@@ -19,4 +19,7 @@ interface QuizQuestionsDao {
 
     @Query("SELECT * FROM questions WHERE subjectTitle=:subjectTitle")
     suspend fun getAllQuestions(subjectTitle: String): List<QuizQuestionEntity>
+
+    @Query("SELECT COUNT(*) FROM questions WHERE subjectTitle=:subjectTitle")
+    suspend fun countQuestions(subjectTitle: String): Int
 }

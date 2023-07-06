@@ -13,7 +13,8 @@ data class QuizQuestionUiModel(
     val questionIndex: Int,
     val isLastQuestion: Boolean,
     val isAnswered: Boolean,
-    val subjectTitle: String
+    val subjectTitle: String,
+    val points: Int
 ) : Parcelable {
     @Parcelize
     data class QuizAnswerUiModel(

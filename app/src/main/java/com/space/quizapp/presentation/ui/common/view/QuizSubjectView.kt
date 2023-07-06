@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.ColorRes
 import com.space.quizapp.common.extensions.utils.setImage
 import com.space.quizapp.common.util.D
 import com.space.quizapp.databinding.QuizViewSubjectBinding
@@ -32,6 +33,10 @@ class QuizSubjectView(
             subjectDescriptionTextView.text = description
             iconSubjectImageView.setImage(drawable)
         }
+    }
+
+    fun setColor(@ColorRes color: Int) {
+        binding.root.setCardBackgroundColor(context.getColor(color))
     }
 
     fun setCustomClickListener(block: (View) -> Unit) {

@@ -12,21 +12,25 @@ abstract class QuizDialogView(context: Context) :
     abstract val binding: ViewBinding
     protected val alertDialog: AlertDialog by lazy { AlertDialog.Builder(context).create() }
 
+    abstract class Builder {
+        abstract fun build(): QuizDialogView
+    }
+
     init {
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.setCancelable(false)
     }
 
-    fun setCancelable(cancelable: Boolean) {
-        alertDialog.setCancelable(cancelable)
-    }
-
-    fun show(): QuizDialogView {
-        alertDialog.show()
-        return this
-    }
-
     fun dismiss() {
         alertDialog.dismiss()
     }
+
+    open fun show() {
+        with(alertDialog) {
+            removeAllViews()
+            setView(binding.root)
+            show()
+        }
+    }
 }
+

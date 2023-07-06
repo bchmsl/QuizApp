@@ -15,5 +15,6 @@ data class QuizQuestionEntity(
     val subjectTitle: String,
     val questionIndex: Int = -1,
     val isAnswered: Boolean,
-    val isLastQuestion: Boolean
+    val isLastQuestion: Boolean,
+    val points: Int
 )
