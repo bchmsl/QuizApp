@@ -11,8 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Common" />
-            <option value="$PROJECT_DIR$/Main-Api" />
-            <option value="$PROJECT_DIR$/Main-Impl" />
+            <option value="$PROJECT_DIR$/Common-Koin" />
+            <option value="$PROJECT_DIR$/Main" />
             <option value="$PROJECT_DIR$/Navigation-Api" />
             <option value="$PROJECT_DIR$/Navigation-Impl" />
             <option value="$PROJECT_DIR$/Quiz-Api" />

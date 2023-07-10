@@ -54,6 +54,5 @@ dependencies {
     implementation libs.navigation.ui.ktx
 
     implementation project(":Navigation-Api")
-    implementation project(":Main-Impl")
     implementation project(":Quiz-Impl")
 }

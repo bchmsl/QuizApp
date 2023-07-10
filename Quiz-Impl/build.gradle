@@ -50,7 +50,6 @@ dependencies {
     implementation libs.koin.android
 
     implementation project(":Quiz-Api")
-    implementation project(":Main-Api")
     implementation project(":Navigation-Api")
     implementation project(":Common")
 }

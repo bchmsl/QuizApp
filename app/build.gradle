@@ -76,13 +76,15 @@ dependencies {
     implementation libs.retrofit
     implementation libs.converter.gson
 
-    implementation project(":Main-Api")
-    implementation project(":Main-Impl")
+
+    implementation project(':Main')
 
     implementation project(":Navigation-Api")
     implementation project(":Navigation-Impl")
 
     implementation project(":Quiz-Api")
     implementation project(":Quiz-Impl")
+
+    implementation project(":Common-Koin")
 
 }

@@ -8,9 +8,8 @@ import android.widget.FrameLayout
 import com.space.common.extensions.utils.gone
 import com.space.common.extensions.utils.setColorStateList
 import com.space.common.extensions.utils.visible
-import com.space.common.util.C
-import com.space.quizapp.databinding.QuizViewAnswerOptionBinding
-import com.space.quizapp.presentation.ui.ui_question.util.QuizAnswerSelectedState
+import com.space.common.model.question.model.QuizAnswerSelectedState
+import com.space.quizimpl.databinding.QuizViewAnswerOptionBinding
 
 class QuizAnswerOptionView(
     context: Context,
