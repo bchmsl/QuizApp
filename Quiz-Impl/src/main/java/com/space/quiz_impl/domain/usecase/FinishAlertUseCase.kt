@@ -1,9 +1,9 @@
 package com.space.quiz_impl.domain.usecase
 
-import com.space.common.base.usecase.QuizBaseUseCase
+import com.space.common.base.usecase.BaseUseCase
 
 class FinishAlertUseCase :
-    QuizBaseUseCase<FinishAlertUseCase.FinishAlertParams, FinishAlertUseCase.FinishAlertResponse?>() {
+    BaseUseCase<FinishAlertUseCase.FinishAlertParams, FinishAlertUseCase.FinishAlertResponse?>() {
     override suspend fun invoke(params: FinishAlertParams?): FinishAlertResponse? {
         return params!!.finalScore?.let { finalScore ->
             params.maxScore?.let { maxScore ->

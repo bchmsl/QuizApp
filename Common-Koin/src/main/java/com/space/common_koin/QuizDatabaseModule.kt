@@ -2,33 +2,35 @@ package com.space.common_koin
 
 import android.content.Context
 import androidx.room.Room
-import com.space.main.data.local.database.dao.QuizQuestionsDao
-import com.space.main.data.local.database.dao.QuizSubjectsDao
-import com.space.main.data.local.database.dao.QuizUserDao
-import com.space.main.data.local.database.dao.QuizUserSubjectsDao
-import com.space.main.data.local.database.database.QuizUsersDatabase
+import com.space.main.data.local.database.dao.QuestionsDao
+import com.space.main.data.local.database.dao.SubjectsDao
+import com.space.main.data.local.database.dao.UserDao
+import com.space.main.data.local.database.dao.UserSubjectsDao
+import com.space.main.data.local.database.database.QuizDatabase
 import org.koin.dsl.module
 
-private fun provideUsersDatabase(context: Context): QuizUsersDatabase =
-    Room.databaseBuilder(context, QuizUsersDatabase::class.java, QuizUsersDatabase.DATABASE_NAME)
-        .build()
+val databaseModule = module {
+    single { provideQuizDatabase(context = get()) }
 
-private fun provideUserDao(database: QuizUsersDatabase): QuizUserDao =
-    database.userDao()
-
-private fun provideUserSubjectsDao(database: QuizUsersDatabase): QuizUserSubjectsDao =
-    database.userSubjectsDao()
-
-private fun provideSubjectsDao(database: QuizUsersDatabase): QuizSubjectsDao =
-    database.subjectsDao()
-
-private fun provideQuestionsDao(database: QuizUsersDatabase): QuizQuestionsDao =
-    database.questionsDao()
-
-val dbModule = module {
     single { provideUserDao(database = get()) }
     single { provideUserSubjectsDao(database = get()) }
     single { provideSubjectsDao(database = get()) }
     single { provideQuestionsDao(database = get()) }
-    single { provideUsersDatabase(context = get()) }
 }
+
+private fun provideQuizDatabase(context: Context): QuizDatabase =
+    Room.databaseBuilder(context, QuizDatabase::class.java, QuizDatabase.DATABASE_NAME)
+        .build()
+
+
+private fun provideUserDao(database: QuizDatabase): UserDao =
+    database.userDao()
+
+private fun provideUserSubjectsDao(database: QuizDatabase): UserSubjectsDao =
+    database.userSubjectsDao()
+
+private fun provideSubjectsDao(database: QuizDatabase): SubjectsDao =
+    database.subjectsDao()
+
+private fun provideQuestionsDao(database: QuizDatabase): QuestionsDao =
+    database.questionsDao()

@@ -12,9 +12,6 @@ class QuizActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val activityModule = module {
-            single { findNavController(binding.navHostFragment.id) }
-        }
-        loadKoinModules(activityModule)
+        loadKoinModules(module { single { findNavController(binding.navHostFragment.id) } })
     }
 }

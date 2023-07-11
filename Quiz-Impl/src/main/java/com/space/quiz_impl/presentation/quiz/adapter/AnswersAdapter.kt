@@ -3,17 +3,17 @@ package com.space.quiz_impl.presentation.quiz.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.space.common.base.adapter.BaseAdapter
-import com.space.common.model.question.model.QuizQuestionUiModel
-import com.space.quizimpl.databinding.QuizItemAnswerOptionBinding
+import com.space.common.model.question.model.QuestionUiModel
+import com.space.quizimpl.databinding.ItemAnswerOptionBinding
 
 class AnswersAdapter(var point: (() -> Int)? = null) :
-    BaseAdapter<QuizQuestionUiModel.QuizAnswerUiModel>() {
+    BaseAdapter<QuestionUiModel.QuizAnswerUiModel>() {
     override fun createVH(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel> {
+    ): BaseViewHolder<QuestionUiModel.QuizAnswerUiModel> {
         return AnswerViewHolder(
-            QuizItemAnswerOptionBinding.inflate(
+            ItemAnswerOptionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -22,12 +22,12 @@ class AnswersAdapter(var point: (() -> Int)? = null) :
     }
 
     class AnswerViewHolder(
-        private val binding: QuizItemAnswerOptionBinding,
+        private val binding: ItemAnswerOptionBinding,
         private val point: (() -> Int)?
     ) :
-        BaseViewHolder<QuizQuestionUiModel.QuizAnswerUiModel>(binding) {
+        BaseViewHolder<QuestionUiModel.QuizAnswerUiModel>(binding) {
         override fun onBind(
-            item: QuizQuestionUiModel.QuizAnswerUiModel,
+            item: QuestionUiModel.QuizAnswerUiModel,
         ) {
             with(binding.root) {
                 setContent(item.answerOption)

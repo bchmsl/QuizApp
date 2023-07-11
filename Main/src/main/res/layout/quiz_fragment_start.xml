@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.ui_start.fragment.QuizStartFragment">
+    tools:context=".presentation.ui.ui_start.fragment.StartFragment">
 
-    <com.space.main.presentation.ui.ui_start.view.QuizCustomBlueVector
+    <com.space.main.presentation.ui.ui_start.view.CustomBlueVector
         android:id="@+id/customBlueVector"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_28_dp"
-        android:src="@drawable/quiz_ic_start_page"
+        android:src="@drawable/ic_start_page"
         android:translationX="@dimen/dimen_neg_13_dp"
         app:layout_constraintBottom_toBottomOf="@id/customBlueVector"
         app:layout_constraintEnd_toEndOf="@id/customBlueVector"

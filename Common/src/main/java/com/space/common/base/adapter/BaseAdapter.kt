@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseAdapter<MODEL : Any> :
-    ListAdapter<MODEL, BaseAdapter.BaseViewHolder<MODEL>>(QuizBaseItemCallback<MODEL>()) {
+    ListAdapter<MODEL, BaseAdapter.BaseViewHolder<MODEL>>(BaseItemCallback<MODEL>()) {
 
     private var onClickCallback: ((MODEL) -> Unit)? = null
 

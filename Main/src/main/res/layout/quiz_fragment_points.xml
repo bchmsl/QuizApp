@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ui.ui_points.fragment.QuizPointsFragment">
+    tools:context=".presentation.ui.ui_points.fragment.PointsFragment">
 
-    <com.space.common.view.QuizNavigationView
+    <com.space.common.view.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/dimen_10_dp"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigationView"
         tools:itemCount="3"
-        tools:listitem="@layout/quiz_view_subject"
+        tools:listitem="@layout/view_subject"
         tools:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -52,7 +52,7 @@
         android:layout_gravity="end"
         android:layout_margin="@dimen/dimen_10_dp"
         android:layout_weight="1"
-        android:src="@drawable/quiz_ic_log_out"
+        android:src="@drawable/ic_log_out"
         app:backgroundTint="?colorPrimary"
         app:elevation="@dimen/dimen_10_dp"
         app:layout_constraintBottom_toBottomOf="parent"

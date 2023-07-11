@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ui.ui_home.fragment.QuizHomeFragment">
+    tools:context=".presentation.ui.ui_home.fragment.HomeFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/greetingTextView"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="გამარჯობა, ირაკლი!" />
 
-    <com.space.main.presentation.ui.ui_home.view.QuizScoreView
+    <com.space.main.presentation.ui.ui_home.view.ScoreView
         android:id="@+id/scoreView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chooseSubjectTitleTextView"
         tools:itemCount="10"
-        tools:listitem="@layout/quiz_item_subject" />
+        tools:listitem="@layout/item_subject" />
 
     <View
         android:id="@+id/viewDivider"
@@ -70,7 +70,7 @@
         android:layout_gravity="end"
         android:layout_margin="@dimen/dimen_10_dp"
         android:layout_weight="1"
-        android:src="@drawable/quiz_ic_log_out"
+        android:src="@drawable/ic_log_out"
         app:backgroundTint="?colorPrimary"
         app:elevation="@dimen/dimen_10_dp"
         app:layout_constraintBottom_toBottomOf="parent"
