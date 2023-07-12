@@ -1,6 +1,5 @@
 package com.space.main.data.repository.user
 
-import android.util.Log
 import com.space.main.data.local.database.dao.QuestionsDao
 import com.space.main.data.local.database.dao.SubjectsDao
 import com.space.main.data.local.database.dao.UserSubjectsDao
@@ -35,7 +34,6 @@ class UserSubjectRepositoryImpl(
             userSubjectEntity.username,
             userSubjectEntity.quizTitle
         )
-        Log.d("TAG_REPO", savedSubject.toString())
         savedSubject?.let {
             userSubjectsDao.updateUserSubject(it.copy(score = userSubjectEntity.score))
             return

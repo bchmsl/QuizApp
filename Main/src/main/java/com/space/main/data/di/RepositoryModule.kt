@@ -19,11 +19,13 @@ val repositoryModule = module {
             userMapper = get()
         )
     }
+
     single<UserTokenRepository> {
         UserTokenRepositoryImpl(
             userDataStoreManager = get()
         )
     }
+
     single<SubjectsRepository> {
         SubjectsRepositoryImpl(
             questionsApi = get(),
@@ -35,6 +37,7 @@ val repositoryModule = module {
             questionsDao = get()
         )
     }
+
     single<UserSubjectRepository> {
         UserSubjectRepositoryImpl(
             userSubjectsDao = get(),
@@ -43,12 +46,11 @@ val repositoryModule = module {
             questionsDao = get()
         )
     }
+
     single<QuestionsRepository> {
         QuestionsRepositoryImpl(
             questionsDao = get(),
             questionEntityMapper = get()
         )
     }
-
-
 }

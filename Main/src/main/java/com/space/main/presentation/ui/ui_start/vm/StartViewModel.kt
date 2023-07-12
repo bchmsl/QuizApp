@@ -45,7 +45,7 @@ class StartViewModel(
     fun saveUser(username: String) {
         executeAsync(IO) {
             saveUserDataUC(userMapper.toDomain(UserUiModel(userName = username)))
-            appNavigator.navigateToHome()
+            navigateHome()
         }
     }
 
@@ -53,10 +53,14 @@ class StartViewModel(
         executeAsync(IO) {
             val token = readUserTokenUC()
             if (token != EMPTY_STRING) {
-                withContext(Main) {
-                    appNavigator.navigateToHome()
-                }
+                navigateHome()
             }
+        }
+    }
+
+    private suspend fun navigateHome() {
+        withContext(Main) {
+            appNavigator.navigateToHome()
         }
     }
 }

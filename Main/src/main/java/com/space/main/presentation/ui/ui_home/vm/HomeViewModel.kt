@@ -55,8 +55,12 @@ class HomeViewModel(
     fun logOut() {
         executeAsync(IO) {
             saveUserTokenUC(EMPTY_STRING)
-            appNavigator.navigateToStart()
+            navigateToStart()
         }
+    }
+
+    private fun navigateToStart() {
+        appNavigator.navigateToStart()
     }
 
     fun navigateToQuestion(subjectTitle: String) {
