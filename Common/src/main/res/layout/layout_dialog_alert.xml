@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="@dimen/dimen_30_dp"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorPrimary"
+    app:cardCornerRadius="@dimen/dimen_31_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="@dimen/dimen_6_dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_39_dp"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/dimen_32_sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="🎉" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/messageTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:text="გილოცავ!" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/descriptionTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="@dimen/dimen_14_sp"
+            app:layout_constraintTop_toBottomOf="@id/messageTextView"
+            tools:text="შენ დააგროვე 14 ქულა" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1_dp"
+            android:layout_marginTop="@dimen/dimen_32_dp"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dismissTextView"
+            style="@style/Space.QuizApp.TextView.BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_39_dp"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dimen_10_dp"
+            android:text="@string/close"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/dimen_14_sp"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

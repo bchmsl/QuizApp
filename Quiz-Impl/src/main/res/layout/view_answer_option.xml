@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dimen_6_dp"
+    app:cardCornerRadius="@dimen/dimen_22_dp"
+    app:elevation="@dimen/dimen_0_dp"
+    tools:backgroundTint="@color/neutral_03_light_grey">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dimen_30_dp"
+        android:paddingVertical="@dimen/dimen_22_dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/optionTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_20_dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0"
+            android:textColor="@color/black"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/starsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_star"
+            android:drawablePadding="@dimen/dimen_5_dp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0"
+            android:textAlignment="viewEnd"
+            android:textColor="?colorOnPrimary"
+            tools:text="+1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>
